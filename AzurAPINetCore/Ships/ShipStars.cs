@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Jan0660.AzurAPINetCore
+namespace Jan0660.AzurAPINetCore.Ships
 {
-    class ShipStars
+    public class ShipStars
     {
         [JsonProperty("stars")]
         public string Stars;

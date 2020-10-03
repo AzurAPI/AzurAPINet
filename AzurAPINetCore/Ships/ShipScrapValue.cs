@@ -1,14 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using Jan0660.AzurAPINetCore.Converters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Jan0660.AzurAPINetCore
+namespace Jan0660.AzurAPINetCore.Ships
 {
+    //[JsonConverter(typeof(ScrapValueConverter))]
     public class ShipScrapValue
     {
         [JsonIgnore]
-        public bool CanScrap;
+        public bool CanScrap = true;
         [JsonProperty("coin")]
         public int Coin;
         [JsonProperty("oil")]

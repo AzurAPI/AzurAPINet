@@ -1,21 +1,31 @@
-### Ship class
+## Todo
 
-#### To do:
+* Ship
 
-* Skin
-  * get chinese skin images/other
-  * alternate names/jp/cn names
-  * cost in skin shop
+  * Skin
+    * get Chinese skin images/other
+    * alternate names/jp/cn names
+    * cost in skin shop
 
-* FleetTech
-* Construction
-* ObtainedFrom
-* misc
+  * FleetTech
 
+#### Database info (./version-info.json)
 
+#### Chapters (./chapters.json)
 
+#### Events (./events.json)
 
+#### Memories (./memories.internal.json)
+
+#### Voice Lines (./voice_lines.json)
+
+#### Equipment (./equipments.json)
+
+#### Barrage (./barrages.json)
+
+#### Client that uses the database from the internet
 
 
 
 ❌ ✅
+

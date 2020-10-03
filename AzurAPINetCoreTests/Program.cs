@@ -5,15 +5,16 @@ namespace AzurAPINetCoreTests
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
+            System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            Console.WriteLine("Test start");
             //await Task.Delay(3000);
-            AzurAPIClient client = new AzurAPIClient(@"D:\00.code\azurapi-js-setup\");
-            client.EnableCaching = true;
+            AzurAPIClient client = new AzurAPIClient(@"D:\00.code\azurapi-js-setup\", new AzurAPIClientOptions());
             //var ships = client.GetAllShips();
-            var ss = await client.GetShipByEnglishName("takao");
-            var s = await client.GetShipByEnglishName("takao");
-            Console.WriteLine("Hello World!");
+            var ss = client.GetShipByEnglishName("takao");
+            var s = client.GetShip("takao");
+            Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
     }
 }

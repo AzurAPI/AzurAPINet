@@ -5,25 +5,22 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
-
+using Jan0660.AzurAPINetCore.Ships;
 namespace Jan0660.AzurAPINetCore
 {
     public class AzurAPIClient
     {
-        /// <summary>
-        /// enable by setting to true
-        /// caching, this will cache all ships/other things in the future, this will cause more memory(around 20mb) used but a lot faster access speeds
-        /// </summary>
-        public bool EnableCaching = false;
+        public readonly AzurAPIClientOptions Options;
         public readonly string WorkingDirectory;
         public List<Ship> Ships { get; private set; } = null;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="workingDirectory">AzurAPI database location</param>
-        public AzurAPIClient(string workingDirectory)
+        public AzurAPIClient(string workingDirectory, AzurAPIClientOptions options)
         {
             WorkingDirectory = workingDirectory;
+            Options = options;
         }
 
         public List<Ship> GetAllShips()
@@ -37,52 +34,63 @@ namespace Jan0660.AzurAPINetCore
                     NullValueHandling = NullValueHandling.Ignore
                 }
 );
-                if (EnableCaching)
+                if (Options.EnableCaching)
                     this.Ships = ships;
             }
             else
                 ships = this.Ships;
             return ships;
         }
-        public async Task<Ship> GetShipByEnglishName(string name)
+        #region GetShip, GetShipBy<EnglishName,Code,Id,...>
+        /// <summary>
+        /// Searches for a ship using it's english name, code, id, japanese and chinese name, in this orde
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>the goddamn ship</returns>
+        public Ship GetShip(string query)
         {
-            if (!EnableCaching)
-            {
-                try
-                {
-                    // parse the content
-                    var content = await File.ReadAllTextAsync(WorkingDirectory + "./ships.json");
-                    var json = JArray.Parse(content);
-
-                    // error when we can't find results
-                    if (json.Count == 0) throw new Exception("Unknown error occured while serialising ship list");
-
-                    // map all children to JObject; and then their names from the JSON
-                    var children = json
-                        .Children<JObject>()
-                        .Select(child => child.ToObject<JObject>())
-                        .Select(child => child.SelectTokens("names").First());
-                    var ass = children.Where(uwu =>
-                    {
-                        var val = uwu.Value<string>("en");
-                        return val.ToLower() == name.ToLower();
-                    }
-                        );
-                    if (ass.FirstOrDefault() == null)
-                        return null;
-                    return ass.FirstOrDefault().Parent.Parent.ToObject<Ship>();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"An error occured while fetching data: {ex.Message}");
-                    return null;
-                }
-            }
-            else
-            {
-                var ships = GetAllShips();
-                return ships.Where((ship)=>ship.Names.en.ToLower() == name.ToLower()).FirstOrDefault();
-            }
+            var ship = GetShipByEnglishName(query);
+            if (ship != null)
+                return ship;
+            ship = GetShipByCode(query);
+            if (ship != null)
+                return ship;
+            ship = GetShipById(query);
+            if (ship != null)
+                return ship;
+            ship = GetShipByJapaneseName(query);
+            if (ship != null)
+                return ship;
+            ship = GetShipByChineseName(query);
+            if (ship != null)
+                return ship;
+            return null;
         }
+        public Ship GetShipByEnglishName(string name)
+        {
+            var ships = GetAllShips();
+            return ships.Where((ship) => ship.Names.en.ToLower() == name.ToLower()).FirstOrDefault();
+        }
+        public Ship GetShipByCode(string code)
+        {
+            var ships = GetAllShips();
+            return ships.Where((ship) => ship.Names.code.ToLower() == code.ToLower()).FirstOrDefault();
+        }
+        public Ship GetShipById(string id)
+        {
+            var ships = GetAllShips();
+            return ships.Where((ship) => ship.Id.ToLower() == id.ToLower()).FirstOrDefault();
+        }
+        public Ship GetShipByJapaneseName(string name)
+        {
+            var ships = GetAllShips();
+            return ships.Where((ship) => ship.Names.jp.ToLower() == name.ToLower()).FirstOrDefault();
+        }
+        public Ship GetShipByChineseName(string name)
+        {
+            var ships = GetAllShips();
+            return ships.Where((ship) => ship.Names.cn.ToLower() == name.ToLower()).FirstOrDefault();
+        }
+        #endregion
     }
 }

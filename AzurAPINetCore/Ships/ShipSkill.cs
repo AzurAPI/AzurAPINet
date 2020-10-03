@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Jan0660.AzurAPINetCore
+namespace Jan0660.AzurAPINetCore.Ships
 {
     public class ShipSkill
     {

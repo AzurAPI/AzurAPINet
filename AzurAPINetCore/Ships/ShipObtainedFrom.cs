@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Jan0660.AzurAPINetCore
+namespace Jan0660.AzurAPINetCore.Ships
 {
-    public class ShipSkinInfo
+    public class ShipObtainedFrom
     {
         [JsonProperty("obtainedFrom")]
         public string ObtainedFrom;
-        [JsonProperty("live2dModel")]
-        public bool Live2DModel;
+        [JsonProperty("maps")]
+        public List<string> Maps;
     }
 }

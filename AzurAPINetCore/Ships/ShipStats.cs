@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-namespace Jan0660.AzurAPINetCore
+namespace Jan0660.AzurAPINetCore.Ships
 {
     public class ShipStats
     {

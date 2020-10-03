@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AzurAPINetCore": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

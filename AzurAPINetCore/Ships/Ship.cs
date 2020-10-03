@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Jan0660.AzurAPINetCore.Converters;
 
-namespace Jan0660.AzurAPINetCore
+namespace Jan0660.AzurAPINetCore.Ships
 {
     //pain
     public class Ship
@@ -24,10 +25,12 @@ namespace Jan0660.AzurAPINetCore
         public string Thumbnail;
         [JsonProperty("rarity")]
         public string Rarity;
+        [JsonProperty("stars")]
+        public ShipStars Stars;
         [JsonProperty("stats")]
         public ShipAllStats Stats;
         [JsonProperty("slots")]
-        public Dictionary<string,ShipEquipmentSlot> Slots;
+        public Dictionary<string, ShipEquipmentSlot> Slots;
         [JsonProperty("enhanceValue")]
         [JsonConverter(typeof(EnhanceValueConverter))]
         public ShipEnhanceValue EnhanceValue;
@@ -38,7 +41,16 @@ namespace Jan0660.AzurAPINetCore
         public List<ShipSkill> Skills;
         [JsonProperty("limitBreaks")]
         public List<List<string>> LimitBreaks;
+        [JsonProperty("construction")]
+        [JsonConverter(typeof(ConstructionInfoConverter))]
+        public ShipConstructionInfo Construction;
+        [JsonProperty("obtainedFrom")]
+        public ShipObtainedFrom ObtainedFrom;
         [JsonProperty("skins")]
         public List<ShipSkin> Skins;
+        [JsonProperty("misc")]
+        public Dictionary<string, ShipMiscItem> Misc;
+        [JsonProperty("gallery")]
+        public List<ShipGalleryItem> Gallery;
     }
 }

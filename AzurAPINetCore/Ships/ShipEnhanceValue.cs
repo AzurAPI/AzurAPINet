@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Jan0660.AzurAPINetCore
+namespace Jan0660.AzurAPINetCore.Ships
 {
+    //[JsonConverter(typeof(EnhanceValueConverter))]
     public class ShipEnhanceValue
     {
         [JsonIgnore]
-        public bool CanEnhance;
+        public bool CanEnhance = true;
         [JsonProperty("firepower")]
         public int Firepower;
         [JsonProperty("torpedo")]
