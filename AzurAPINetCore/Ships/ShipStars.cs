@@ -8,8 +8,8 @@ namespace Jan0660.AzurAPINetCore.Ships
     public class ShipStars
     {
         [JsonProperty("stars")]
-        public string Stars;
+        public readonly string Stars;
         [JsonProperty("value")]
-        public int Count;
+        public readonly int Count;
     }
 }

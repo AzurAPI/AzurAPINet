@@ -8,10 +8,10 @@ namespace Jan0660.AzurAPINetCore.Chapters
     public class Mission
     {
         [JsonProperty("names")]
-        public Names Names;
+        public readonly Names Names;
         [JsonProperty("normal")]
-        public MissionMap Normal;
+        public readonly MissionMap Normal;
         [JsonProperty("hard")]
-        public MissionMap Hard;
+        public readonly MissionMap Hard;
     }
 }

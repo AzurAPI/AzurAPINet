@@ -8,12 +8,12 @@ namespace Jan0660.AzurAPINetCore.Ships
     public class ShipSkill
     {
         [JsonProperty("icon")]
-        public string Icon;
+        public readonly string Icon;
         [JsonProperty("names")]
-        public Names Names;
+        public readonly Names Names;
         [JsonProperty("description")]
-        public string Description;
+        public readonly string Description;
         [JsonProperty("color")]
-        public string Color;
+        public readonly string Color;
     }
 }

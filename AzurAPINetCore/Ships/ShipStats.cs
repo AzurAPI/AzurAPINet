@@ -1,34 +1,35 @@
 ﻿using Newtonsoft.Json;
 using System;
+
 namespace Jan0660.AzurAPINetCore.Ships
 {
     public class ShipStats
     {
         [JsonProperty("health")]
-        public int Health;
+        public readonly int Health;
         [JsonProperty("armor")]
-        public string Armor;
+        public readonly string Armor;
         [JsonProperty("reload")]
-        public int Reload;
+        public readonly int Reload;
         [JsonProperty("luck")]
-        public int Luck;
+        public readonly int Luck;
         [JsonProperty("firepower")]
-        public int Firepower;
+        public readonly int Firepower;
         [JsonProperty("torpedo")]
-        public int Torpedo;
+        public readonly int Torpedo;
         [JsonProperty("evasion")]
-        public int Evasion;
+        public readonly int Evasion;
         [JsonProperty("antiair")]
-        public int AntiAir;
+        public readonly int AntiAir;
         [JsonProperty("speed")]
-        public int Speed;
+        public readonly int Speed;
         [JsonProperty("aviation")]
-        public int Aviation;
+        public readonly int Aviation;
         [JsonProperty("oilConsumption")]
-        public int OilConsumption;
+        public readonly int OilConsumption;
         [JsonProperty("accuracy")]
-        public int Accuracy;
+        public readonly int Accuracy;
         [JsonProperty("antisubmarineWarfare")]
-        public int AntiSubmarineWarfare = 0;
+        public readonly int AntiSubmarineWarfare = 0;
     }
 }

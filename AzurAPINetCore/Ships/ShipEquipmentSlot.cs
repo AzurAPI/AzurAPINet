@@ -9,10 +9,10 @@ namespace Jan0660.AzurAPINetCore.Ships
     public class ShipEquipmentSlot
     {
         [JsonProperty("type")]
-        public string Type;
+        public readonly string Type;
         [JsonProperty("minEfficiency")]
-        public int MinEfficiency;
+        public readonly int MinEfficiency;
         [JsonProperty("maxEfficiency")]
-        public int MaxEfficiency;
+        public readonly int MaxEfficiency;
     }
 }

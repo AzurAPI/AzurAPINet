@@ -8,8 +8,8 @@ namespace Jan0660.AzurAPINetCore.Chapters
     public class UnlockRequirements
     {
         [JsonProperty("text")]
-        public string Text;
+        public readonly string Text;
         [JsonProperty("requiredLevel")]
-        public int RequiredLevel;
+        public readonly int RequiredLevel;
     }
 }

@@ -8,8 +8,8 @@ namespace Jan0660.AzurAPINetCore.Chapters
     public class EquipmentBlueprintDrop
     {
         [JsonProperty("name")]
-        public string Name;
+        public readonly string Name;
         [JsonProperty("tier")]
-        public string Tier;
+        public readonly string Tier;
     }
 }

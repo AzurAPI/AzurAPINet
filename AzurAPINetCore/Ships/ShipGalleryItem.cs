@@ -8,8 +8,8 @@ namespace Jan0660.AzurAPINetCore.Ships
     public class ShipGalleryItem
     {
         [JsonProperty("description")]
-        public string Description;
+        public readonly string Description;
         [JsonProperty("url")]
-        public string Url;
+        public readonly string Url;
     }
 }

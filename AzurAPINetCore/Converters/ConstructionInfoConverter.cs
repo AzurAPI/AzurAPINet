@@ -10,7 +10,7 @@ namespace Jan0660.AzurAPINetCore.Converters
 {
     public class ConstructionInfoConverter : JsonConverter<ShipConstructionInfo>
     {
-        
+        /*
         public bool CanConvert(Type objectType)
         {
             return objectType == typeof(string);
@@ -29,7 +29,7 @@ namespace Jan0660.AzurAPINetCore.Converters
                 return new ShipConstructionInfo() { ConstructionTime = timeSpan };
             }
         }
-
+        */
         public override ShipConstructionInfo ReadJson(JsonReader reader, Type objectType, [AllowNull] ShipConstructionInfo existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             ShipConstructionInfo output = new ShipConstructionInfo() { Constructable=false};

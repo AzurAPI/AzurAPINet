@@ -27,7 +27,7 @@ namespace Jan0660.AzurAPINetCore.Chapters
                 }
                 else
                 {
-                    output.Add(new ShipDrop() { Name = item.Value<string>() });
+                    output.Add(new ShipDrop(item.Value<string>()));
                 }
             }
             return output;

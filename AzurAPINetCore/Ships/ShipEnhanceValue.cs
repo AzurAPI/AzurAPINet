@@ -9,14 +9,22 @@ namespace Jan0660.AzurAPINetCore.Ships
     public class ShipEnhanceValue
     {
         [JsonIgnore]
-        public bool CanEnhance = true;
+        public readonly bool CanEnhance = true;
         [JsonProperty("firepower")]
-        public int Firepower;
+        public readonly int Firepower;
         [JsonProperty("torpedo")]
-        public int Torpedo;
+        public readonly int Torpedo;
         [JsonProperty("aviation")]
-        public int Aviation;
+        public readonly int Aviation;
         [JsonProperty("reload")]
-        public int Reload;
+        public readonly int Reload;
+        public ShipEnhanceValue()
+        {
+
+        }
+        public ShipEnhanceValue(bool CanEnhance)
+        {
+            this.CanEnhance = CanEnhance;
+        }
     }
 }

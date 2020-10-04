@@ -16,7 +16,7 @@ namespace Jan0660.AzurAPINetCore.Converters
             string s = (string)reader.Value;
             if (s != null)
             {
-                return new ShipScrapValue() { CanScrap = false };
+                return new ShipScrapValue(false);
             }
             else
             {

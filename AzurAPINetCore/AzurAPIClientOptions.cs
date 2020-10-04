@@ -9,6 +9,6 @@ namespace Jan0660.AzurAPINetCore
         /// <summary>
         /// not enabling caching is practically performance suicide, see docs for more
         /// </summary>
-        public readonly bool EnableCaching = true;
+        public bool EnableCaching = true;
     }
 }

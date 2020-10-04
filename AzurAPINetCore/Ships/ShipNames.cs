@@ -6,13 +6,13 @@ namespace Jan0660.AzurAPINetCore.Ships
 {
     public class ShipNames
     {
-        public string en;
+        public readonly string en;
         /// <summary>
         /// example: "IJN Takao"
         /// </summary>
-        public string code;
-        public string cn;
-        public string jp;
-        public string kr;
+        public readonly string code;
+        public readonly string cn;
+        public readonly string jp;
+        public readonly string kr;
     }
 }

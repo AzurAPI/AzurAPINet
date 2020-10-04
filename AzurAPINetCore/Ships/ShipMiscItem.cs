@@ -8,8 +8,8 @@ namespace Jan0660.AzurAPINetCore.Ships
     public class ShipMiscItem
     {
         [JsonProperty("name")]
-        public string Name;
+        public readonly string Name;
         [JsonProperty("url")]
-        public string Url;
+        public readonly string Url;
     }
 }

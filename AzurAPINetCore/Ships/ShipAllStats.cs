@@ -8,10 +8,10 @@ namespace Jan0660.AzurAPINetCore.Ships
     public class ShipAllStats
     {
         [JsonProperty("baseStats")]
-        public ShipStats BaseStats;
+        public readonly ShipStats BaseStats;
         [JsonProperty("level100")]
-        public ShipStats Level100;
+        public readonly ShipStats Level100;
         [JsonProperty("level120")]
-        public ShipStats Level120;
+        public readonly ShipStats Level120;
     }
 }

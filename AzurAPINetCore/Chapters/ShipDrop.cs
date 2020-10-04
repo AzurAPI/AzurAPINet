@@ -8,8 +8,10 @@ namespace Jan0660.AzurAPINetCore.Chapters
     public class ShipDrop
     {
         [JsonProperty("name")]
-        public string Name;
+        public readonly string Name;
         [JsonProperty("note")]
-        public string Note;
+        public readonly string Note;
+        public ShipDrop() { }
+        public ShipDrop(string Name) { this.Name = Name; }
     }
 }

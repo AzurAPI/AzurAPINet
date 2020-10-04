@@ -8,8 +8,8 @@ namespace Jan0660.AzurAPINetCore.Chapters
     public class Reward
     {
         [JsonProperty("count")]
-        public int Count;
+        public readonly int Count;
         [JsonProperty("item")]
-        public string Item;
+        public readonly string Item;
     }
 }

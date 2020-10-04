@@ -9,8 +9,8 @@ namespace Jan0660.AzurAPINetCore
     /// </summary>
     public class Names
     {
-        public string en;
-        public string cn;
-        public string jp;
+        public readonly string en;
+        public readonly string cn;
+        public readonly string jp;
     }
 }

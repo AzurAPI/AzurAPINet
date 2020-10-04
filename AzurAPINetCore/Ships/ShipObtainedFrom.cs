@@ -8,8 +8,8 @@ namespace Jan0660.AzurAPINetCore.Ships
     public class ShipObtainedFrom
     {
         [JsonProperty("obtainedFrom")]
-        public string ObtainedFrom;
+        public readonly string ObtainedFrom;
         [JsonProperty("maps")]
-        public List<string> Maps;
+        public readonly List<string> Maps;
     }
 }

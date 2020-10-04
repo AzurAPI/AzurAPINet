@@ -10,12 +10,14 @@ namespace Jan0660.AzurAPINetCore.Ships
     public class ShipScrapValue
     {
         [JsonIgnore]
-        public bool CanScrap = true;
+        public readonly bool CanScrap = true;
         [JsonProperty("coin")]
-        public int Coin;
+        public readonly int Coin;
         [JsonProperty("oil")]
-        public int Oil;
+        public readonly int Oil;
         [JsonProperty("medal")]
-        public int Medal;
+        public readonly int Medal;
+        public ShipScrapValue() { }
+        public ShipScrapValue(bool CanScrap) { this.CanScrap = CanScrap; }
     }
 }

@@ -15,7 +15,7 @@ namespace Jan0660.AzurAPINetCore
             string s = (string)reader.Value;
             if (s != null)
             {
-                return new ShipEnhanceValue() { CanEnhance = false };
+                return new ShipEnhanceValue(false);
             }
             else
             {

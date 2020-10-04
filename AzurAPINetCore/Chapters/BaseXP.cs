@@ -8,12 +8,12 @@ namespace Jan0660.AzurAPINetCore.Chapters
     public class BaseXP
     {
         [JsonProperty("smallFleet")]
-        public int SmallFleet;
+        public readonly int SmallFleet;
         [JsonProperty("mediumFleet")]
-        public int MediumFleet;
+        public readonly int MediumFleet;
         [JsonProperty("largeFleet")]
-        public int LargeFleet;
+        public readonly int LargeFleet;
         [JsonProperty("bossFleet")]
-        public int BossFleet;
+        public readonly int BossFleet;
     }
 }

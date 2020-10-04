@@ -8,14 +8,14 @@ namespace Jan0660.AzurAPINetCore.Ships
     public class ShipSkin
     {
         [JsonProperty("name")]
-        public string Name;
+        public readonly string Name;
         [JsonProperty("image")]
-        public string Image;
+        public readonly string Image;
         [JsonProperty("background")]
-        public string Background;
+        public readonly string Background;
         [JsonProperty("chibi")]
-        public string Chibi;
+        public readonly string Chibi;
         [JsonProperty("info")]
-        public ShipSkinInfo Info;
+        public readonly ShipSkinInfo Info;
     }
 }

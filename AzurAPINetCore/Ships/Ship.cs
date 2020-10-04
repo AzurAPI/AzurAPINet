@@ -7,50 +7,50 @@ using Jan0660.AzurAPINetCore.Converters;
 namespace Jan0660.AzurAPINetCore.Ships
 {
     //pain
-    public class Ship
+    public  class Ship
     {
         [JsonProperty("wikiUrl")]
-        public string WikiUrl;
+        public readonly string WikiUrl;
         [JsonProperty("id")]
-        public string Id;
+        public readonly string Id;
         [JsonProperty("names")]
-        public ShipNames Names;
+        public readonly ShipNames Names;
         [JsonProperty("class")]
-        public string Class;
+        public readonly string Class;
         [JsonProperty("nationality")]
-        public string Nationality;
+        public readonly string Nationality;
         [JsonProperty("hullType")]
-        public string HullType;
+        public readonly string HullType;
         [JsonProperty("thumbnail")]
-        public string Thumbnail;
+        public readonly string Thumbnail;
         [JsonProperty("rarity")]
-        public string Rarity;
+        public readonly string Rarity;
         [JsonProperty("stars")]
-        public ShipStars Stars;
+        public readonly ShipStars Stars;
         [JsonProperty("stats")]
-        public ShipAllStats Stats;
+        public readonly ShipAllStats Stats;
         [JsonProperty("slots")]
-        public Dictionary<string, ShipEquipmentSlot> Slots;
+        public readonly Dictionary<string, ShipEquipmentSlot> Slots;
         [JsonProperty("enhanceValue")]
         [JsonConverter(typeof(EnhanceValueConverter))]
-        public ShipEnhanceValue EnhanceValue;
+        public readonly ShipEnhanceValue EnhanceValue;
         [JsonProperty("scrapValue")]
         [JsonConverter(typeof(ScrapValueConverter))]
-        public ShipScrapValue ScrapValue;
+        public readonly ShipScrapValue ScrapValue;
         [JsonProperty("skills")]
-        public List<ShipSkill> Skills;
+        public readonly List<ShipSkill> Skills;
         [JsonProperty("limitBreaks")]
-        public List<List<string>> LimitBreaks;
+        public readonly List<List<string>> LimitBreaks;
         [JsonProperty("construction")]
         [JsonConverter(typeof(ConstructionInfoConverter))]
-        public ShipConstructionInfo Construction;
+        public readonly ShipConstructionInfo Construction;
         [JsonProperty("obtainedFrom")]
-        public ShipObtainedFrom ObtainedFrom;
+        public readonly ShipObtainedFrom ObtainedFrom;
         [JsonProperty("skins")]
-        public List<ShipSkin> Skins;
+        public readonly List<ShipSkin> Skins;
         [JsonProperty("misc")]
-        public Dictionary<string, ShipMiscItem> Misc;
+        public readonly Dictionary<string, ShipMiscItem> Misc;
         [JsonProperty("gallery")]
-        public List<ShipGalleryItem> Gallery;
+        public readonly List<ShipGalleryItem> Gallery;
     }
 }

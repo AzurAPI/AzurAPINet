@@ -8,8 +8,8 @@ namespace Jan0660.AzurAPINetCore.Ships
     public class ShipSkinInfo
     {
         [JsonProperty("obtainedFrom")]
-        public string ObtainedFrom;
+        public readonly string ObtainedFrom;
         [JsonProperty("live2dModel")]
-        public bool Live2DModel;
+        public readonly bool Live2DModel;
     }
 }

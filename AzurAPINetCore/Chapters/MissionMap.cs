@@ -9,35 +9,35 @@ namespace Jan0660.AzurAPINetCore.Chapters
     public class MissionMap
     {
         [JsonProperty("title")]
-        public string Title;
+        public readonly string Title;
         [JsonProperty("code")]
-        public string Code;
+        public readonly string Code;
         [JsonProperty("introduction")]
-        public string Introduction;
+        public readonly string Introduction;
         [JsonProperty("unlockRequirements")]
-        public UnlockRequirements UnlockRequirements;
+        public readonly UnlockRequirements UnlockRequirements;
         [JsonProperty("clearRewards")]
-        public ClearRewards ClearRewards;
+        public readonly ClearRewards ClearRewards;
         [JsonProperty("threeStarRewards")]
-        public List<Reward> ThreeStarRewards;
+        public readonly List<Reward> ThreeStarRewards;
         [JsonProperty("enemyLevel")]
-        public EnemyLevel EnemyLevel;
+        public readonly EnemyLevel EnemyLevel;
         [JsonProperty("baseXP")]
-        public BaseXP BaseXP;
+        public readonly BaseXP BaseXP;
         [JsonProperty("requiredBattles")]
-        public int RequiredBattles;
+        public readonly int RequiredBattles;
         [JsonProperty("bossKillsToClear")]
-        public int BossKillsToClear;
+        public readonly int BossKillsToClear;
         [JsonProperty("starConditions")]
-        public List<string> StarConditions;
+        public readonly List<string> StarConditions;
         [JsonProperty("airSupremacy")]
-        public AirSupremacy AirSupremacy;
+        public readonly AirSupremacy AirSupremacy;
         [JsonProperty("mapDrops")]
-        public List<string> MapDrops;
+        public readonly List<string> MapDrops;
         [JsonProperty("equipmentBlueprintDrops")]
-        public List<EquipmentBlueprintDrop> EquipmentBlueprintDrops;
+        public readonly List<EquipmentBlueprintDrop> EquipmentBlueprintDrops;
         [JsonProperty("shipDrops")]
         [JsonConverter(typeof(ShipDropsConverter))]
-        public List<ShipDrop> ShipDrops;
+        public readonly List<ShipDrop> ShipDrops;
     }
 }

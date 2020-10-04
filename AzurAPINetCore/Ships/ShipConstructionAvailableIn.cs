@@ -6,10 +6,10 @@ namespace Jan0660.AzurAPINetCore.Ships
 {
     public class ShipConstructionAvailableIn
     {
-        public RegionBoolean light;
-        public RegionBoolean heavy;
-        public RegionBoolean aviation;
-        public RegionBoolean limited;
-        public RegionBoolean exchange;
+        public readonly RegionBoolean light;
+        public readonly RegionBoolean heavy;
+        public readonly RegionBoolean aviation;
+        public readonly RegionBoolean limited;
+        public readonly RegionBoolean exchange;
     }
 }
