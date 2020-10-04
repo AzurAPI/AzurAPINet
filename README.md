@@ -30,7 +30,9 @@ var ships = Client.GetAllShips();
 The client.GetShip method searches for a ship using it's English name, code, id, Japanese and Chinese name, in this order.
 
 ```csharp
-Client.GetShip("takao");
+var ship = Client.GetShip("takao");
+// or for the real ones
+var waifu = Client.GetWaifu("takao");
 ```
 
 You can also search for a ship using only it's id

@@ -10,7 +10,7 @@ namespace Jan0660.AzurAPINetCore.Ships
         [JsonProperty("icon")]
         public string Icon;
         [JsonProperty("names")]
-        public SkillNames Names;
+        public Names Names;
         [JsonProperty("description")]
         public string Description;
         [JsonProperty("color")]

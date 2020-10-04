@@ -11,9 +11,11 @@ namespace AzurAPINetCoreTests
             Console.WriteLine("Test start");
             //await Task.Delay(3000);
             AzurAPIClient client = new AzurAPIClient(@"D:\00.code\azurapi-js-setup\", new AzurAPIClientOptions());
+            var chapters = client.GetAllChapters();
+            //var info = client.GetDatabaseVersionInfo();
             //var ships = client.GetAllShips();
-            var ss = client.GetShipByEnglishName("takao");
-            var s = client.GetShip("takao");
+            //var ss = client.GetShipByEnglishName("takao");
+            //var s = client.GetShip("takao");
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
     }

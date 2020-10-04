@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 using Jan0660.AzurAPINetCore.Ships;
+using Jan0660.AzurAPINetCore.Chapters;
+
 namespace Jan0660.AzurAPINetCore
 {
     public class AzurAPIClient
@@ -13,6 +15,7 @@ namespace Jan0660.AzurAPINetCore
         public readonly AzurAPIClientOptions Options;
         public readonly string WorkingDirectory;
         public List<Ship> Ships { get; private set; } = null;
+        public List<Chapter> Chapters { get; private set; } = null;
         /// <summary>
         /// 
         /// </summary>
@@ -43,7 +46,7 @@ namespace Jan0660.AzurAPINetCore
         }
         #region GetShip, GetShipBy<EnglishName,Code,Id,...>
         /// <summary>
-        /// Searches for a ship using it's english name, code, id, japanese and chinese name, in this orde
+        /// Searches for a ship using it's english name, code, id, japanese and chinese name, in this order
         /// </summary>
         /// <param name="query"></param>
         /// <returns>the goddamn ship</returns>
@@ -66,6 +69,7 @@ namespace Jan0660.AzurAPINetCore
                 return ship;
             return null;
         }
+        public Ship GetWaifu(string waifu) => GetShip(waifu);
         public Ship GetShipByEnglishName(string name)
         {
             var ships = GetAllShips();
@@ -92,5 +96,19 @@ namespace Jan0660.AzurAPINetCore
             return ships.Where((ship) => ship.Names.cn.ToLower() == name.ToLower()).FirstOrDefault();
         }
         #endregion
+        public DatabaseVersionInfo GetDatabaseVersionInfo()
+        {
+            return JsonConvert.DeserializeObject<DatabaseVersionInfo>(File.ReadAllText(WorkingDirectory + "version-info.json"));
+        }
+        public List<Chapter> GetAllChapters()
+        {
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(File.ReadAllText(WorkingDirectory + "chapters.json"));
+            var list = new List<Chapter>();
+            foreach(var pair in dict)
+            {
+                list.Add(pair.Value);
+            }
+            return list;
+        }
     }
 }
