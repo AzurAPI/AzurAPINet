@@ -2,7 +2,8 @@
   "profiles": {
     "AzurAPINetCore": {
       "commandName": "Project",
-      "nativeDebugging": true
+      "nativeDebugging": true,
+      "answer_to_everything": 42
     }
   }
 }
