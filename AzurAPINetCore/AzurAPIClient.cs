@@ -102,11 +102,20 @@ namespace Jan0660.AzurAPINetCore
         }
         public List<Chapter> GetAllChapters()
         {
-            var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(File.ReadAllText(WorkingDirectory + "chapters.json"));
             var list = new List<Chapter>();
-            foreach(var pair in dict)
+            if (Chapters == null)
             {
-                list.Add(pair.Value);
+                var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(File.ReadAllText(WorkingDirectory + "chapters.json"));
+                foreach (var pair in dict)
+                {
+                    list.Add(pair.Value);
+                }
+                if (Options.EnableCaching)
+                    Chapters = list;
+            }
+            else
+            {
+                list = Chapters;
             }
             return list;
         }
