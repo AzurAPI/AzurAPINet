@@ -10,7 +10,8 @@ namespace AzurAPINetCoreTests
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
             //await Task.Delay(3000);
-            AzurAPIClient client = new AzurAPIClient(@"D:\00.code\azurapi-js-setup\", new AzurAPIClientOptions());
+            //AzurAPIClient client = new AzurAPIClient(@"D:\00.code\azurapi-js-setup\", new AzurAPIClientOptions());
+            AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
             var chapters = client.GetAllChapters();
             var info = client.GetDatabaseVersionInfo();
             //var ships = client.GetAllShips();

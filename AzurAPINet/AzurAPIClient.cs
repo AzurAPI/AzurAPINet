@@ -7,22 +7,39 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 using Jan0660.AzurAPINet.Ships;
 using Jan0660.AzurAPINet.Chapters;
+using System.Net;
 
 namespace Jan0660.AzurAPINet
 {
+    /// <summary>
+    /// for if the AzurAPIClient is using the database from a local download or from github
+    /// </summary>
+    public enum ClientType { Local, Web }
     public class AzurAPIClient
     {
         public readonly AzurAPIClientOptions Options;
+        public readonly ClientType ClientType;
         public readonly string WorkingDirectory;
         public List<Ship> Ships { get; private set; } = null;
         public List<Chapter> Chapters { get; private set; } = null;
         /// <summary>
-        /// 
+        /// Create new client which uses downloaded database
         /// </summary>
         /// <param name="workingDirectory">AzurAPI database location</param>
         public AzurAPIClient(string workingDirectory, AzurAPIClientOptions options)
         {
+            ClientType = ClientType.Local;
             WorkingDirectory = workingDirectory;
+            Options = options;
+        }
+        /// <summary>
+        /// Create new client that uses database from web
+        /// </summary>
+        /// <param name="workingDirectory">AzurAPI database location</param>
+        public AzurAPIClient(AzurAPIClientOptions options)
+        {
+            ClientType = ClientType.Web;
+            WorkingDirectory = "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/";
             Options = options;
         }
 
@@ -31,7 +48,7 @@ namespace Jan0660.AzurAPINet
             List<Ship> ships;
             if (this.Ships == null)
             {
-                ships = JsonConvert.DeserializeObject<List<Ship>>(File.ReadAllText(WorkingDirectory + "ships.json"),
+                ships = JsonConvert.DeserializeObject<List<Ship>>(GetTextFile("ships.json"),
                 new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore
@@ -98,14 +115,14 @@ namespace Jan0660.AzurAPINet
         #endregion
         public DatabaseVersionInfo GetDatabaseVersionInfo()
         {
-            return JsonConvert.DeserializeObject<DatabaseVersionInfo>(File.ReadAllText(WorkingDirectory + "version-info.json"));
+            return JsonConvert.DeserializeObject<DatabaseVersionInfo>(GetTextFile("version-info.json"));
         }
         public List<Chapter> GetAllChapters()
         {
             var list = new List<Chapter>();
             if (Chapters == null)
             {
-                var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(File.ReadAllText(WorkingDirectory + "chapters.json"));
+                var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(GetTextFile("chapters.json"));
                 foreach (var pair in dict)
                 {
                     list.Add(pair.Value);
@@ -118,6 +135,28 @@ namespace Jan0660.AzurAPINet
                 list = Chapters;
             }
             return list;
+        }
+        public byte[] GetFileBytes(string file)
+        {
+            if (ClientType == ClientType.Web)
+            {
+                WebClient webClient = new WebClient();
+                return webClient.DownloadData(WorkingDirectory + file);
+            }
+            // ClientType.Local
+            else
+                return File.ReadAllBytes(WorkingDirectory + file);
+        }
+        public string GetTextFile(string file)
+        {
+            if (ClientType == ClientType.Web)
+            {
+                WebClient webClient = new WebClient();
+                return webClient.DownloadString(WorkingDirectory + file);
+            }
+            // ClientType.Local
+            else
+                return File.ReadAllText(WorkingDirectory + file);
         }
     }
 }

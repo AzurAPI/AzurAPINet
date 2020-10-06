@@ -17,7 +17,8 @@
 * Voice Lines (./voice_lines.json) ❌
 * Equipment (./equipments.json) ❌
 * Barrage (./barrages.json) ❌
-* Client that uses the database from the internet ❌
+* Client that uses the database from the internet ✅
+  * Async "cache ships/chapters" methods could be added 
 
 
 
