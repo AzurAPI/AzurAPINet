@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AzurAPINetCore\AzurAPINetCore.csproj" />
+    <ProjectReference Include="..\AzurAPINet\AzurAPINet.csproj" />
   </ItemGroup>
 
 </Project>

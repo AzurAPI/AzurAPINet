@@ -1,5 +1,5 @@
 ﻿using System;
-using Jan0660.AzurAPINetCore;
+using Jan0660.AzurAPINet;
 using System.Threading.Tasks;
 namespace AzurAPINetCoreTests
 {
@@ -12,10 +12,11 @@ namespace AzurAPINetCoreTests
             //await Task.Delay(3000);
             AzurAPIClient client = new AzurAPIClient(@"D:\00.code\azurapi-js-setup\", new AzurAPIClientOptions());
             var chapters = client.GetAllChapters();
-            //var info = client.GetDatabaseVersionInfo();
+            var info = client.GetDatabaseVersionInfo();
             //var ships = client.GetAllShips();
-            //var ss = client.GetShipByEnglishName("takao");
+            var ss = client.GetShipByEnglishName("takao");
             //var s = client.GetShip("takao");
+            var ships = client.GetAllShips();
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
     }
