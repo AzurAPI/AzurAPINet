@@ -7,9 +7,10 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Jan0660</Authors>
     <Version>0.3.0</Version>
-    <Description>A .NET wrapper for the AzurAPI database</Description>
+    <Description>A .NET standard 2.0 wrapper for the AzurAPI database. Currently work in progress - only ships, chapters and missions wrappers are partially implemented.</Description>
     <PackageReleaseNotes>transferred to .NET standard 2.0 (from .NET core 3.1). Chapters and mission wrappers are almost complete except the NodeMap.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
+    <RepositoryUrl>https://github.com/Jan0660/AzurAPINet</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

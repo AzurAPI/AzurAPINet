@@ -1,4 +1,4 @@
-# AzurAPINetCore
+# AzurAPINet
 
 ## How to use
 
@@ -13,7 +13,7 @@ Replace `DatabaseDirectory` with your path to the downloaded AzurAPI database wi
 For example: `@"D:\00.code\azurapi-js-setup\"`
 
 ```csharp
-using Jan0660.AzurAPINetCore;
+using Jan0660.AzurAPINet;
 
 AzurAPIClient Client = new AzurAPIClient(DatabaseDirectory,
                                          new AzurAPIClientOptions());
