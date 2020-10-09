@@ -8,6 +8,7 @@ using System.Linq;
 using Jan0660.AzurAPINet.Ships;
 using Jan0660.AzurAPINet.Chapters;
 using System.Net;
+using Jan0660.AzurAPINet.Events;
 
 namespace Jan0660.AzurAPINet
 {
@@ -22,6 +23,7 @@ namespace Jan0660.AzurAPINet
         public readonly string WorkingDirectory;
         public List<Ship> Ships { get; private set; } = null;
         public List<Chapter> Chapters { get; private set; } = null;
+        public List<Event> Events { get; private set; } = null;
         /// <summary>
         /// Create new client which uses downloaded database
         /// </summary>
@@ -35,7 +37,6 @@ namespace Jan0660.AzurAPINet
         /// <summary>
         /// Create new client that uses database from web
         /// </summary>
-        /// <param name="workingDirectory">AzurAPI database location</param>
         public AzurAPIClient(AzurAPIClientOptions options)
         {
             ClientType = ClientType.Web;
@@ -131,9 +132,20 @@ namespace Jan0660.AzurAPINet
                     Chapters = list;
             }
             else
-            {
                 list = Chapters;
+            return list;
+        }
+        public List<Event> GetAllEvents()
+        {
+            List<Event> list;
+            if (Chapters == null)
+            {
+                list= JsonConvert.DeserializeObject<List<Event>>(GetTextFile("events.json"));
+                if (Options.EnableCaching)
+                    Events = list;
             }
+            else
+                list = Events;
             return list;
         }
         public byte[] GetFileBytes(string file)
