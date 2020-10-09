@@ -11,7 +11,7 @@ namespace AzurAPINetCoreTests
             //await Task.Delay(10000);
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
-            AzurAPIClient client = new AzurAPIClient(@"D:\00.code\azurapi-js-setup\", new AzurAPIClientOptions());
+            AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
             //AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
             //var chapters = client.GetAllChapters();
             //var info = client.GetDatabaseVersionInfo();
@@ -21,6 +21,9 @@ namespace AzurAPINetCoreTests
             //var ships = client.GetAllShips();
             var events = client.GetAllEvents();
             var evs = events.Where((e) => e.NewShipsSkins.Count != 0).ToList();
+            var b = client.GetAllBarrage();
+            var ba = b.Where((bar) => bar.Ships.Count != 1).ToList();
+            var t = client.GetBarrageForShip("takao");
             /*
             GC.Collect(int.MaxValue, GCCollectionMode.Forced, true);
             await Task.Delay(5000);

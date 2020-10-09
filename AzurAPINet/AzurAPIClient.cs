@@ -9,6 +9,7 @@ using Jan0660.AzurAPINet.Ships;
 using Jan0660.AzurAPINet.Chapters;
 using System.Net;
 using Jan0660.AzurAPINet.Events;
+using Jan0660.AzurAPINet.Barrage;
 
 namespace Jan0660.AzurAPINet
 {
@@ -24,6 +25,7 @@ namespace Jan0660.AzurAPINet
         public List<Ship> Ships { get; private set; } = null;
         public List<Chapter> Chapters { get; private set; } = null;
         public List<Event> Events { get; private set; } = null;
+        public List<BarrageItem> Barrage { get; private set; } = null;
         /// <summary>
         /// Create new client which uses downloaded database
         /// </summary>
@@ -138,7 +140,7 @@ namespace Jan0660.AzurAPINet
         public List<Event> GetAllEvents()
         {
             List<Event> list;
-            if (Chapters == null)
+            if (Events == null)
             {
                 list= JsonConvert.DeserializeObject<List<Event>>(GetTextFile("events.json"));
                 if (Options.EnableCaching)
@@ -147,6 +149,23 @@ namespace Jan0660.AzurAPINet
             else
                 list = Events;
             return list;
+        }
+        public List<BarrageItem> GetAllBarrage()
+        {
+            List<BarrageItem> list;
+            if (Barrage == null)
+            {
+                list = JsonConvert.DeserializeObject<List<BarrageItem>>(GetTextFile("barrage.json"));
+                if (Options.EnableCaching)
+                    Barrage = list;
+            }
+            else
+                list = Barrage;
+            return list;
+        }
+        public List<BarrageItem> GetBarrageForShip(string name)
+        {
+            return GetAllBarrage().Where((b) => b.Ships.Where((s)=> s.ToLower() == name.ToLower()).Count() != 0).ToList();
         }
         public byte[] GetFileBytes(string file)
         {
