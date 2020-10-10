@@ -10,6 +10,7 @@ using Jan0660.AzurAPINet.Chapters;
 using System.Net;
 using Jan0660.AzurAPINet.Events;
 using Jan0660.AzurAPINet.Barrage;
+using Jan0660.AzurAPINet.Memories;
 
 namespace Jan0660.AzurAPINet
 {
@@ -26,6 +27,7 @@ namespace Jan0660.AzurAPINet
         public List<Chapter> Chapters { get; private set; } = null;
         public List<Event> Events { get; private set; } = null;
         public List<BarrageItem> Barrage { get; private set; } = null;
+        public Dictionary<string, ChapterMemory> Memories { get; private set; } = null;
         /// <summary>
         /// Create new client which uses downloaded database
         /// </summary>
@@ -166,6 +168,19 @@ namespace Jan0660.AzurAPINet
         public List<BarrageItem> GetBarrageForShip(string name)
         {
             return GetAllBarrage().Where((b) => b.Ships.Where((s)=> s.ToLower() == name.ToLower()).Count() != 0).ToList();
+        }
+        public Dictionary<string, ChapterMemory> GetAllMemories()
+        {
+            Dictionary<string, ChapterMemory> list;
+            if (Events == null)
+            {
+                list = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(GetTextFile("memories.internal.json"));
+                if (Options.EnableCaching)
+                    Memories = list;
+            }
+            else
+                list = Memories;
+            return list;
         }
         public byte[] GetFileBytes(string file)
         {

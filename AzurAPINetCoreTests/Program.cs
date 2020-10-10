@@ -19,11 +19,12 @@ namespace AzurAPINetCoreTests
             //var ss = client.GetShipByEnglishName("takao");
             //var s = client.GetShip("takao");
             //var ships = client.GetAllShips();
-            var events = client.GetAllEvents();
-            var evs = events.Where((e) => e.NewShipsSkins.Count != 0).ToList();
-            var b = client.GetAllBarrage();
-            var ba = b.Where((bar) => bar.Ships.Count != 1).ToList();
-            var t = client.GetBarrageForShip("takao");
+            //var events = client.GetAllEvents();
+            // var evs = events.Where((e) => e.NewShipsSkins.Count != 0).ToList();
+            //var b = client.GetAllBarrage();
+            //var ba = b.Where((bar) => bar.Ships.Count != 1).ToList();
+            //var t = client.GetBarrageForShip("takao");
+            var mems = client.GetAllMemories();
             /*
             GC.Collect(int.MaxValue, GCCollectionMode.Forced, true);
             await Task.Delay(5000);
