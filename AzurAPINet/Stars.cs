@@ -5,10 +5,14 @@ using System.Text;
 
 namespace Jan0660.AzurAPINet.Ships
 {
-    public class ShipStars
+    public class Stars
     {
+        /// <summary>
+        /// why is this not named "Stars"?
+        /// because Microsoft.
+        /// </summary>
         [JsonProperty("stars")]
-        public readonly string Stars;
+        public readonly string StarsString;
         [JsonProperty("value")]
         public readonly int Count;
     }

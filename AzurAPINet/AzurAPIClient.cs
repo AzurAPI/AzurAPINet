@@ -11,6 +11,7 @@ using System.Net;
 using Jan0660.AzurAPINet.Events;
 using Jan0660.AzurAPINet.Barrage;
 using Jan0660.AzurAPINet.Memories;
+using Jan0660.AzurAPINet.Equipments;
 
 namespace Jan0660.AzurAPINet
 {
@@ -28,6 +29,7 @@ namespace Jan0660.AzurAPINet
         public List<Event> Events { get; private set; } = null;
         public List<BarrageItem> Barrage { get; private set; } = null;
         public Dictionary<string, ChapterMemory> Memories { get; private set; } = null;
+        public Dictionary<string, Equipment> Equipments { get; private set; } = null;
         /// <summary>
         /// Create new client which uses downloaded database
         /// </summary>
@@ -144,7 +146,7 @@ namespace Jan0660.AzurAPINet
             List<Event> list;
             if (Events == null)
             {
-                list= JsonConvert.DeserializeObject<List<Event>>(GetTextFile("events.json"));
+                list = JsonConvert.DeserializeObject<List<Event>>(GetTextFile("events.json"));
                 if (Options.EnableCaching)
                     Events = list;
             }
@@ -167,7 +169,7 @@ namespace Jan0660.AzurAPINet
         }
         public List<BarrageItem> GetBarrageForShip(string name)
         {
-            return GetAllBarrage().Where((b) => b.Ships.Where((s)=> s.ToLower() == name.ToLower()).Count() != 0).ToList();
+            return GetAllBarrage().Where((b) => b.Ships.Where((s) => s.ToLower() == name.ToLower()).Count() != 0).ToList();
         }
         public Dictionary<string, ChapterMemory> GetAllMemories()
         {
@@ -182,6 +184,24 @@ namespace Jan0660.AzurAPINet
                 list = Memories;
             return list;
         }
+        public Dictionary<string, Equipment> GetAllEquipment()
+        {
+            Dictionary<string, Equipment> list;
+            if (Events == null)
+            {
+                list = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(GetTextFile("equipments.json")) ;
+                if (Options.EnableCaching)
+                    Equipments = list;
+            }
+            else
+                list = Equipments;
+            return list;
+        }
+        /// <summary>
+        /// Gets the content of a file from the AzurAPI database
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>the bytes of the file</returns>
         public byte[] GetFileBytes(string file)
         {
             if (ClientType == ClientType.Web)
@@ -193,6 +213,11 @@ namespace Jan0660.AzurAPINet
             else
                 return File.ReadAllBytes(WorkingDirectory + file);
         }
+        /// <summary>
+        /// Gets the content of a text file from the AzurAPI database
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>the text</returns>
         public string GetTextFile(string file)
         {
             if (ClientType == ClientType.Web)

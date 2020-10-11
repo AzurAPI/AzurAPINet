@@ -26,7 +26,7 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty("rarity")]
         public readonly string Rarity;
         [JsonProperty("stars")]
-        public readonly ShipStars Stars;
+        public readonly Stars Stars;
         [JsonProperty("stats")]
         public readonly ShipAllStats Stats;
         [JsonProperty("slots")]

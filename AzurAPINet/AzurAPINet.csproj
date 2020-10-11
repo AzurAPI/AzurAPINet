@@ -8,7 +8,7 @@
     <Authors>Jan0660</Authors>
     <Version>0.4.0-preview</Version>
     <Description>A .NET standard 2.0 wrapper for the AzurAPI database. Currently work in progress - only ships, chapters and missions wrappers are partially implemented.</Description>
-    <PackageReleaseNotes>Use database form web, barrage is incomplete</PackageReleaseNotes>
+    <PackageReleaseNotes>breaking changes: Ship.Stars is now AzurAPINet.Stars, Stars string renamed to StarsString,</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/Jan0660/AzurAPINet</RepositoryUrl>
   </PropertyGroup>

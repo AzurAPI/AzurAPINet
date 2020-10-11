@@ -17,7 +17,7 @@ namespace Jan0660.AzurAPINet.Events
         [JsonProperty("construction_time")]
         public readonly TimeSpan ConstructionTime;
         [JsonProperty("construction_chance")]
-        [JsonConverter(typeof(PercentageConverter))]
+        [JsonConverter(typeof(BetterFloatConverter))]
         public readonly float ConstructionChance;
         [JsonProperty("from")]
         public readonly string From;
