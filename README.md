@@ -1,5 +1,6 @@
 # AzurAPINet
 [![NuGet](http://img.shields.io/nuget/v/AzurAPINet)](https://www.nuget.org/packages/AzurAPINet/)
+[![Prerelease](http://img.shields.io/nuget/vpre/AzurAPINet)](https://www.nuget.org/packages/AzurAPINet/)
 ## How to use
 
 ### Download AzurAPI database
