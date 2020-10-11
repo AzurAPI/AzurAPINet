@@ -28,7 +28,8 @@ namespace AzurAPINetCoreTests
             //var ba = b.Where((bar) => bar.Ships.Count != 1).ToList();
             //var t = client.GetBarrageForShip("takao");
             //var mems = client.GetAllMemories();
-            var eqs = client.GetAllEquipment();
+            //var eqs = client.GetAllEquipment();
+            var vls = client.GetAllVoiceLines();
             /*
             int max = 0;
             List<Equipment> maxEq = new List<Equipment>();
@@ -36,7 +37,7 @@ namespace AzurAPINetCoreTests
             {
                 foreach(var tier in eq.Value.Tiers)
                 {
-                    if (tier.Value.Stars.Count == 6)
+                    if (tier.Value.Stars.Count == 6) 
                     {
                         max = tier.Value.Stars.Count;
                         maxEq.Add(eq.Value);

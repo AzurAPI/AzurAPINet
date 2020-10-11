@@ -12,6 +12,7 @@ using Jan0660.AzurAPINet.Events;
 using Jan0660.AzurAPINet.Barrage;
 using Jan0660.AzurAPINet.Memories;
 using Jan0660.AzurAPINet.Equipments;
+using Jan0660.AzurAPINet.VoiceLines;
 
 namespace Jan0660.AzurAPINet
 {
@@ -30,6 +31,7 @@ namespace Jan0660.AzurAPINet
         public List<BarrageItem> Barrage { get; private set; } = null;
         public Dictionary<string, ChapterMemory> Memories { get; private set; } = null;
         public Dictionary<string, Equipment> Equipments { get; private set; } = null;
+        public Dictionary<string, Dictionary<string, List<VoiceLine>>> VoiceLines { get; private set; } = null;
         /// <summary>
         /// Create new client which uses downloaded database
         /// </summary>
@@ -195,6 +197,19 @@ namespace Jan0660.AzurAPINet
             }
             else
                 list = Equipments;
+            return list;
+        }
+        public Dictionary<string, Dictionary<string, List<VoiceLine>>> GetAllVoiceLines()
+        {
+            Dictionary<string, Dictionary<string, List<VoiceLine>>> list;
+            if (Events == null)
+            {
+                list = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(GetTextFile("voice_lines.json"));
+                if (Options.EnableCaching)
+                    VoiceLines = list;
+            }
+            else
+                list = VoiceLines;
             return list;
         }
         /// <summary>

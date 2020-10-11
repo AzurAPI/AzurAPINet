@@ -14,7 +14,7 @@
   * NodeMap ❌
 * Events (./events.json) ✅
 * Memories (./memories.internal.json) ✅
-* Voice Lines (./voice_lines.json) ❌
+* Voice Lines (./voice_lines.json) ✅
 * Equipment (./equipments.json) ✅
 * Barrage (./barrages.json) ✅
 * Client that uses the database from the internet ✅
