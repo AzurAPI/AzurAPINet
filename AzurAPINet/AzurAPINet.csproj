@@ -7,8 +7,9 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Jan0660</Authors>
     <Version>0.4.0-preview</Version>
-    <Description>A .NET standard 2.0 wrapper for the AzurAPI database. Currently work in progress - only ships, chapters and missions wrappers are partially implemented.</Description>
-    <PackageReleaseNotes>breaking changes: Ship.Stars is now AzurAPINet.Stars, Stars string renamed to StarsString,</PackageReleaseNotes>
+    <Description>A .NET standard 2.0 wrapper for the AzurAPI database. Please note this library is currently work in progress.</Description>
+    <PackageReleaseNotes>Added: Barrage, Equipments, Events, Memories, VoiceLines
+breaking changes: Ship.Stars is now AzurAPINet.Stars, Stars string renamed to StarsString,</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/Jan0660/AzurAPINet</RepositoryUrl>
   </PropertyGroup>

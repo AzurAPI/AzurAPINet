@@ -13,6 +13,7 @@ using Jan0660.AzurAPINet.Barrage;
 using Jan0660.AzurAPINet.Memories;
 using Jan0660.AzurAPINet.Equipments;
 using Jan0660.AzurAPINet.VoiceLines;
+using Newtonsoft.Json.Serialization;
 
 namespace Jan0660.AzurAPINet
 {
@@ -114,12 +115,17 @@ namespace Jan0660.AzurAPINet
         public Ship GetShipByJapaneseName(string name)
         {
             var ships = GetAllShips();
-            return ships.Where((ship) => ship.Names.jp.ToLower() == name.ToLower()).FirstOrDefault();
+            return ships.Where((ship) => ship.Names.jp?.ToLower() == name.ToLower()).FirstOrDefault();
         }
         public Ship GetShipByChineseName(string name)
         {
             var ships = GetAllShips();
-            return ships.Where((ship) => ship.Names.cn.ToLower() == name.ToLower()).FirstOrDefault();
+            return ships.Where((ship) => ship.Names.cn?.ToLower() == name.ToLower()).FirstOrDefault();
+        }
+        public Ship GetShipByKoreanName(string name)
+        {
+            var ships = GetAllShips();
+            return ships.Where((ship) => ship.Names.kr?.ToLower() == name.ToLower()).FirstOrDefault();
         }
         #endregion
         public DatabaseVersionInfo GetDatabaseVersionInfo()
@@ -191,7 +197,7 @@ namespace Jan0660.AzurAPINet
             Dictionary<string, Equipment> list;
             if (Events == null)
             {
-                list = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(GetTextFile("equipments.json")) ;
+                list = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(GetTextFile("equipments.json"));
                 if (Options.EnableCaching)
                     Equipments = list;
             }

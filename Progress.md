@@ -18,7 +18,7 @@
 * Equipment (./equipments.json) ✅
 * Barrage (./barrages.json) ✅
 * Client that uses the database from the internet ✅
-  * Async "cache ships/chapters" methods could be added 
+  * Async "cache ships/chapters/etc" methods could be added 
 
 
 

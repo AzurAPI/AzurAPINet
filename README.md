@@ -6,7 +6,17 @@
 
 [Follow the instructions here](https://github.com/AzurAPI/azurapi-js-setup) 
 
-#### Create new client
+### Create new client
+
+### Using the database from the Internet
+
+```csharp
+using Jan0660.AzurAPINet;
+
+AzurAPIClient Client = new AzurAPIClient(new AzurAPIClientOptions());
+```
+
+#### Using local database download
 
 Replace `DatabaseDirectory` with your path to the downloaded AzurAPI database with a slash at the end.
 
@@ -27,7 +37,7 @@ var ships = Client.GetAllShips();
 
 #### Get a ship by name
 
-The client.GetShip method searches for a ship using it's English name, code, id, Japanese and Chinese name, in this order.
+The Client.GetShip method searches for a ship using it's English name, code, id, Japanese and Chinese name, in this order.
 
 ```csharp
 var ship = Client.GetShip("takao");
@@ -35,10 +45,18 @@ var ship = Client.GetShip("takao");
 var waifu = Client.GetWaifu("takao");
 ```
 
-You can also search for a ship using only it's id
+You can also search for a ship using only it's id / en,ja,cn name / code
 
 ```csharp
+// get ship by id
 Client.GetShipById("200");
+// by english,japanese,chinese,korean name
+Client.GetShipByEnglishName("takao");
+Client.GetShipByJapaneseName("高雄");
+Client.GetShipByChineseName("獒");
+Client.GetShipByKoreanName("타카오");
+// by code
+Client.GetShipByCode("IJN Takao");
 ```
 
 ## Caching
