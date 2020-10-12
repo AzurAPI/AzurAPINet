@@ -7,6 +7,9 @@ namespace Jan0660.AzurAPINet.Events
 {
     public class Event
     {
+        /// <summary>
+        /// The name of the event in english
+        /// </summary>
         [JsonProperty("name")]
         public readonly string Name;
         [JsonProperty("new_ships_construction")]

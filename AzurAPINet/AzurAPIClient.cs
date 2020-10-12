@@ -25,7 +25,10 @@ namespace Jan0660.AzurAPINet
     {
         public readonly AzurAPIClientOptions Options;
         public readonly ClientType ClientType;
-        public readonly string WorkingDirectory;
+        /// <summary>
+        /// the url/directory the current Client is using to get files
+        /// </summary>
+        public string WorkingDirectory;
         public List<Ship> Ships { get; private set; } = null;
         public List<Chapter> Chapters { get; private set; } = null;
         public List<Event> Events { get; private set; } = null;
@@ -96,6 +99,11 @@ namespace Jan0660.AzurAPINet
                 return ship;
             return null;
         }
+        /// <summary>
+        /// yes.
+        /// </summary>
+        /// <param name="waifu"></param>
+        /// <returns>the waifu</returns>
         public Ship GetWaifu(string waifu) => GetShip(waifu);
         public Ship GetShipByEnglishName(string name)
         {
@@ -204,7 +212,7 @@ namespace Jan0660.AzurAPINet
             return list;
         }
         /// <summary>
-        /// get's a chapter by it's english,chinese and japanese name
+        /// get's a chapter by it's english,chinese or japanese name
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
