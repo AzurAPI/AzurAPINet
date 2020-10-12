@@ -132,6 +132,17 @@ namespace Jan0660.AzurAPINet
         {
             return JsonConvert.DeserializeObject<DatabaseVersionInfo>(GetTextFile("version-info.json"));
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>If a new version of the AzurAPI database is available</returns>
+        public async Task<bool> DatabaseUpdateAvailableAsync()
+        {
+            WebClient webClient = new WebClient();
+            return (await webClient.DownloadStringTaskAsync(
+                "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/version-info.json")
+                != GetTextFile("version-info.json"));
+        }
         public List<Chapter> GetAllChapters()
         {
             var list = new List<Chapter>();

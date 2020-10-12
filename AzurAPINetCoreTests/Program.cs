@@ -14,9 +14,11 @@ namespace AzurAPINetCoreTests
             //await Task.Delay(10000);
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
-            AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
+            AzurAPIClient client = new AzurAPIClient(@"D:\00.code\azurapi-js-setup\",
+                new AzurAPIClientOptions());
             var Client = client;
-            GetAllAll(client);
+            bool b = await client.DatabaseUpdateAvailableAsync();
+            //GetAllAll(client);
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
         static void GetAllAll(AzurAPIClient Client)
