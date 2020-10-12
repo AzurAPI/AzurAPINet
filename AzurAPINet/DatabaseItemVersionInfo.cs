@@ -10,7 +10,9 @@ namespace Jan0660.AzurAPINet
         [JsonProperty("version-number")]
         public int VersionNumber;
         [JsonProperty("last-data-refresh-date")]
-        public ulong LastDataRefreshDate;
+        public long LastDataRefreshValue;
+        [JsonIgnore]
+        public DateTimeOffset LastDataRefreshDate => DateTimeOffset.FromUnixTimeMilliseconds(LastDataRefreshValue);
         [JsonProperty("hash")]
         public string Hash;
     }

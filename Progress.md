@@ -8,8 +8,7 @@
     * cost in skin shop 
 
   * FleetTech
-* Database info (./version-info.json) 📝
-* figure out how to transfer `last-data-refresh-date` to an actual DateTime
+* Database info (./version-info.json) ✅
 * Chapters (./chapters.json) 📝
   * NodeMap ❌
 * Events (./events.json) ✅

@@ -17,7 +17,8 @@ namespace AzurAPINetCoreTests
             AzurAPIClient client = new AzurAPIClient(@"D:\00.code\azurapi-js-setup\",
                 new AzurAPIClientOptions());
             var Client = client;
-            var mem = client.GetChapterMemoryByName("prologue");
+            //var mem = client.GetChapterMemoryByName("prologue");
+            var yee = DateTimeOffset.FromUnixTimeMilliseconds((long)client.GetDatabaseVersionInfo().Ships.LastDataRefreshDate);
             //GetAllAll(client);
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
