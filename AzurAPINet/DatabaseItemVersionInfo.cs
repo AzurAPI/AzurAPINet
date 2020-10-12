@@ -12,7 +12,7 @@ namespace Jan0660.AzurAPINet
         [JsonProperty("last-data-refresh-date")]
         public long LastDataRefreshValue;
         [JsonIgnore]
-        public DateTimeOffset LastDataRefreshDate => DateTimeOffset.FromUnixTimeMilliseconds(LastDataRefreshValue);
+        public DateTime LastDataRefreshDate => DateTimeOffset.FromUnixTimeMilliseconds(LastDataRefreshValue).UtcDateTime;
         [JsonProperty("hash")]
         public string Hash;
     }
