@@ -203,6 +203,22 @@ namespace Jan0660.AzurAPINet
                 list = Memories;
             return list;
         }
+        /// <summary>
+        /// get's a chapter by it's english,chinese and japanese name
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public ChapterMemory GetChapterMemoryByName(string query)
+        {
+            query = query.ToLower();
+            var memories = GetAllMemories().Where((m) =>
+            m.Value.Names.en.ToLower() == query |
+            m.Value.Names.cn.ToLower() == query |
+            m.Value.Names.jp.ToLower() == query |
+            m.Value.Names.kr?.ToLower() == query
+            );
+            return memories.FirstOrDefault().Value;
+        }
         public Dictionary<string, Equipment> GetAllEquipment()
         {
             Dictionary<string, Equipment> list;
