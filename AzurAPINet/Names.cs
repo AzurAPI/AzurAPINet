@@ -5,6 +5,8 @@ using System.Text;
 
 namespace Jan0660.AzurAPINet
 {
+#nullable enable
+#nullable disable warnings
     /// <summary>
     /// Cotains the English/Japanese/Chinese/Korean names for an item
     /// </summary>
@@ -29,6 +31,6 @@ namespace Jan0660.AzurAPINet
         /// Korean, may be null in most cases
         /// </summary>
         [JsonProperty]
-        public readonly string kr;
+        public readonly string? kr;
     }
 }

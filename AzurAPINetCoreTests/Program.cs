@@ -19,18 +19,18 @@ namespace AzurAPINetCoreTests
             var Client = client;
             //var mem = client.GetChapterMemoryByName("prologue");
             //var yee = DateTimeOffset.FromUnixTimeMilliseconds((long)client.GetDatabaseVersionInfo().Ships.LastDataRefreshDate);
-            //GetAllAll(client);
+            GetAllAll(client);
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
         static void GetAllAll(AzurAPIClient Client)
         {
-            Client.GetAllVoiceLines();
-            Client.GetAllShips();
-            Client.GetAllMemories();
-            Client.GetAllEvents();
-            Client.GetAllEquipment();
-            Client.GetAllChapters();
-            Client.GetAllBarrage();
+            var VoiceLines = Client.GetAllVoiceLines();
+            var Ships = Client.GetAllShips();
+            var Memories = Client.GetAllMemories();
+            var Events = Client.GetAllEvents();
+            var Equipment = Client.GetAllEquipment();
+            var Chapters = Client.GetAllChapters();
+            var Barrage = Client.GetAllBarrage();
         }
     }
 }

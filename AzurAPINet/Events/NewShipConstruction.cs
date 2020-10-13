@@ -6,6 +6,8 @@ using System.Text;
 
 namespace Jan0660.AzurAPINet.Events
 {
+#nullable enable
+#nullable disable warnings
     public class NewShipConstruction
     {
         [JsonProperty("name")]
@@ -15,11 +17,11 @@ namespace Jan0660.AzurAPINet.Events
         [JsonProperty("type")]
         public readonly string Type;
         [JsonProperty("construction_time")]
-        public readonly TimeSpan ConstructionTime;
+        public readonly TimeSpan? ConstructionTime;
         [JsonProperty("construction_chance")]
         [JsonConverter(typeof(BetterFloatConverter))]
-        public readonly float ConstructionChance;
+        public readonly float? ConstructionChance;
         [JsonProperty("from")]
-        public readonly string From;
+        public readonly string? From;
     }
 }
