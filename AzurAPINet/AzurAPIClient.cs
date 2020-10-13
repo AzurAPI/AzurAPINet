@@ -230,7 +230,7 @@ namespace Jan0660.AzurAPINet
         public Dictionary<string, Equipment> GetAllEquipment()
         {
             Dictionary<string, Equipment> list;
-            if (Events == null)
+            if (Equipments == null)
             {
                 list = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(GetTextFile("equipments.json"));
                 if (Options.EnableCaching)
