@@ -26,7 +26,7 @@ namespace Jan0660.AzurAPINet
         public readonly AzurAPIClientOptions Options;
         public readonly ClientType ClientType;
         /// <summary>
-        /// the url/directory the current Client is using to get files
+        /// the url/directory to get files from
         /// </summary>
         public string WorkingDirectory;
         public List<Ship> Ships { get; private set; } = null;
@@ -78,8 +78,8 @@ namespace Jan0660.AzurAPINet
         /// <summary>
         /// Searches for a ship using it's english name, code, id, japanese and chinese name, in this order
         /// </summary>
-        /// <param name="query"></param>
-        /// <returns>the goddamn ship</returns>
+        /// <param name="query">The name of the ship you're searching for</param>
+        /// <returns>the ship</returns>
         public Ship GetShip(string query)
         {
             var ship = GetShipByEnglishName(query);

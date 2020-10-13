@@ -30,6 +30,6 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty("accuracy")]
         public readonly int Accuracy;
         [JsonProperty("antisubmarineWarfare")]
-        public readonly int AntiSubmarineWarfare = 0;
+        public readonly int AntiSubmarineWarfare;
     }
 }

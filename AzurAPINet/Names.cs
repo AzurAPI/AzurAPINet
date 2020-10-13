@@ -28,7 +28,7 @@ namespace Jan0660.AzurAPINet
         [JsonProperty]
         public readonly string jp;
         /// <summary>
-        /// Korean, may be null in most cases
+        /// Korean
         /// </summary>
         [JsonProperty]
         public readonly string? kr;
