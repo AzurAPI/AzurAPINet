@@ -18,7 +18,7 @@ namespace AzurAPINetCoreTests
                 new AzurAPIClientOptions());
             var Client = client;
             //var mem = client.GetChapterMemoryByName("prologue");
-            var yee = DateTimeOffset.FromUnixTimeMilliseconds((long)client.GetDatabaseVersionInfo().Ships.LastDataRefreshDate);
+            //var yee = DateTimeOffset.FromUnixTimeMilliseconds((long)client.GetDatabaseVersionInfo().Ships.LastDataRefreshDate);
             //GetAllAll(client);
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
