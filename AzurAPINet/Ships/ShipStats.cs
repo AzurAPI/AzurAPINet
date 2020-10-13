@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Jan0660.AzurAPINet.Ships
 {
@@ -31,5 +32,20 @@ namespace Jan0660.AzurAPINet.Ships
         public readonly int Accuracy;
         [JsonProperty("antisubmarineWarfare")]
         public readonly int AntiSubmarineWarfare;
+        /// <summary>
+        /// submarine-only
+        /// </summary>
+        [JsonProperty("oxygen")]
+        public readonly int? Oxygen;
+        /// <summary>
+        /// submarine-only
+        /// </summary>
+        [JsonProperty("ammunition")]
+        public readonly int Ammunition;
+        /// <summary>
+        /// submarine-only
+        /// </summary>
+        [JsonProperty("huntingRange")]
+        public readonly List<List<string>>? HuntingRange;
     }
 }
