@@ -19,7 +19,9 @@ namespace AzurAPINetCoreTests
             var Client = client;
             //var mem = client.GetChapterMemoryByName("prologue");
             //var yee = DateTimeOffset.FromUnixTimeMilliseconds((long)client.GetDatabaseVersionInfo().Ships.LastDataRefreshDate);
-            GetAllAll(client);
+            //GetAllAll(client);
+            var ship = client.GetShip("javelin");
+            var urls = ship.Skins.First().GetSkinUrlsList();
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
         static void GetAllAll(AzurAPIClient Client)
