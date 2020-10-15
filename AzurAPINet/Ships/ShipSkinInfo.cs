@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Jan0660.AzurAPINet.Converters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,6 +27,9 @@ namespace Jan0660.AzurAPINet.Ships
         public readonly string? cnClient;
         [JsonProperty("obtainedFrom")]
         public readonly string ObtainedFrom;
+        [JsonProperty("cost")]
+        [JsonConverter(typeof(ShipSkinCostConverter))]
+        public readonly int Cost;
         [JsonProperty("live2dModel")]
         public readonly bool Live2DModel;
     }
