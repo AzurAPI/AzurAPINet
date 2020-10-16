@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Jan0660.AzurAPINet.Equipments;
 using System.Collections.Generic;
+using Jan0660.AzurAPINet.Ships;
 
 namespace AzurAPINetCoreTests
 {
@@ -21,6 +22,7 @@ namespace AzurAPINetCoreTests
             //var yee = DateTimeOffset.FromUnixTimeMilliseconds((long)client.GetDatabaseVersionInfo().Ships.LastDataRefreshDate);
             //GetAllAll(client);
             var ship = client.GetShip("javelin");
+            var s = new ShipStats(ship.Stats.BaseStats, ship.Stats.Level100, 50);
             var urls = ship.Skins.First().GetSkinUrlsList();
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
