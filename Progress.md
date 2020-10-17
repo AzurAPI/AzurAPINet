@@ -2,11 +2,6 @@
 
 * Ships 📝
 
-  * Skin
-    * get Chinese skin images/other
-    * alternate names/jp/cn names
-    * cost in skin shop 
-
   * FleetTech
 * Database info (./version-info.json) ✅
 * Chapters (./chapters.json) 📝
@@ -19,7 +14,7 @@
 * Client that uses the database from the internet ✅
   * Async "cache ships/chapters/etc" methods could be added 
 
-
+##### This document will be kept updated to the newest release/preview release
 
 ❌- Didn't start work yet
 📝- Work In Progress
