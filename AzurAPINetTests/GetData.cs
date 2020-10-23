@@ -41,5 +41,11 @@ namespace AzurAPINetTests
             AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
             client.GetAllEvents();
         }
+        [TestMethod]
+        public void GetMemories()
+        {
+            AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
+            client.GetAllMemories();
+        }
     }
 }
