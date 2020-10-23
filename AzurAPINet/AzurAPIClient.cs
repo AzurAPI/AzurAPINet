@@ -201,7 +201,7 @@ namespace Jan0660.AzurAPINet
         public Dictionary<string, ChapterMemory> GetAllMemories()
         {
             Dictionary<string, ChapterMemory> list;
-            if (Events == null)
+            if (Memories == null)
             {
                 list = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(GetTextFile("memories.internal.json"));
                 if (Options.EnableCaching)
@@ -243,7 +243,7 @@ namespace Jan0660.AzurAPINet
         public Dictionary<string, Dictionary<string, List<VoiceLine>>> GetAllVoiceLines()
         {
             Dictionary<string, Dictionary<string, List<VoiceLine>>> list;
-            if (Events == null)
+            if (VoiceLines == null)
             {
                 list = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(GetTextFile("voice_lines.json"));
                 if (Options.EnableCaching)

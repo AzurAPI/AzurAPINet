@@ -6,9 +6,10 @@
     <LangVersion>8.0</LangVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Jan0660</Authors>
-    <Version>0.5.0-preview3</Version>
+    <Version>0.5.0-preview3.1</Version>
     <Description>A .NET standard 2.0 wrapper for the AzurAPI database. Please note this library is currently work in progress.</Description>
-    <PackageReleaseNotes>added enums functionality</PackageReleaseNotes>
+    <PackageReleaseNotes>3.0- added enums functionality
+3.1 - fix me being stupid and making Client.GetAllMemories and GetAllVoiceLines check if they're cached with Events variable instead of Memories and VoiceLines variable</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/Jan0660/AzurAPINet</RepositoryUrl>
   </PropertyGroup>
