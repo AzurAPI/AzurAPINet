@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzurAPINetCoreTests", "AzurAPINetCoreTests\AzurAPINetCoreTests.csproj", "{C881AD8B-9861-499F-9F6F-56D520CE2B30}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9FB3B831-8AB6-4949-B363-0F60FC0B8328} = {9FB3B831-8AB6-4949-B363-0F60FC0B8328}
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{78247F71-2273-46E9-8109-74721FF975C7}"
 	ProjectSection(SolutionItems) = preProject
 		Progress.md = Progress.md
@@ -16,20 +11,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{78247F71-2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzurAPINet", "AzurAPINet\AzurAPINet.csproj", "{9FB3B831-8AB6-4949-B363-0F60FC0B8328}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzurAPINetTesting", "AzurAPINetTesting\AzurAPINetTesting.csproj", "{5E7A5843-9C4F-4334-AD9D-0C792C6D8CFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C881AD8B-9861-499F-9F6F-56D520CE2B30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C881AD8B-9861-499F-9F6F-56D520CE2B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C881AD8B-9861-499F-9F6F-56D520CE2B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C881AD8B-9861-499F-9F6F-56D520CE2B30}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9FB3B831-8AB6-4949-B363-0F60FC0B8328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9FB3B831-8AB6-4949-B363-0F60FC0B8328}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FB3B831-8AB6-4949-B363-0F60FC0B8328}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FB3B831-8AB6-4949-B363-0F60FC0B8328}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E7A5843-9C4F-4334-AD9D-0C792C6D8CFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E7A5843-9C4F-4334-AD9D-0C792C6D8CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E7A5843-9C4F-4334-AD9D-0C792C6D8CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E7A5843-9C4F-4334-AD9D-0C792C6D8CFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

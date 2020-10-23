@@ -16,7 +16,7 @@ namespace AzurAPINetCoreTests
             //await Task.Delay(10000);
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
-            AzurAPIClient client = new AzurAPIClient(@"D:\00.code\azurapi-js-setup\",
+            AzurAPIClient client = new AzurAPIClient(
                 new AzurAPIClientOptions());
             var Client = client;
             //var mem = client.GetChapterMemoryByName("prologue");
@@ -25,14 +25,18 @@ namespace AzurAPINetCoreTests
             // var ship = client.GetShip("javelin");
             //var s = new ShipStats(ship.Stats.BaseStats, ship.Stats.Level100, 50);
             //var urls = ship.Skins.First().GetSkinUrlsList();
+            var ch = client.GetAllChapters();
             var nats = GetAllNationalities(client);
             var hulls = GetAllHullTypes(client);
             var skinRars = GetAllNewSkinRarities(client);
             var skinTypes = GetAllNewSkinTypes(client);
             var currencies = GetAllNewSkinCurrencies(client);
+            var bars = GetAllBarrageTypes(client);
+            var eqcs = GetEquipmentCategories(client);
             foreach (var ship in client.GetAllShips())
             {
                 var e = ship.GetRarityEnum();
+                var h = ship.GetHullTypeEnum();
             }
             foreach (var ev in client.GetAllEvents())
             {
@@ -40,6 +44,14 @@ namespace AzurAPINetCoreTests
                 {
                     skin.GetCurrencyEnum();
                 }
+            }
+            foreach (var eq in eqcs)
+            {
+                Console.WriteLine($"{eq.Replace(" ", "").Replace("-", "")}, ");
+            }
+            foreach (var eq in eqcs)
+            {
+                Console.WriteLine($"\"{eq}\"=>EquipmentCategory.{eq.Replace(" ", "").Replace("-", "")}, ");
             }
             //var rarities = GetAllRarities(client);
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
@@ -53,6 +65,11 @@ namespace AzurAPINetCoreTests
             var Equipment = Client.GetAllEquipment();
             var Chapters = Client.GetAllChapters();
             var Barrage = Client.GetAllBarrage();
+            // enums
+            foreach(var equipment in Client.GetAllEquipment())
+            {
+                equipment.Value.GetCategoryEnum();
+            }
         }
 
         static List<string> GetAllRarities(AzurAPIClient client)
@@ -62,6 +79,16 @@ namespace AzurAPINetCoreTests
             {
                 if (!res.Contains(ship.Rarity))
                     res.Add(ship.Rarity);
+            }
+            return res;
+        }
+        static List<string> GetAllBarrageTypes(AzurAPIClient client)
+        {
+            List<string> res = new List<string>();
+            foreach (var eventt in client.GetAllBarrage())
+            {
+                if (!res.Contains(eventt.Type))
+                    res.Add(eventt.Type);
             }
             return res;
         }
@@ -118,6 +145,16 @@ namespace AzurAPINetCoreTests
             {
                 if (!res.Contains(ship.Nationality))
                     res.Add(ship.Nationality);
+            }
+            return res;
+        }
+        static List<string> GetEquipmentCategories(AzurAPIClient client)
+        {
+            List<string> res = new List<string>();
+            foreach (var ship in client.GetAllEquipment())
+            {
+                if (!res.Contains(ship.Value.Category))
+                    res.Add(ship.Value.Category);
             }
             return res;
         }

@@ -11,7 +11,8 @@ namespace Jan0660.AzurAPINet.Chapters
         public readonly string Name;
         [JsonProperty("note")]
         public readonly string Note;
-        public ShipDrop() { }
-        public ShipDrop(string Name) { this.Name = Name; }
+        [JsonConstructor]
+        protected internal ShipDrop() { }
+        protected internal ShipDrop(string Name) { this.Name = Name; }
     }
 }
