@@ -34,9 +34,9 @@ namespace AzurAPINetCoreTests
             {
                 var e = ship.GetRarityEnum();
             }
-            foreach(var ev in client.GetAllEvents())
+            foreach (var ev in client.GetAllEvents())
             {
-                foreach(var skin in ev.NewShipsSkins)
+                foreach (var skin in ev.NewShipsSkins)
                 {
                     skin.GetCurrencyEnum();
                 }
@@ -81,12 +81,18 @@ namespace AzurAPINetCoreTests
         static List<string> GetAllNewSkinCurrencies(AzurAPIClient client)
         {
             List<string> res = new List<string>();
+            List<string> gem = new List<string>();
+            List<string> ruby = new List<string>();
             foreach (var eventt in client.GetAllEvents())
             {
                 foreach (var skin in eventt.NewShipsSkins)
                 {
                     if (!res.Contains(skin.Currency))
                         res.Add(skin.Currency);
+                    if (skin.GetCurrencyEnum() == NewSkinCurrency.Gem)
+                        gem.Add($"{skin.Name} - {skin.SkinName}");
+                    if (skin.GetCurrencyEnum() == NewSkinCurrency.Ruby)
+                        ruby.Add($"{skin.Name} - {skin.SkinName}");
                 }
             }
             return res;

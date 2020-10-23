@@ -14,8 +14,8 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty]
         public readonly RegionBoolean aviation;
         [JsonProperty]
-        public readonly RegionBoolean limited;
+        public readonly string limited;
         [JsonProperty]
-        public readonly RegionBoolean exchange;
+        public readonly string exchange;
     }
 }
