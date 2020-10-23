@@ -13,6 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzurAPINet", "AzurAPINet\Az
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzurAPINetTesting", "AzurAPINetTesting\AzurAPINetTesting.csproj", "{5E7A5843-9C4F-4334-AD9D-0C792C6D8CFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzurAPINetTests", "AzurAPINetTests\AzurAPINetTests.csproj", "{DC32A659-10FC-40FE-9803-ADBBFFD70660}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9FB3B831-8AB6-4949-B363-0F60FC0B8328} = {9FB3B831-8AB6-4949-B363-0F60FC0B8328}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +32,10 @@ Global
 		{5E7A5843-9C4F-4334-AD9D-0C792C6D8CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E7A5843-9C4F-4334-AD9D-0C792C6D8CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E7A5843-9C4F-4334-AD9D-0C792C6D8CFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC32A659-10FC-40FE-9803-ADBBFFD70660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC32A659-10FC-40FE-9803-ADBBFFD70660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC32A659-10FC-40FE-9803-ADBBFFD70660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC32A659-10FC-40FE-9803-ADBBFFD70660}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
