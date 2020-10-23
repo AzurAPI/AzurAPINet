@@ -27,6 +27,24 @@ namespace Jan0660.AzurAPINet.Enums
         AuxiliaryEquipment,
         AntiSubmarineEquipment
     }
+    public enum Nationality
+    {
+        Bilibili,
+        RoyalNavy,
+        SakuraEmpire,
+        IronBlood,
+        EagleUnion,
+        VichyaDominion,
+        DragonEmpery,
+        KizunaAI,
+        NorthernParliament,
+        Neptunia,
+        IrisLibre,
+        SardegnaEmpire,
+        Utawarerumono,
+        Hololive,
+        Universal
+    }
     /// <summary>
     /// GetXXEnum extension methods
     /// </summary>
@@ -98,6 +116,27 @@ namespace Jan0660.AzurAPINet.Enums
                 "Anti-Air Guns" => EquipmentCategory.AntiAirGuns,
                 "Auxiliary Equipment" => EquipmentCategory.AuxiliaryEquipment,
                 "Anti-Submarine Equipment" => EquipmentCategory.AntiSubmarineEquipment
+            };
+        }
+        public static Nationality GetNationalityEnum(this Ship ship)
+        {
+            return ship.Nationality switch
+            {
+                "Bilibili" => Nationality.Bilibili,
+                "Royal Navy" => Nationality.RoyalNavy,
+                "Sakura Empire" => Nationality.SakuraEmpire,
+                "Iron Blood" => Nationality.IronBlood,
+                "Eagle Union" => Nationality.EagleUnion,
+                "Vichya Dominion" => Nationality.VichyaDominion,
+                "Dragon Empery" => Nationality.DragonEmpery,
+                "KizunaAI" => Nationality.KizunaAI,
+                "Northern Parliament" => Nationality.NorthernParliament,
+                "Neptunia" => Nationality.Neptunia,
+                "Iris Libre" => Nationality.IrisLibre,
+                "Sardegna Empire" => Nationality.SardegnaEmpire,
+                "Utawarerumono" => Nationality.Utawarerumono,
+                "Hololive" => Nationality.Hololive,
+                "Universal" => Nationality.Universal
             };
         }
     }

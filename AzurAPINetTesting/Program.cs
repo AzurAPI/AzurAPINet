@@ -45,13 +45,13 @@ namespace AzurAPINetCoreTests
                     skin.GetCurrencyEnum();
                 }
             }
-            foreach (var eq in eqcs)
+            foreach (var eq in nats)
             {
                 Console.WriteLine($"{eq.Replace(" ", "").Replace("-", "")}, ");
             }
-            foreach (var eq in eqcs)
+            foreach (var eq in nats)
             {
-                Console.WriteLine($"\"{eq}\"=>EquipmentCategory.{eq.Replace(" ", "").Replace("-", "")}, ");
+                Console.WriteLine($"\"{eq}\"=>Nationality.{eq.Replace(" ", "").Replace("-", "")}, ");
             }
             //var rarities = GetAllRarities(client);
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
