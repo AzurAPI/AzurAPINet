@@ -4,17 +4,17 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static AzurAPINetTests.Static;
 
 namespace AzurAPINetTests
 {
     [TestClass]
     public class GetEnums
     {
-        public static AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
         [TestMethod]
         public void GetShipRarityEnum()
         {
-            foreach(var s in client.GetAllShips())
+            foreach(var s in Client.GetAllShips())
             {
                 s.GetRarityEnum();
             }
@@ -22,7 +22,7 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetNewShipSkinCurrencyEnum()
         {
-            foreach (var e in client.GetAllEvents())
+            foreach (var e in Client.GetAllEvents())
             {
                 foreach (var s in e.NewShipsSkins)
                 {
@@ -33,7 +33,7 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetBarrageTypeEnum()
         {
-            foreach (var b in client.GetAllBarrage())
+            foreach (var b in Client.GetAllBarrage())
             {
                 b.GetBarrageTypeEnum();
             }
@@ -41,7 +41,7 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetShipHullTypeEnum()
         {
-            foreach (var s in client.GetAllShips())
+            foreach (var s in Client.GetAllShips())
             {
                 s.GetHullTypeEnum();
             }
@@ -49,7 +49,7 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetEquipmentCategoryEnum()
         {
-            foreach (var e in client.GetAllEquipment())
+            foreach (var e in Client.GetAllEquipment())
             {
                 e.Value.GetCategoryEnum();
             }
@@ -57,7 +57,7 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetShipNationalityEnum()
         {
-            foreach (var s in client.GetAllShips())
+            foreach (var s in Client.GetAllShips())
             {
                 s.GetNationalityEnum();
             }

@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Jan0660.AzurAPINet;
+using static AzurAPINetTests.Static;
 namespace AzurAPINetTests
 {
     [TestClass]
@@ -8,44 +9,37 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetShips()
         {
-            AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
-            client.GetAllShips();
+            Client.GetAllShips();
         }
         [TestMethod]
         public void GetBarrage()
         {
-            AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
-            client.GetAllBarrage();
+            Client.GetAllBarrage();
         }
         [TestMethod]
         public void GetEquipment()
         {
-            AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
-            client.GetAllEquipment();
+            Client.GetAllEquipment();
         }
         [TestMethod]
         public void GetChapters()
         {
-            AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
-            client.GetAllChapters();
+            Client.GetAllChapters();
         }
         [TestMethod]
         public void GetVoiceLines()
         {
-            AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
-            client.GetAllVoiceLines();
+            Client.GetAllVoiceLines();
         }
         [TestMethod]
         public void GetEvents()
         {
-            AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
-            client.GetAllEvents();
+            Client.GetAllEvents();
         }
         [TestMethod]
         public void GetMemories()
         {
-            AzurAPIClient client = new AzurAPIClient(new AzurAPIClientOptions());
-            client.GetAllMemories();
+            Client.GetAllMemories();
         }
     }
 }
