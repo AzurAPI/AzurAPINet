@@ -9,37 +9,37 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetShips()
         {
-            Client.GetAllShips();
+            var ships = Client.GetAllShips() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
         public void GetBarrage()
         {
-            Client.GetAllBarrage();
+            var barrage = Client.GetAllBarrage() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
         public void GetEquipment()
         {
-            Client.GetAllEquipment();
+            var equipment = Client.GetAllEquipment() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
         public void GetChapters()
         {
-            Client.GetAllChapters();
+            var chapters = Client.GetAllChapters() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
         public void GetVoiceLines()
         {
-            Client.GetAllVoiceLines();
+            var voiceLines = Client.GetAllVoiceLines() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
         public void GetEvents()
         {
-            Client.GetAllEvents();
+            var events = Client.GetAllEvents() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
         public void GetMemories()
         {
-            Client.GetAllMemories();
+            var memories = Client.GetAllMemories() ?? throw new System.Exception("returned null");
         }
     }
 }
