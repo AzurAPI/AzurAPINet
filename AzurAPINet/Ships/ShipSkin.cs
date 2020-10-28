@@ -16,7 +16,7 @@ namespace Jan0660.AzurAPINet.Ships
         /// <summary>
         /// in case of chinese censorship of waifus
         /// </summary>
-        [JsonProperty("imageCN")]
+        [JsonProperty("cn")]
         public readonly string? ImageCN;
         [JsonProperty("background")]
         public readonly string Background;
@@ -26,9 +26,9 @@ namespace Jan0660.AzurAPINet.Ships
         public readonly ShipSkinInfo Info;
         public List<string> GetSkinUrlsList()
         {
-            List<string> list = new List<string> { Image,  Chibi, Background };
-            if(ImageCN!=null)
-            list.Add(ImageCN);
+            List<string> list = new List<string> { Image, Chibi, Background };
+            if (ImageCN != null)
+                list.Add(ImageCN);
             return list;
         }
     }
