@@ -62,5 +62,13 @@ namespace AzurAPINetTests
                 s.GetNationalityEnum();
             }
         }
+        [TestMethod]
+        public void GetEquipmentNationality()
+        {
+            foreach(var e in Client.GetAllEquipment())
+            {
+                e.Value.GetNationalityEnum();
+            }
+        }
     }
 }

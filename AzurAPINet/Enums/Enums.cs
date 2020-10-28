@@ -1,4 +1,5 @@
 ﻿using Jan0660.AzurAPINet.Barrage;
+using Jan0660.AzurAPINet.Equipments;
 using Jan0660.AzurAPINet.Events;
 using Jan0660.AzurAPINet.Ships;
 using System;
@@ -7,12 +8,13 @@ using System.Text;
 
 namespace Jan0660.AzurAPINet.Enums
 {
-    public enum Rarity { Normal,Rare,Elite,SuperRare}
+    public enum Rarity { Normal, Rare, Elite, SuperRare }
     public enum ShipRarity { Normal, Rare, Elite, SuperRare, Decisive, Priority, UltraRare }
     public enum NewSkinCurrency { Gem, Ruby }
-    public enum BarrageType { Ship, Class, Skill}
+    public enum BarrageType { Ship, Class, Skill }
     public enum ShipHullType { Destroyer, Monitor, LightCruiser, HeavyCruiser, AircraftCarrier, RepairShip, Battleship, Submarine, Battlecruiser, LargeCruiser, LightAircraftCarrier, SubmarineCarrier, MunitionShip };
-    public enum EquipmentCategory {
+    public enum EquipmentCategory
+    {
         DestroyerGuns,
         LightCruiserGuns,
         HeavyCruiserGuns,
@@ -43,7 +45,9 @@ namespace Jan0660.AzurAPINet.Enums
         SardegnaEmpire,
         Utawarerumono,
         Hololive,
-        Universal
+        Universal,
+        NorthUnion,
+        EasternRadiance
     }
     /// <summary>
     /// GetXXEnum extension methods
@@ -99,7 +103,7 @@ namespace Jan0660.AzurAPINet.Enums
                 "Munition Ship" => ShipHullType.MunitionShip
             };
         }
-        public static EquipmentCategory GetCategoryEnum(this Jan0660.AzurAPINet.Equipments.Equipment equipment)
+        public static EquipmentCategory GetCategoryEnum(this Equipment equipment)
         {
             return equipment.Category switch
             {
@@ -118,14 +122,20 @@ namespace Jan0660.AzurAPINet.Enums
                 "Anti-Submarine Equipment" => EquipmentCategory.AntiSubmarineEquipment
             };
         }
+        public static Nationality GetNationalityEnum(this Equipment equipment)
+        => StringToNationality(equipment.Nationality);
         public static Nationality GetNationalityEnum(this Ship ship)
+        => StringToNationality(ship.Nationality);
+
+        public static Nationality StringToNationality(string str)
         {
-            return ship.Nationality switch
+            return str switch
             {
                 "Bilibili" => Nationality.Bilibili,
                 "Royal Navy" => Nationality.RoyalNavy,
                 "Sakura Empire" => Nationality.SakuraEmpire,
                 "Iron Blood" => Nationality.IronBlood,
+                "Ironblood" => Nationality.IronBlood,
                 "Eagle Union" => Nationality.EagleUnion,
                 "Vichya Dominion" => Nationality.VichyaDominion,
                 "Dragon Empery" => Nationality.DragonEmpery,
@@ -136,7 +146,9 @@ namespace Jan0660.AzurAPINet.Enums
                 "Sardegna Empire" => Nationality.SardegnaEmpire,
                 "Utawarerumono" => Nationality.Utawarerumono,
                 "Hololive" => Nationality.Hololive,
-                "Universal" => Nationality.Universal
+                "Universal" => Nationality.Universal,
+                "North Union" => Nationality.NorthUnion,
+                "Eastern Radiance" => Nationality.EasternRadiance
             };
         }
     }
