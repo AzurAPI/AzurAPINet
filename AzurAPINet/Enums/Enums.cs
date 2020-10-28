@@ -4,11 +4,13 @@ using Jan0660.AzurAPINet.Events;
 using Jan0660.AzurAPINet.Ships;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Jan0660.AzurAPINet.Enums
 {
-    public enum Rarity { Normal, Rare, Elite, SuperRare }
+    public enum Rarity { Normal, Rare, Elite, SuperRare, UltraRare }
     public enum ShipRarity { Normal, Rare, Elite, SuperRare, Decisive, Priority, UltraRare }
     public enum NewSkinCurrency { Gem, Ruby }
     public enum BarrageType { Ship, Class, Skill }
@@ -29,6 +31,18 @@ namespace Jan0660.AzurAPINet.Enums
         AuxiliaryEquipment,
         AntiSubmarineEquipment
     }
+    public enum ShipType
+    {
+        BB,
+        CA,
+        DD,
+        CV,
+        BC,
+        CL,
+        SS,
+        CVL,
+        SSV
+    }
     public enum Nationality
     {
         Bilibili,
@@ -48,6 +62,13 @@ namespace Jan0660.AzurAPINet.Enums
         Universal,
         NorthUnion,
         EasternRadiance
+    }
+    public enum EquipmentTier
+    {
+        T0,
+        T1,
+        T2,
+        T3
     }
     /// <summary>
     /// GetXXEnum extension methods
@@ -82,6 +103,42 @@ namespace Jan0660.AzurAPINet.Enums
                 "ship" => BarrageType.Ship,
                 "class" => BarrageType.Class,
                 "skill" => BarrageType.Skill
+            };
+        }
+        public static ShipType GetTypeEnum(this NewShipConstruction ship)
+        => StringToShipType(ship.Type);
+        public static ShipType GetTypeEnum(this NewShipSkin skin)
+        => StringToShipType(skin.Type);
+        public static ShipType StringToShipType(string str)
+        {
+            return str switch
+            {
+                "BB" => ShipType.BB,
+                "CA" => ShipType.CA,
+                "DD" => ShipType.DD,
+                "CV" => ShipType.CV,
+                "BC" => ShipType.BC,
+                "CL" => ShipType.CL,
+                "SS" => ShipType.SS,
+                "CVL" => ShipType.CVL,
+                "SSV" => ShipType.SSV
+            };
+        }
+        public static Rarity GetRarityEnum(this NewShipSkin ship)
+            => StringToRarity(ship.Rarity);
+        public static Rarity GetRarityEnum(this EquipmentStats equipment)
+            => StringToRarity(equipment.Rarity);
+        public static Rarity GetRarityEnum(this NewShipConstruction ship)
+            => StringToRarity(ship.Rarity);
+        public static Rarity StringToRarity(string str)
+        {
+            return str switch
+            {
+                "Normal" => Rarity.Normal,
+                "Rare" => Rarity.Rare,
+                "Elite" => Rarity.Elite,
+                "Super Rare" => Rarity.SuperRare,
+                "Ultra Rare" => Rarity.UltraRare
             };
         }
         public static ShipHullType GetHullTypeEnum(this Ship ship)
@@ -149,6 +206,16 @@ namespace Jan0660.AzurAPINet.Enums
                 "Universal" => Nationality.Universal,
                 "North Union" => Nationality.NorthUnion,
                 "Eastern Radiance" => Nationality.EasternRadiance
+            };
+        }
+        public static EquipmentTier GetTierEnum(this EquipmentStats equipment)
+        {
+            return equipment.Tier switch
+            {
+                "T0" => EquipmentTier.T0,
+                "T1" => EquipmentTier.T1,
+                "T2" => EquipmentTier.T2,
+                "T3" => EquipmentTier.T3
             };
         }
     }

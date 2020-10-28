@@ -15,22 +15,8 @@
   * Async "cache ships/chapters/etc" methods could be added 
 
 * Enums 📝
-  * Ship.Nationality
-  * Ship.HullType
-  * NewShipSkin.Rarity
-  * NewShipSkin.Type
-  * NewShipSkin.Currency
-  * NewShipConstruction.Rarity
-  * NewShipConstruction.Type
-  * Equipment.Nationality
-  * Equipment.Category
-  * EquipmentStats.Tier
-  * EquipmentStats.Rarity
   * BarrageRound.Type
-  * BarrageItem.Type
   * BarrageItem.Hull
-
-##### This document will be kept updated to the newest release/preview release
 
 ❌- Didn't start work yet
 📝- Work In Progress

@@ -26,6 +26,8 @@ namespace AzurAPINetCoreTests
             //var s = new ShipStats(ship.Stats.BaseStats, ship.Stats.Level100, 50);
             //var urls = ship.Skins.First().GetSkinUrlsList();
             var s = client.GetShip("takao");
+            var tiers = GetAllEquipmentStatsTiers(client);
+            var c = GetAllNewShipConstructionTypes(client);
             var ch = client.GetAllChapters();
             var nats = GetAllNationalities(client);
             var hulls = GetAllHullTypes(client);
@@ -34,6 +36,7 @@ namespace AzurAPINetCoreTests
             var currencies = GetAllNewSkinCurrencies(client);
             var bars = GetAllBarrageTypes(client);
             var eqcs = GetEquipmentCategories(client);
+            var hul = GetAllBarrageItemHulls(client);
             foreach (var ship in client.GetAllShips())
             {
                 var e = ship.GetRarityEnum();
@@ -67,12 +70,24 @@ namespace AzurAPINetCoreTests
             var Chapters = Client.GetAllChapters();
             var Barrage = Client.GetAllBarrage();
             // enums
-            foreach(var equipment in Client.GetAllEquipment())
+            foreach (var equipment in Client.GetAllEquipment())
             {
                 equipment.Value.GetCategoryEnum();
             }
         }
-
+        static List<string> GetAllNewShipConstructionTypes(AzurAPIClient client)
+        {
+            List<string> res = new List<string>();
+            foreach (var e in client.GetAllEvents())
+            {
+                foreach (var s in e.NewShipsConstruction)
+                {
+                    if (!res.Contains(s.Type))
+                        res.Add(s.Type);
+                }
+            }
+            return res;
+        }
         static List<string> GetAllRarities(AzurAPIClient client)
         {
             List<string> res = new List<string>();
@@ -169,6 +184,29 @@ namespace AzurAPINetCoreTests
             }
             return res;
         }
+        static List<string> GetAllBarrageItemHulls(AzurAPIClient client)
+        {
 
+            List<string> res = new List<string>();
+            foreach (var bar in client.GetAllBarrage())
+            {
+                if (!res.Contains(bar.Hull))
+                    res.Add(bar.Hull);
+            }
+            return res;
+        }
+        static List<string> GetAllEquipmentStatsTiers(AzurAPIClient client)
+        {
+            var res = new List<string>();
+            foreach (var eq in client.GetAllEquipment())
+            {
+                foreach (var tier in eq.Value.Tiers)
+                {
+                    if (!res.Contains(tier.Value.Tier))
+                        res.Add(tier.Value.Tier);
+                }
+            }
+            return res;
+        }
     }
 }

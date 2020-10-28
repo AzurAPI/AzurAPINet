@@ -14,7 +14,7 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetShipRarityEnum()
         {
-            foreach(var s in Client.GetAllShips())
+            foreach (var s in Client.GetAllShips())
             {
                 s.GetRarityEnum();
             }
@@ -65,9 +65,75 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetEquipmentNationality()
         {
-            foreach(var e in Client.GetAllEquipment())
+            foreach (var e in Client.GetAllEquipment())
             {
                 e.Value.GetNationalityEnum();
+            }
+        }
+        [TestMethod]
+        public void GetNewShipConstructionRarity()
+        {
+            foreach (var e in Client.GetAllEvents())
+            {
+                foreach (var s in e.NewShipsConstruction)
+                {
+                    s.GetRarityEnum();
+                }
+            }
+        }
+        [TestMethod]
+        public void GetNewShipConstructionType()
+        {
+            foreach (var e in Client.GetAllEvents())
+            {
+                foreach (var s in e.NewShipsConstruction)
+                {
+                    s.GetTypeEnum();
+                }
+            }
+        }
+        [TestMethod]
+        public void GetNewShipSkinRarity()
+        {
+            foreach (var e in Client.GetAllEvents())
+            {
+                foreach (var s in e.NewShipsSkins)
+                {
+                    s.GetRarityEnum();
+                }
+            }
+        }
+        [TestMethod]
+        public void GetEquipmentStatsRarity()
+        {
+            foreach (var e in Client.GetAllEquipment())
+            {
+                foreach (var t in e.Value.Tiers)
+                {
+                    t.Value.GetRarityEnum();
+                }
+            }
+        }
+        [TestMethod]
+        public void GetNewShipSkinType()
+        {
+            foreach (var e in Client.GetAllEvents())
+            {
+                foreach (var s in e.NewShipsSkins)
+                {
+                    s.GetTypeEnum();
+                }
+            }
+        }
+        [TestMethod]
+        public void GetEquipmentStatsTier()
+        {
+            foreach (var e in Client.GetAllEquipment())
+            {
+                foreach (var t in e.Value.Tiers)
+                {
+                    t.Value.GetTierEnum();
+                }
             }
         }
     }

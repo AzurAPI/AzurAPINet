@@ -16,7 +16,7 @@ namespace Jan0660.AzurAPINet.Enums
             ShipRarity.SuperRare => Rarity.SuperRare,
             ShipRarity.Decisive => Rarity.SuperRare,
             ShipRarity.Priority => Rarity.SuperRare,
-            ShipRarity.UltraRare => Rarity.SuperRare
+            ShipRarity.UltraRare => Rarity.UltraRare
         };
     }
 }
