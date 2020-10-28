@@ -75,6 +75,7 @@ namespace Jan0660.AzurAPINet.Enums
     /// </summary>
     public static class EnumExtensions
     {
+        #region Ship
         public static ShipRarity GetRarityEnum(this Ship ship)
         {
             return ship.Rarity switch
@@ -86,59 +87,6 @@ namespace Jan0660.AzurAPINet.Enums
                 "Decisive" => ShipRarity.Decisive,
                 "Priority" => ShipRarity.Priority,
                 "Ultra Rare" => ShipRarity.UltraRare
-            };
-        }
-        public static NewSkinCurrency GetCurrencyEnum(this NewShipSkin skin)
-        {
-            return skin.Currency switch
-            {
-                "Gem" => NewSkinCurrency.Gem,
-                "Ruby" => NewSkinCurrency.Ruby
-            };
-        }
-        public static BarrageType GetBarrageTypeEnum(this BarrageItem barrage)
-        {
-            return barrage.Type switch
-            {
-                "ship" => BarrageType.Ship,
-                "class" => BarrageType.Class,
-                "skill" => BarrageType.Skill
-            };
-        }
-        public static ShipType GetTypeEnum(this NewShipConstruction ship)
-        => StringToShipType(ship.Type);
-        public static ShipType GetTypeEnum(this NewShipSkin skin)
-        => StringToShipType(skin.Type);
-        public static ShipType StringToShipType(string str)
-        {
-            return str switch
-            {
-                "BB" => ShipType.BB,
-                "CA" => ShipType.CA,
-                "DD" => ShipType.DD,
-                "CV" => ShipType.CV,
-                "BC" => ShipType.BC,
-                "CL" => ShipType.CL,
-                "SS" => ShipType.SS,
-                "CVL" => ShipType.CVL,
-                "SSV" => ShipType.SSV
-            };
-        }
-        public static Rarity GetRarityEnum(this NewShipSkin ship)
-            => StringToRarity(ship.Rarity);
-        public static Rarity GetRarityEnum(this EquipmentStats equipment)
-            => StringToRarity(equipment.Rarity);
-        public static Rarity GetRarityEnum(this NewShipConstruction ship)
-            => StringToRarity(ship.Rarity);
-        public static Rarity StringToRarity(string str)
-        {
-            return str switch
-            {
-                "Normal" => Rarity.Normal,
-                "Rare" => Rarity.Rare,
-                "Elite" => Rarity.Elite,
-                "Super Rare" => Rarity.SuperRare,
-                "Ultra Rare" => Rarity.UltraRare
             };
         }
         public static ShipHullType GetHullTypeEnum(this Ship ship)
@@ -160,6 +108,24 @@ namespace Jan0660.AzurAPINet.Enums
                 "Munition Ship" => ShipHullType.MunitionShip
             };
         }
+        public static Nationality GetNationalityEnum(this Ship ship)
+        => StringToNationality(ship.Nationality);
+        #endregion
+        #region NewShipSkin
+        public static NewSkinCurrency GetCurrencyEnum(this NewShipSkin skin)
+        {
+            return skin.Currency switch
+            {
+                "Gem" => NewSkinCurrency.Gem,
+                "Ruby" => NewSkinCurrency.Ruby
+            };
+        }
+        public static ShipType GetTypeEnum(this NewShipSkin skin)
+        => StringToShipType(skin.Type);
+        public static Rarity GetRarityEnum(this NewShipSkin ship)
+            => StringToRarity(ship.Rarity);
+        #endregion
+        #region Equipment
         public static EquipmentCategory GetCategoryEnum(this Equipment equipment)
         {
             return equipment.Category switch
@@ -181,8 +147,62 @@ namespace Jan0660.AzurAPINet.Enums
         }
         public static Nationality GetNationalityEnum(this Equipment equipment)
         => StringToNationality(equipment.Nationality);
-        public static Nationality GetNationalityEnum(this Ship ship)
-        => StringToNationality(ship.Nationality);
+        #endregion
+        #region EquipmentStats
+        public static EquipmentTier GetTierEnum(this EquipmentStats equipment)
+        {
+            return equipment.Tier switch
+            {
+                "T0" => EquipmentTier.T0,
+                "T1" => EquipmentTier.T1,
+                "T2" => EquipmentTier.T2,
+                "T3" => EquipmentTier.T3
+            };
+        }
+        public static Rarity GetRarityEnum(this EquipmentStats equipment)
+            => StringToRarity(equipment.Rarity);
+        #endregion
+        #region NewShipConstruction
+        public static ShipType GetTypeEnum(this NewShipConstruction ship)
+        => StringToShipType(ship.Type);
+        public static Rarity GetRarityEnum(this NewShipConstruction ship)
+            => StringToRarity(ship.Rarity);
+        #endregion
+        public static BarrageType GetBarrageTypeEnum(this BarrageItem barrage)
+        {
+            return barrage.Type switch
+            {
+                "ship" => BarrageType.Ship,
+                "class" => BarrageType.Class,
+                "skill" => BarrageType.Skill
+            };
+        }
+        public static ShipType StringToShipType(string str)
+        {
+            return str switch
+            {
+                "BB" => ShipType.BB,
+                "CA" => ShipType.CA,
+                "DD" => ShipType.DD,
+                "CV" => ShipType.CV,
+                "BC" => ShipType.BC,
+                "CL" => ShipType.CL,
+                "SS" => ShipType.SS,
+                "CVL" => ShipType.CVL,
+                "SSV" => ShipType.SSV
+            };
+        }
+        public static Rarity StringToRarity(string str)
+        {
+            return str switch
+            {
+                "Normal" => Rarity.Normal,
+                "Rare" => Rarity.Rare,
+                "Elite" => Rarity.Elite,
+                "Super Rare" => Rarity.SuperRare,
+                "Ultra Rare" => Rarity.UltraRare
+            };
+        }
 
         public static Nationality StringToNationality(string str)
         {
@@ -206,16 +226,6 @@ namespace Jan0660.AzurAPINet.Enums
                 "Universal" => Nationality.Universal,
                 "North Union" => Nationality.NorthUnion,
                 "Eastern Radiance" => Nationality.EasternRadiance
-            };
-        }
-        public static EquipmentTier GetTierEnum(this EquipmentStats equipment)
-        {
-            return equipment.Tier switch
-            {
-                "T0" => EquipmentTier.T0,
-                "T1" => EquipmentTier.T1,
-                "T2" => EquipmentTier.T2,
-                "T3" => EquipmentTier.T3
             };
         }
     }
