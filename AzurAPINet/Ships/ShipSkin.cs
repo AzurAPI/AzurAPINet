@@ -20,6 +20,8 @@ namespace Jan0660.AzurAPINet.Ships
         public readonly string? ImageCN;
         [JsonProperty("background")]
         public readonly string Background;
+        [JsonProperty("nobg")]
+        public readonly string? NoBackground;
         [JsonProperty("chibi")]
         public readonly string Chibi;
         [JsonProperty("info")]
