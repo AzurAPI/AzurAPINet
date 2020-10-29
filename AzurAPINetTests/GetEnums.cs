@@ -3,6 +3,7 @@ using Jan0660.AzurAPINet.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using static AzurAPINetTests.Static;
 
@@ -35,7 +36,7 @@ namespace AzurAPINetTests
         {
             foreach (var b in Client.GetAllBarrage())
             {
-                b.GetBarrageTypeEnum();
+                b.GetTypeEnum();
             }
         }
         [TestMethod]
@@ -134,6 +135,25 @@ namespace AzurAPINetTests
                 {
                     t.Value.GetTierEnum();
                 }
+            }
+        }
+        [TestMethod]
+        public void GetBarrageRoundType()
+        {
+            foreach (var barrage in Client.GetAllBarrage())
+            {
+                foreach (var round in barrage.Rounds)
+                {
+                    round.GetTypeEnum();
+                }
+            }
+        }
+        [TestMethod]
+        public void GetBarrageItemHullType()
+        {
+            foreach (var barrage in Client.GetAllBarrage())
+            {
+                barrage.GetHullTypeEnum();
             }
         }
     }

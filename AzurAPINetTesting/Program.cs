@@ -29,6 +29,7 @@ namespace AzurAPINetCoreTests
             var tiers = GetAllEquipmentStatsTiers(client);
             var c = GetAllNewShipConstructionTypes(client);
             var ch = client.GetAllChapters();
+            var aaa = GetAllBarageRoundTypes(client);
             var nats = GetAllNationalities(client);
             var hulls = GetAllHullTypes(client);
             var skinRars = GetAllNewSkinRarities(client);
@@ -204,6 +205,19 @@ namespace AzurAPINetCoreTests
                 {
                     if (!res.Contains(tier.Value.Tier))
                         res.Add(tier.Value.Tier);
+                }
+            }
+            return res;
+        }
+        static List<string> GetAllBarageRoundTypes(AzurAPIClient client)
+        {
+            var res = new List<string>();
+            foreach (var bar in client.GetAllBarrage())
+            {
+                foreach (var round in bar.Rounds)
+                {
+                    if (!res.Contains(round.Type))
+                        res.Add(round.Type);
                 }
             }
             return res;

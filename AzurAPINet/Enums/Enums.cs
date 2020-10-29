@@ -31,17 +31,20 @@ namespace Jan0660.AzurAPINet.Enums
         AuxiliaryEquipment,
         AntiSubmarineEquipment
     }
-    public enum ShipType
+    public enum HullType
     {
         BB,
         CA,
         DD,
         CV,
+        CB,
         BC,
+        BM,
         CL,
         SS,
         CVL,
-        SSV
+        SSV,
+        BBV
     }
     public enum Nationality
     {
@@ -69,6 +72,28 @@ namespace Jan0660.AzurAPINet.Enums
         T1,
         T2,
         T3
+    }
+    public enum BarrageRoundType
+    {
+        Normal,
+        HE,
+        AP,
+        Torpedo,
+        SAP,
+        /// <summary>
+        /// Torpedo (CV)
+        /// </summary>
+        TorpedoCV,
+        /// <summary>
+        /// Bomb (CV)
+        /// </summary>
+        BombCV,
+        ASW,
+        Sanshikidan,
+        /// <summary>
+        /// Laser?
+        /// </summary>
+        Laser
     }
     /// <summary>
     /// GetXXEnum extension methods
@@ -120,8 +145,8 @@ namespace Jan0660.AzurAPINet.Enums
                 "Ruby" => NewSkinCurrency.Ruby
             };
         }
-        public static ShipType GetTypeEnum(this NewShipSkin skin)
-        => StringToShipType(skin.Type);
+        public static HullType GetTypeEnum(this NewShipSkin skin)
+        => StringToHullType(skin.Type);
         public static Rarity GetRarityEnum(this NewShipSkin ship)
             => StringToRarity(ship.Rarity);
         #endregion
@@ -163,12 +188,13 @@ namespace Jan0660.AzurAPINet.Enums
             => StringToRarity(equipment.Rarity);
         #endregion
         #region NewShipConstruction
-        public static ShipType GetTypeEnum(this NewShipConstruction ship)
-        => StringToShipType(ship.Type);
+        public static HullType GetTypeEnum(this NewShipConstruction ship)
+        => StringToHullType(ship.Type);
         public static Rarity GetRarityEnum(this NewShipConstruction ship)
             => StringToRarity(ship.Rarity);
         #endregion
-        public static BarrageType GetBarrageTypeEnum(this BarrageItem barrage)
+        #region BarrageItem
+        public static BarrageType GetTypeEnum(this BarrageItem barrage)
         {
             return barrage.Type switch
             {
@@ -177,19 +203,43 @@ namespace Jan0660.AzurAPINet.Enums
                 "skill" => BarrageType.Skill
             };
         }
-        public static ShipType StringToShipType(string str)
+        public static HullType GetHullTypeEnum(this BarrageItem barrage)
+            => StringToHullType(barrage.Hull);
+        #endregion
+        #region BarrageRound
+        public static BarrageRoundType GetTypeEnum(this BarrageRound round)
+        {
+            return round.Type switch
+            {
+                "Normal" => BarrageRoundType.Normal,
+                "HE" => BarrageRoundType.HE,
+                "AP" => BarrageRoundType.AP,
+                "Torpedo" => BarrageRoundType.Torpedo,
+                "SAP" => BarrageRoundType.SAP,
+                "Torpedo (CV)" => BarrageRoundType.TorpedoCV,
+                "Bomb (CV)" => BarrageRoundType.BombCV,
+                "ASW" => BarrageRoundType.ASW,
+                "Sanshikidan" => BarrageRoundType.Sanshikidan,
+                "Laser?" => BarrageRoundType.Laser
+            };
+        }
+        #endregion
+        public static HullType StringToHullType(string str)
         {
             return str switch
             {
-                "BB" => ShipType.BB,
-                "CA" => ShipType.CA,
-                "DD" => ShipType.DD,
-                "CV" => ShipType.CV,
-                "BC" => ShipType.BC,
-                "CL" => ShipType.CL,
-                "SS" => ShipType.SS,
-                "CVL" => ShipType.CVL,
-                "SSV" => ShipType.SSV
+                "BB" => HullType.BB,
+                "CA" => HullType.CA,
+                "DD" => HullType.DD,
+                "CV" => HullType.CV,
+                "CB" => HullType.CB,
+                "BC" => HullType.BC,
+                "BM" => HullType.BM,
+                "CL" => HullType.CL,
+                "SS" => HullType.SS,
+                "CVL" => HullType.CVL,
+                "SSV" => HullType.SSV,
+                "BBV" => HullType.BBV
             };
         }
         public static Rarity StringToRarity(string str)

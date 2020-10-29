@@ -15,8 +15,6 @@
   * Async "cache ships/chapters/etc" methods could be added 
 
 * Enums 📝
-  * BarrageRound.Type
-  * BarrageItem.Hull
 
 ❌- Didn't start work yet
 📝- Work In Progress
