@@ -25,6 +25,7 @@ namespace AzurAPINetCoreTests
             // var ship = client.GetShip("javelin");
             //var s = new ShipStats(ship.Stats.BaseStats, ship.Stats.Level100, 50);
             //var urls = ship.Skins.First().GetSkinUrlsList();
+            var cha = client.GetAllChapters();
             var s = client.GetShip("takao");
             var tiers = GetAllEquipmentStatsTiers(client);
             var c = GetAllNewShipConstructionTypes(client);

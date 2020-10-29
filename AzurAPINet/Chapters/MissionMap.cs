@@ -39,5 +39,7 @@ namespace Jan0660.AzurAPINet.Chapters
         [JsonProperty("shipDrops")]
         [JsonConverter(typeof(ShipDropsConverter))]
         public readonly List<ShipDrop> ShipDrops;
+        [JsonProperty("nodeMap")]
+        public readonly MissionNodeMap NodeMap;
     }
 }
