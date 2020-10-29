@@ -19,7 +19,8 @@ namespace AzurAPINetCoreTests
             AzurAPIClient client = new AzurAPIClient(
                 new AzurAPIClientOptions());
             var Client = client;
-            var cha = client.GetAllChapters();
+            var ships = client.GetAllShips();
+            var sh = client.GetShip("Abercrombie");
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
         static void GetAllAll(AzurAPIClient Client)

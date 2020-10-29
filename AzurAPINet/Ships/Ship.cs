@@ -52,5 +52,7 @@ namespace Jan0660.AzurAPINet.Ships
         public readonly Dictionary<string, ShipMiscItem> Misc;
         [JsonProperty("gallery")]
         public readonly List<ShipGalleryItem> Gallery;
+        [JsonProperty("fleetTech")]
+        public readonly ShipFleetTech FleetTech;
     }
 }
