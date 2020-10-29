@@ -19,47 +19,7 @@ namespace AzurAPINetCoreTests
             AzurAPIClient client = new AzurAPIClient(
                 new AzurAPIClientOptions());
             var Client = client;
-            //var mem = client.GetChapterMemoryByName("prologue");
-            //var yee = DateTimeOffset.FromUnixTimeMilliseconds((long)client.GetDatabaseVersionInfo().Ships.LastDataRefreshDate);
-            //GetAllAll(client);
-            // var ship = client.GetShip("javelin");
-            //var s = new ShipStats(ship.Stats.BaseStats, ship.Stats.Level100, 50);
-            //var urls = ship.Skins.First().GetSkinUrlsList();
             var cha = client.GetAllChapters();
-            var s = client.GetShip("takao");
-            var tiers = GetAllEquipmentStatsTiers(client);
-            var c = GetAllNewShipConstructionTypes(client);
-            var ch = client.GetAllChapters();
-            var aaa = GetAllBarageRoundTypes(client);
-            var nats = GetAllNationalities(client);
-            var hulls = GetAllHullTypes(client);
-            var skinRars = GetAllNewSkinRarities(client);
-            var skinTypes = GetAllNewSkinTypes(client);
-            var currencies = GetAllNewSkinCurrencies(client);
-            var bars = GetAllBarrageTypes(client);
-            var eqcs = GetEquipmentCategories(client);
-            var hul = GetAllBarrageItemHulls(client);
-            foreach (var ship in client.GetAllShips())
-            {
-                var e = ship.GetRarityEnum();
-                var h = ship.GetHullTypeEnum();
-            }
-            foreach (var ev in client.GetAllEvents())
-            {
-                foreach (var skin in ev.NewShipsSkins)
-                {
-                    skin.GetCurrencyEnum();
-                }
-            }
-            foreach (var eq in nats)
-            {
-                Console.WriteLine($"{eq.Replace(" ", "").Replace("-", "")}, ");
-            }
-            foreach (var eq in nats)
-            {
-                Console.WriteLine($"\"{eq}\"=>Nationality.{eq.Replace(" ", "").Replace("-", "")}, ");
-            }
-            //var rarities = GetAllRarities(client);
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
         static void GetAllAll(AzurAPIClient Client)
@@ -77,6 +37,7 @@ namespace AzurAPINetCoreTests
                 equipment.Value.GetCategoryEnum();
             }
         }
+        #region ENUM PARSING STUFF IDK
         static List<string> GetAllNewShipConstructionTypes(AzurAPIClient client)
         {
             List<string> res = new List<string>();
@@ -223,5 +184,6 @@ namespace AzurAPINetCoreTests
             }
             return res;
         }
+        #endregion
     }
 }
