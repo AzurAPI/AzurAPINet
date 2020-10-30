@@ -14,6 +14,7 @@ using Jan0660.AzurAPINet.Memories;
 using Jan0660.AzurAPINet.Equipments;
 using Jan0660.AzurAPINet.VoiceLines;
 using Newtonsoft.Json.Serialization;
+using System.Diagnostics.Contracts;
 
 namespace Jan0660.AzurAPINet
 {
@@ -30,7 +31,7 @@ namespace Jan0660.AzurAPINet
         /// </summary>
         public string WorkingDirectory;
         public List<Ship> Ships { get; private set; } = null;
-        public List<Chapter> Chapters { get; private set; } = null;
+        public Dictionary<string, Chapter> Chapters { get; private set; } = null;
         public List<Event> Events { get; private set; } = null;
         public List<BarrageItem> Barrage { get; private set; } = null;
         public Dictionary<string, ChapterMemory> Memories { get; private set; } = null;
@@ -151,22 +152,18 @@ namespace Jan0660.AzurAPINet
                 "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/version-info.json")
                 != GetTextFile("version-info.json"));
         }
-        public List<Chapter> GetAllChapters()
+        public Dictionary<string, Chapter> GetAllChapters()
         {
-            var list = new List<Chapter>();
+            var dict = new Dictionary<string, Chapter>();
             if (Chapters == null)
             {
-                var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(GetTextFile("chapters.json"));
-                foreach (var pair in dict)
-                {
-                    list.Add(pair.Value);
-                }
+                dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(GetTextFile("chapters.json"));
                 if (Options.EnableCaching)
-                    Chapters = list;
+                    Chapters = dict;
             }
             else
-                list = Chapters;
-            return list;
+                dict = Chapters;
+            return dict;
         }
         public List<Event> GetAllEvents()
         {
@@ -285,5 +282,63 @@ namespace Jan0660.AzurAPINet
             else
                 return File.ReadAllText(WorkingDirectory + file);
         }
+        /// <summary>
+        /// Only async when getting files from the web, File.ReadAllTextAsync was introduced in .net standard 2.1 aaa
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public Task<string> GetTextFileAsync(string file)
+        {
+            if (ClientType == ClientType.Web)
+            {
+                WebClient webClient = new WebClient();
+                return webClient.DownloadStringTaskAsync(WorkingDirectory + file);
+            }
+            // ClientType.Local
+            else
+                return Task.FromResult(File.ReadAllText(WorkingDirectory + file));
+        }
+        #region ReloadXAsync
+        public async Task ReloadShipsAsync()
+        {
+            var ships = JsonConvert.DeserializeObject<List<Ship>>(await GetTextFileAsync("ships.json"),
+            new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            }
+);
+            this.Ships = ships;
+        }
+        public async Task ReloadChaptersAsync()
+        {
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(await GetTextFileAsync("chapters.json"));
+            Chapters = dict;
+        }
+        public async Task ReloadEventsAsync()
+        {
+            var list = JsonConvert.DeserializeObject<List<Event>>(await GetTextFileAsync("events.json"));
+            Events = list;
+        }
+        public async Task ReloadBarrageAsync()
+        {
+            var list = JsonConvert.DeserializeObject<List<BarrageItem>>(await GetTextFileAsync("barrage.json"));
+            Barrage = list;
+        }
+        public async Task ReloadMemoriesAsync()
+        {
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(await GetTextFileAsync("memories.internal.json"));
+            Memories = dict;
+        }
+        public async Task ReloadEquipmentAsync()
+        {
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(await GetTextFileAsync("equipments.json"));
+            Equipments = dict;
+        }
+        public async Task ReloadVoiceLinesAsync()
+        {
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(await GetTextFileAsync("voice_lines.json"));
+            VoiceLines = dict;
+        }
+        #endregion
     }
 }
