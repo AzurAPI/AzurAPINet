@@ -156,5 +156,19 @@ namespace AzurAPINetTests
                 barrage.GetHullTypeEnum();
             }
         }
+        [TestMethod]
+        public void GetGradeEnum()
+        {
+            foreach(var ship in Client.GetAllShips())
+            {
+                if (ship.Retrofittable)
+                {
+                    foreach(var proj in ship.RetrofitProjects.ToList())
+                    {
+                        proj.GetGradeEnum();
+                    }
+                }
+            }
+        }
     }
 }

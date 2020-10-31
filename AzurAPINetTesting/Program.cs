@@ -19,6 +19,7 @@ namespace AzurAPINetCoreTests
             AzurAPIClient client = new AzurAPIClient(
                 new AzurAPIClientOptions());
             var Client = client;
+            var l = GetAllRetrofitGrades(client);
             var ships = client.GetAllShips();
             foreach(var s in ships)
             {
@@ -52,6 +53,22 @@ namespace AzurAPINetCoreTests
             }
         }
         #region ENUM PARSING STUFF IDK
+        static List<string> GetAllRetrofitGrades(AzurAPIClient client)
+        {
+            var res = new List<string>();
+            foreach(var s in client.GetAllShips())
+            {
+                if (s.Retrofittable)
+                {
+                    foreach(var p in s.RetrofitProjects.ToList())
+                    {
+                        if (!res.Contains(p.Grade))
+                            res.Add(p.Grade);
+                    }
+                }
+            }
+            return res;
+        }
         static List<string> GetAllNewShipConstructionTypes(AzurAPIClient client)
         {
             List<string> res = new List<string>();

@@ -95,6 +95,16 @@ namespace Jan0660.AzurAPINet.Enums
         /// </summary>
         Laser
     }
+    public enum RetrofitGrade
+    {
+        /// <summary>
+        /// null
+        /// </summary>
+        None,
+        I,
+        II,
+        III
+    }
     /// <summary>
     /// GetXXEnum extension methods
     /// </summary>
@@ -221,6 +231,18 @@ namespace Jan0660.AzurAPINet.Enums
                 "ASW" => BarrageRoundType.ASW,
                 "Sanshikidan" => BarrageRoundType.Sanshikidan,
                 "Laser?" => BarrageRoundType.Laser
+            };
+        }
+        #endregion
+        #region ShipRetrofitProject
+        public static RetrofitGrade GetGradeEnum(this ShipRetrofitProject proj)
+        {
+            return proj.Grade switch
+            {
+                null => RetrofitGrade.None,
+                "I" => RetrofitGrade.I,
+                "II" => RetrofitGrade.II,
+                "III" => RetrofitGrade.III
             };
         }
         #endregion
