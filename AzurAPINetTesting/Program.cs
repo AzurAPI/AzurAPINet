@@ -20,7 +20,20 @@ namespace AzurAPINetCoreTests
                 new AzurAPIClientOptions());
             var Client = client;
             var ships = client.GetAllShips();
-            var sh = client.GetShip("Abercrombie");
+            foreach(var s in ships)
+            {
+                if (s.Retrofittable)
+                {
+                    foreach(var p in s.RetrofitProjects.ToList())
+                    {
+                        if(p.Grade != null)
+                        {
+
+                        }
+                    }
+                }
+            }
+            var sh = client.GetShip("javelin");
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
         static void GetAllAll(AzurAPIClient Client)

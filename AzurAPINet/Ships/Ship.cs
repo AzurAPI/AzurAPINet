@@ -54,5 +54,11 @@ namespace Jan0660.AzurAPINet.Ships
         public readonly List<ShipGalleryItem> Gallery;
         [JsonProperty("fleetTech")]
         public readonly ShipFleetTech FleetTech;
+        [JsonProperty("retrofit")]
+        public bool Retrofittable = false;
+        [JsonProperty("retrofitId")]
+        public string? RetrofitId;
+        [JsonProperty("retrofitProjects")]
+        public ShipRetrofitProjectList? RetrofitProjects;
     }
 }
