@@ -339,6 +339,13 @@ namespace Jan0660.AzurAPINet
             var dict = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(await GetTextFileAsync("voice_lines.json"));
             VoiceLines = dict;
         }
+        public Task ReloadEverythingAsync()
+        {
+            var tasks = new List<Task>() { ReloadShipsAsync(), ReloadChaptersAsync(), ReloadEventsAsync(), ReloadBarrageAsync(), ReloadMemoriesAsync(),
+            ReloadEquipmentAsync(),
+            ReloadVoiceLinesAsync()};
+            return Task.WhenAll(tasks);
+        }
         #endregion
     }
 }

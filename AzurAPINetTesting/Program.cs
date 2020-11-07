@@ -19,6 +19,7 @@ namespace AzurAPINetCoreTests
             AzurAPIClient client = new AzurAPIClient(
                 new AzurAPIClientOptions());
             var Client = client;
+            client.ReloadEverythingAsync().Wait();
             var l = GetAllRetrofitGrades(client);
             var ships = client.GetAllShips();
             foreach(var s in ships)
