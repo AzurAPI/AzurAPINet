@@ -11,6 +11,8 @@ Console.WriteLine($"Takao's rarity: {Client.GetShip("takao").Rarity}");
 Console.WriteLine($"Javelin's nationality: {Client.GetShipByEnglishName("javelin").Nationality}");
 ```
 
+## [More documentation available on wiki](https://github.com/Jan0660/AzurAPINet/wiki)
+
 ## WIP
 
 Please note this library is still work in progress.
