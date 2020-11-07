@@ -16,9 +16,11 @@ namespace AzurAPINetCoreTests
             //await Task.Delay(10000);
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
-            AzurAPIClient client = new AzurAPIClient(
-                new AzurAPIClientOptions());
-            var Client = client;
+            AzurAPIClient Client = new AzurAPIClient(new AzurAPIClientOptions());
+            Console.WriteLine($"No. of ships: {Client.GetAllShips().Count}");
+            Console.WriteLine($"Takao's rarity: {Client.GetShip("takao").Rarity}");
+            Console.WriteLine($"Javelin's nationality: {Client.GetShipByEnglishName("javelin").Nationality}");
+            var client = Client;
             client.ReloadEverythingAsync().Wait();
             var l = GetAllRetrofitGrades(client);
             var ships = client.GetAllShips();
