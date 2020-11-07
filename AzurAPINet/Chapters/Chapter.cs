@@ -15,6 +15,9 @@ namespace Jan0660.AzurAPINet.Chapters
         public readonly Mission Mission3;
         [JsonProperty("4")]
         public readonly Mission Mission4;
+        /// <summary>
+        /// all the missions in a list
+        /// </summary>
         [JsonIgnore]
         public List<Mission> Missions
         {

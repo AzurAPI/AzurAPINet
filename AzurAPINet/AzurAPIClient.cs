@@ -21,7 +21,17 @@ namespace Jan0660.AzurAPINet
     /// <summary>
     /// for if the AzurAPIClient is using the database from a local download or from github
     /// </summary>
-    public enum ClientType { Local, Web }
+    public enum ClientType
+    {
+        /// <summary>
+        /// using database from filesystem
+        /// </summary>
+        Local,
+        /// <summary>
+        /// using database from github.com
+        /// </summary>
+        Web
+    }
     public class AzurAPIClient
     {
         public readonly AzurAPIClientOptions Options;
