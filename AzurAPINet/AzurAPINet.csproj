@@ -6,10 +6,9 @@
     <LangVersion>8.0</LangVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Jan0660</Authors>
-    <Version>0.5.0</Version>
+    <Version>0.5.1</Version>
     <Description>A .NET standard 2.0 wrapper for the AzurAPI database. Please note this library is currently work in progress.</Description>
-    <PackageReleaseNotes>finish enums, add fleetTech and retrofit, add ReloadXAsync methods
-chapters is no longer a list but is now a dict Dictionary&lt;string, Chapter&gt;</PackageReleaseNotes>
+    <PackageReleaseNotes>add AzurAPIClient.ReloadEverythingAsync method</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/Jan0660/AzurAPINet</RepositoryUrl>
   </PropertyGroup>
