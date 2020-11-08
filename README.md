@@ -13,7 +13,7 @@ Console.WriteLine($"Javelin's nationality: {Client.GetShipByEnglishName("javelin
 ```
 Expected output (as of now):
 
-![You ever just boot into linux so you can flex it in your readme](https://i.imgur.com/vtK4Db0.png)
+![You ever just boot into linux so you can flex it in your readme](https://i.imgur.com/Q2iTwp9.png)
 ## [More documentation available on wiki](https://github.com/Jan0660/AzurAPINet/wiki)
 
 ## WIP
