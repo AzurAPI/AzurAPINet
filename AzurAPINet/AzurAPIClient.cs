@@ -384,5 +384,17 @@ namespace Jan0660.AzurAPINet
         public List<Ship> GetAllShipsFromNation(Nationality nationality)
             => GetAllShipsFromFaction(nationality.ToString());
         #endregion
+        #region GetAllShipsByLANGUAGE
+        public List<Ship> GetAllShipsByEnglishName()
+            => GetAllShips().Where(s => s.Names.en != null).ToList();
+        public List<Ship> GetAllShipsByJapaneseName()
+            => GetAllShips().Where(s => s.Names.jp != null).ToList();
+        public List<Ship> GetAllShipsByChineseName()
+            => GetAllShips().Where(s => s.Names.cn != null).ToList();
+        public List<Ship> GetAllShipsByKoreanName()
+            => GetAllShips().Where(s => s.Names.kr != null).ToList();
+        public List<Ship> GetAllShipsByOfficialName()
+            => GetAllShips().Where(s => s.Names.code != null).ToList();
+        #endregion
     }
 }

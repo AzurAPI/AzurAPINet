@@ -25,5 +25,30 @@ namespace AzurAPINetTests
                 Client.GetAllShipsFromNationality(ship.GetNationalityEnum());
             }
         }
+        [TestMethod]
+        public void GetAllShipsByEnglishName()
+        {
+            Client.GetAllShipsByEnglishName();
+        }
+        [TestMethod]
+        public void GetAllShipsByJapaneseName()
+        {
+            Client.GetAllShipsByJapaneseName();
+        }
+        [TestMethod]
+        public void GetAllShipsByChineseName()
+        {
+            Client.GetAllShipsByChineseName();
+        }
+        [TestMethod]
+        public void GetAllShipsByKoreanName()
+        {
+            Client.GetAllShipsByKoreanName();
+        }
+        [TestMethod]
+        public void GetAllShipsByOfficialName()
+        {
+            Client.GetAllShipsByOfficialName();
+        }
     }
 }
