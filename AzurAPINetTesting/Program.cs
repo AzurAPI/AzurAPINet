@@ -11,6 +11,7 @@ namespace AzurAPINetCoreTests
 {
     class Program
     {
+        // ignore this trainwreck
         static async Task Main(string[] args)
         {
             //await Task.Delay(10000);
@@ -21,6 +22,14 @@ namespace AzurAPINetCoreTests
             Console.WriteLine($"Takao's rarity: {Client.GetShip("takao").Rarity}");
             Console.WriteLine($"Javelin's nationality: {Client.GetShipByEnglishName("javelin").Nationality}");
             var client = Client;
+            foreach(var ship in client.GetAllShips())
+            {
+                foreach(var slot in ship.Slots.ToList())
+                {
+                    if (slot == null)
+                        Console.WriteLine("LLLLL " + ship.Names.en);
+                }
+            }
             client.ReloadEverythingAsync().Wait();
             var l = GetAllRetrofitGrades(client);
             var ships = client.GetAllShips();

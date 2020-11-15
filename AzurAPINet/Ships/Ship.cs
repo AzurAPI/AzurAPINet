@@ -27,10 +27,20 @@ namespace Jan0660.AzurAPINet.Ships
         public readonly string Rarity;
         [JsonProperty("stars")]
         public readonly Stars Stars;
+        // retrofit
+        [JsonProperty("retrofit")]
+        public bool Retrofittable = false;
+        [JsonProperty("retrofitId")]
+        public string? RetrofitId;
+        [JsonProperty("retrofitProjects")]
+        public ShipRetrofitProjectList? RetrofitProjects;
+        [JsonProperty("retrofit_hullType")]
+        public string RetrofitHullType;
+
         [JsonProperty("stats")]
         public readonly ShipAllStats Stats;
         [JsonProperty("slots")]
-        public readonly Dictionary<string, ShipEquipmentSlot> Slots;
+        public readonly ShipEquipmentSlots Slots;
         [JsonProperty("enhanceValue")]
         [JsonConverter(typeof(EnhanceValueConverter))]
         public readonly ShipEnhanceValue EnhanceValue;
@@ -41,6 +51,8 @@ namespace Jan0660.AzurAPINet.Ships
         public readonly List<ShipSkill> Skills;
         [JsonProperty("limitBreaks")]
         public readonly List<List<string>> LimitBreaks;
+        [JsonProperty("fleetTech")]
+        public readonly ShipFleetTech FleetTech;
         [JsonProperty("construction")]
         [JsonConverter(typeof(ConstructionInfoConverter))]
         public readonly ShipConstructionInfo Construction;
@@ -49,16 +61,8 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty("skins")]
         public readonly List<ShipSkin> Skins;
         [JsonProperty("misc")]
-        public readonly Dictionary<string, ShipMiscItem> Misc;
+        public readonly ShipMisc Misc;
         [JsonProperty("gallery")]
         public readonly List<ShipGalleryItem> Gallery;
-        [JsonProperty("fleetTech")]
-        public readonly ShipFleetTech FleetTech;
-        [JsonProperty("retrofit")]
-        public bool Retrofittable = false;
-        [JsonProperty("retrofitId")]
-        public string? RetrofitId;
-        [JsonProperty("retrofitProjects")]
-        public ShipRetrofitProjectList? RetrofitProjects;
     }
 }

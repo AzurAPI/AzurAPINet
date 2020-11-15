@@ -357,5 +357,18 @@ namespace Jan0660.AzurAPINet
             return Task.WhenAll(tasks);
         }
         #endregion
+        public Equipment GetEquipmentByEnglishName(string name)
+            => GetAllEquipment().Where(e => e.Value.Names.en.ToLower() == name.ToLower()).First().Value;
+        public Equipment GetEquipmentByChineseName(string name)
+            => GetAllEquipment().Where(e => e.Value.Names.cn.ToLower() == name.ToLower()).First().Value;
+        public Equipment GetEquipmentByJapaneseName(string name)
+            => GetAllEquipment().Where(e => e.Value.Names.jp.ToLower() == name.ToLower()).First().Value;
+        public Equipment GetEquipmentByKoreanName(string name)
+            => GetAllEquipment().Where(e => e.Value.Names.kr.ToLower() == name.ToLower()).First().Value;
+        public Equipment GetEquipment(string name)
+            => GetEquipmentByEnglishName(name) ??
+                GetEquipmentByChineseName(name) ??
+                GetEquipmentByJapaneseName(name) ??
+                GetEquipmentByKoreanName(name);
     }
 }
