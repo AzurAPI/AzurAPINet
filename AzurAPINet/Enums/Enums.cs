@@ -14,7 +14,7 @@ namespace Jan0660.AzurAPINet.Enums
     public enum ShipRarity { Normal, Rare, Elite, SuperRare, Decisive, Priority, UltraRare }
     public enum NewSkinCurrency { Gem, Ruby }
     public enum BarrageType { Ship, Class, Skill }
-    public enum ShipHullType { Destroyer, Monitor, LightCruiser, HeavyCruiser, AircraftCarrier, RepairShip, Battleship, Submarine, Battlecruiser, LargeCruiser, LightAircraftCarrier, SubmarineCarrier, MunitionShip };
+    public enum ShipHullType { Destroyer, Monitor, LightCruiser, HeavyCruiser, AircraftCarrier, RepairShip, Battleship, Submarine, Battlecruiser, LargeCruiser, LightAircraftCarrier, SubmarineCarrier, MunitionShip, Repair, LightCarrier };
     public enum EquipmentCategory
     {
         DestroyerGuns,
@@ -64,7 +64,11 @@ namespace Jan0660.AzurAPINet.Enums
         Hololive,
         Universal,
         NorthUnion,
-        EasternRadiance
+        EasternRadiance,
+        /// <summary>
+        /// null
+        /// </summary>
+        None
     }
     public enum EquipmentTier
     {
@@ -138,9 +142,11 @@ namespace Jan0660.AzurAPINet.Enums
                 "Submarine" => ShipHullType.Submarine,
                 "Battlecruiser" => ShipHullType.Battlecruiser,
                 "Large Cruiser" => ShipHullType.LargeCruiser,
-                "Light Aircraft Carrier" => ShipHullType.LightAircraftCarrier,
+                //"Light Aircraft Carrier" => ShipHullType.LightAircraftCarrier,
+                "Light Carrier" => ShipHullType.LightCarrier,
                 "Submarine Carrier" => ShipHullType.SubmarineCarrier,
-                "Munition Ship" => ShipHullType.MunitionShip
+                "Munition Ship" => ShipHullType.MunitionShip,
+                "Repair" => ShipHullType.Repair
             };
         }
         public static Nationality GetNationalityEnum(this Ship ship)
@@ -288,6 +294,7 @@ namespace Jan0660.AzurAPINet.Enums
                 "Eagle Union" => Nationality.EagleUnion,
                 "Vichya Dominion" => Nationality.VichyaDominion,
                 "Dragon Empery" => Nationality.DragonEmpery,
+                "Kizuna AI" => Nationality.KizunaAI,
                 "KizunaAI" => Nationality.KizunaAI,
                 "Northern Parliament" => Nationality.NorthernParliament,
                 "Neptunia" => Nationality.Neptunia,
@@ -297,7 +304,8 @@ namespace Jan0660.AzurAPINet.Enums
                 "Hololive" => Nationality.Hololive,
                 "Universal" => Nationality.Universal,
                 "North Union" => Nationality.NorthUnion,
-                "Eastern Radiance" => Nationality.EasternRadiance
+                "Eastern Radiance" => Nationality.EasternRadiance,
+                null => Nationality.None
             };
         }
     }

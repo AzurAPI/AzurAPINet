@@ -13,7 +13,7 @@ namespace Jan0660.AzurAPINet.Ships
         public ShipMiscItem Web;
         [JsonProperty("pixiv")]
         public ShipMiscItem Pixiv;
-        [JsonProperty("artist")]
+        [JsonProperty("twitter")]
         public ShipMiscItem Twitter;
         [JsonProperty("voice")]
         public ShipMiscItem Voice;
