@@ -284,29 +284,30 @@ namespace Jan0660.AzurAPINet.Enums
 
         public static Nationality StringToNationality(string str)
         {
-            return str switch
+            return str.ToLowerTrimmed() switch
             {
-                "Bilibili" => Nationality.Bilibili,
-                "Royal Navy" => Nationality.RoyalNavy,
-                "Sakura Empire" => Nationality.SakuraEmpire,
-                "Iron Blood" => Nationality.IronBlood,
-                "Ironblood" => Nationality.IronBlood,
-                "Eagle Union" => Nationality.EagleUnion,
-                "Vichya Dominion" => Nationality.VichyaDominion,
-                "Dragon Empery" => Nationality.DragonEmpery,
-                "Kizuna AI" => Nationality.KizunaAI,
-                "KizunaAI" => Nationality.KizunaAI,
-                "Northern Parliament" => Nationality.NorthernParliament,
-                "Neptunia" => Nationality.Neptunia,
-                "Iris Libre" => Nationality.IrisLibre,
-                "Sardegna Empire" => Nationality.SardegnaEmpire,
-                "Utawarerumono" => Nationality.Utawarerumono,
-                "Hololive" => Nationality.Hololive,
-                "Universal" => Nationality.Universal,
-                "North Union" => Nationality.NorthUnion,
-                "Eastern Radiance" => Nationality.EasternRadiance,
+                "bilibili" => Nationality.Bilibili,
+                "royalnavy" => Nationality.RoyalNavy,
+                "sakuraempire" => Nationality.SakuraEmpire,
+                "ironblood" => Nationality.IronBlood,
+                "eagleunion" => Nationality.EagleUnion,
+                "vichyadominion" => Nationality.VichyaDominion,
+                "dragonempery" => Nationality.DragonEmpery,
+                "kizunaai" => Nationality.KizunaAI,
+                "northernparliament" => Nationality.NorthernParliament,
+                "neptunia" => Nationality.Neptunia,
+                "irislibre" => Nationality.IrisLibre,
+                "sardegnaempire" => Nationality.SardegnaEmpire,
+                "utawarerumono" => Nationality.Utawarerumono,
+                "hololive" => Nationality.Hololive,
+                "universal" => Nationality.Universal,
+                "northunion" => Nationality.NorthUnion,
+                "easternradiance" => Nationality.EasternRadiance,
                 null => Nationality.None
             };
         }
+        // yes imagine not yeeting code
+        public static string ToLowerTrimmed(this string str)
+            => str?.ToLower().Replace(" ", "");
     }
 }

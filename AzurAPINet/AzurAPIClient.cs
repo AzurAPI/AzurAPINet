@@ -15,7 +15,7 @@ using Jan0660.AzurAPINet.Equipments;
 using Jan0660.AzurAPINet.VoiceLines;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics.Contracts;
-
+using Jan0660.AzurAPINet.Enums;
 namespace Jan0660.AzurAPINet
 {
     /// <summary>
@@ -370,5 +370,19 @@ namespace Jan0660.AzurAPINet
                 GetEquipmentByChineseName(name) ??
                 GetEquipmentByJapaneseName(name) ??
                 GetEquipmentByKoreanName(name);
+        #region GetAllShipsFromFaction & aliases
+        public List<Ship> GetAllShipsFromFaction(string faction)
+            => GetAllShips().Where(s => s.Nationality?.ToLowerTrimmed() == faction?.ToLowerTrimmed()).ToList();
+        public List<Ship> GetAllShipsFromNation(string nation)
+            => GetAllShipsFromFaction(nation);
+        public List<Ship> GetAllShipsFromNationality(string nationality)
+            => GetAllShipsFromFaction(nationality);
+        public List<Ship> GetAllShipsFromFaction(Nationality nationality)
+            => GetAllShipsFromFaction(nationality.ToString());
+        public List<Ship> GetAllShipsFromNationality(Nationality nationality)
+            => GetAllShipsFromFaction(nationality.ToString());
+        public List<Ship> GetAllShipsFromNation(Nationality nationality)
+            => GetAllShipsFromFaction(nationality.ToString());
+        #endregion
     }
 }
