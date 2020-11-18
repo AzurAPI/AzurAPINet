@@ -50,7 +50,7 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetEquipmentCategoryEnum()
         {
-            foreach (var e in Client.GetAllEquipment())
+            foreach (var e in Client.GetAllEquipments())
             {
                 e.Value.GetCategoryEnum();
             }
@@ -66,7 +66,7 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetEquipmentNationality()
         {
-            foreach (var e in Client.GetAllEquipment())
+            foreach (var e in Client.GetAllEquipments())
             {
                 e.Value.GetNationalityEnum();
             }
@@ -107,7 +107,7 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetEquipmentStatsRarity()
         {
-            foreach (var e in Client.GetAllEquipment())
+            foreach (var e in Client.GetAllEquipments())
             {
                 foreach (var t in e.Value.Tiers)
                 {
@@ -129,7 +129,7 @@ namespace AzurAPINetTests
         [TestMethod]
         public void GetEquipmentStatsTier()
         {
-            foreach (var e in Client.GetAllEquipment())
+            foreach (var e in Client.GetAllEquipments())
             {
                 foreach (var t in e.Value.Tiers)
                 {

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Jan0660.AzurAPINet.Equipments;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Jan0660.AzurAPINet.Ships;
 using Jan0660.AzurAPINet.Enums;
 
@@ -18,12 +19,8 @@ namespace AzurAPINetCoreTests
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
             AzurAPIClient Client = new AzurAPIClient(new AzurAPIClientOptions());
-            while (true)
-            {
-                Console.Write("Faction: ");
-                var faction = Console.ReadLine();
-                Console.WriteLine("Ship count: " + Client.GetAllShipsFromFaction(faction).Count);
-            }
+            var eq = Client.GetEquipment(Client.GetAllEquipments().First().Value.Names.cn);
+            Console.WriteLine(eq.Names.cn);
             Console.WriteLine($"No. of ships: {Client.GetAllShips().Count}");
             Console.WriteLine($"Takao's rarity: {Client.GetShip("takao").Rarity}");
             Console.WriteLine($"Javelin's nationality: {Client.GetShipByEnglishName("javelin").Nationality}");
@@ -61,11 +58,11 @@ namespace AzurAPINetCoreTests
             var Ships = Client.GetAllShips();
             var Memories = Client.GetAllMemories();
             var Events = Client.GetAllEvents();
-            var Equipment = Client.GetAllEquipment();
+            var Equipment = Client.GetAllEquipments();
             var Chapters = Client.GetAllChapters();
             var Barrage = Client.GetAllBarrage();
             // enums
-            foreach (var equipment in Client.GetAllEquipment())
+            foreach (var equipment in Client.GetAllEquipments())
             {
                 equipment.Value.GetCategoryEnum();
             }
@@ -179,7 +176,7 @@ namespace AzurAPINetCoreTests
         static List<string> GetEquipmentCategories(AzurAPIClient client)
         {
             List<string> res = new List<string>();
-            foreach (var ship in client.GetAllEquipment())
+            foreach (var ship in client.GetAllEquipments())
             {
                 if (!res.Contains(ship.Value.Category))
                     res.Add(ship.Value.Category);
@@ -207,10 +204,10 @@ namespace AzurAPINetCoreTests
             }
             return res;
         }
-        static List<string> GetAllEquipmentStatsTiers(AzurAPIClient client)
+        static List<string> GetAllEquipmentsStatsTiers(AzurAPIClient client)
         {
             var res = new List<string>();
-            foreach (var eq in client.GetAllEquipment())
+            foreach (var eq in client.GetAllEquipments())
             {
                 foreach (var tier in eq.Value.Tiers)
                 {

@@ -40,13 +40,13 @@ namespace Jan0660.AzurAPINet
         /// the url/directory to get files from
         /// </summary>
         public string WorkingDirectory;
-        public List<Ship> Ships { get; private set; } = null;
-        public Dictionary<string, Chapter> Chapters { get; private set; } = null;
-        public List<Event> Events { get; private set; } = null;
-        public List<BarrageItem> Barrage { get; private set; } = null;
-        public Dictionary<string, ChapterMemory> Memories { get; private set; } = null;
-        public Dictionary<string, Equipment> Equipments { get; private set; } = null;
-        public Dictionary<string, Dictionary<string, List<VoiceLine>>> VoiceLines { get; private set; } = null;
+        private List<Ship> _ships = null;
+        private Dictionary<string, Chapter> _chapters = null;
+        private List<Event> _events = null;
+        private List<BarrageItem> _barrage = null;
+        private Dictionary<string, ChapterMemory> _memories = null;
+        private Dictionary<string, Equipment> _equipments = null;
+        private Dictionary<string, Dictionary<string, List<VoiceLine>>> _voiceLines = null;
         /// <summary>
         /// Create new client which uses downloaded database
         /// </summary>
@@ -70,7 +70,7 @@ namespace Jan0660.AzurAPINet
         public List<Ship> GetAllShips()
         {
             List<Ship> ships;
-            if (this.Ships == null)
+            if (this._ships == null)
             {
                 ships = JsonConvert.DeserializeObject<List<Ship>>(GetTextFile("ships.json"),
                 new JsonSerializerSettings
@@ -79,37 +79,26 @@ namespace Jan0660.AzurAPINet
                 }
 );
                 if (Options.EnableCaching)
-                    this.Ships = ships;
+                    this._ships = ships;
             }
             else
-                ships = this.Ships;
+                ships = this._ships;
             return ships;
         }
         #region GetShip, GetShipBy<EnglishName,Code,Id,...>
+
         /// <summary>
         /// Searches for a ship using it's english name, code, id, japanese and chinese name, in this order
         /// </summary>
         /// <param name="query">The name of the ship you're searching for</param>
         /// <returns>the ship</returns>
         public Ship GetShip(string query)
-        {
-            var ship = GetShipByEnglishName(query);
-            if (ship != null)
-                return ship;
-            ship = GetShipByCode(query);
-            if (ship != null)
-                return ship;
-            ship = GetShipById(query);
-            if (ship != null)
-                return ship;
-            ship = GetShipByJapaneseName(query);
-            if (ship != null)
-                return ship;
-            ship = GetShipByChineseName(query);
-            if (ship != null)
-                return ship;
-            return null;
-        }
+            => GetShipByEnglishName(query)
+               ?? GetShipByCode(query)
+               ?? GetShipById(query)
+               ?? GetShipByJapaneseName(query)
+               ?? GetShipByChineseName(query)
+               ?? GetShipByKoreanName(query);
         /// <summary>
         /// yes.
         /// </summary>
@@ -117,35 +106,17 @@ namespace Jan0660.AzurAPINet
         /// <returns>the waifu</returns>
         public Ship GetWaifu(string waifu) => GetShip(waifu);
         public Ship GetShipByEnglishName(string name)
-        {
-            var ships = GetAllShips();
-            return ships.Where((ship) => ship.Names.en.ToLower() == name.ToLower()).FirstOrDefault();
-        }
+            => GetAllShips().FirstOrDefault((ship) => ship.Names.en?.ToLower() == name?.ToLower());
         public Ship GetShipByCode(string code)
-        {
-            var ships = GetAllShips();
-            return ships.Where((ship) => ship.Names.code.ToLower() == code.ToLower()).FirstOrDefault();
-        }
+        => GetAllShips().FirstOrDefault((ship) => ship.Names.code.ToLower() == code?.ToLower());
         public Ship GetShipById(string id)
-        {
-            var ships = GetAllShips();
-            return ships.Where((ship) => ship.Id.ToLower() == id.ToLower()).FirstOrDefault();
-        }
+        => GetAllShips().FirstOrDefault((ship) => ship.Id.ToLower() == id?.ToLower());
         public Ship GetShipByJapaneseName(string name)
-        {
-            var ships = GetAllShips();
-            return ships.Where((ship) => ship.Names.jp?.ToLower() == name.ToLower()).FirstOrDefault();
-        }
+        => GetAllShips().FirstOrDefault((ship) => ship.Names.jp?.ToLower() == name?.ToLower());
         public Ship GetShipByChineseName(string name)
-        {
-            var ships = GetAllShips();
-            return ships.Where((ship) => ship.Names.cn?.ToLower() == name.ToLower()).FirstOrDefault();
-        }
+            => GetAllShips().FirstOrDefault((ship) => ship.Names.cn?.ToLower() == name?.ToLower());
         public Ship GetShipByKoreanName(string name)
-        {
-            var ships = GetAllShips();
-            return ships.Where((ship) => ship.Names.kr?.ToLower() == name.ToLower()).FirstOrDefault();
-        }
+        => GetAllShips().FirstOrDefault((ship) => ship.Names.kr?.ToLower() == name?.ToLower());
         #endregion
         public DatabaseVersionInfo GetDatabaseVersionInfo()
         {
@@ -160,72 +131,75 @@ namespace Jan0660.AzurAPINet
             WebClient webClient = new WebClient();
             return (await webClient.DownloadStringTaskAsync(
                 "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/version-info.json")
-                != GetTextFile("version-info.json"));
+                != await GetTextFileAsync("version-info.json"));
         }
         public Dictionary<string, Chapter> GetAllChapters()
         {
-            var dict = new Dictionary<string, Chapter>();
-            if (Chapters == null)
+            Dictionary<string, Chapter> dict;
+            if (_chapters == null)
             {
                 dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(GetTextFile("chapters.json"));
                 if (Options.EnableCaching)
-                    Chapters = dict;
+                    _chapters = dict;
             }
             else
-                dict = Chapters;
+                dict = _chapters;
             return dict;
         }
         public List<Event> GetAllEvents()
         {
             List<Event> list;
-            if (Events == null)
+            if (_events == null)
             {
                 list = JsonConvert.DeserializeObject<List<Event>>(GetTextFile("events.json"));
                 if (Options.EnableCaching)
-                    Events = list;
+                    _events = list;
             }
             else
-                list = Events;
+                list = _events;
             return list;
         }
         public List<BarrageItem> GetAllBarrage()
         {
             List<BarrageItem> list;
-            if (Barrage == null)
+            if (_barrage == null)
             {
                 list = JsonConvert.DeserializeObject<List<BarrageItem>>(GetTextFile("barrage.json"));
                 if (Options.EnableCaching)
-                    Barrage = list;
+                    _barrage = list;
             }
             else
-                list = Barrage;
+                list = _barrage;
             return list;
         }
         public List<BarrageItem> GetBarrageForShip(string name)
         {
-            return GetAllBarrage().Where((b) => b.Ships.Where((s) => s.ToLower() == name.ToLower()).Count() != 0).ToList();
+            var sh = GetShip(name);
+            if(sh != null)
+                name = sh.Names.en;
+            return GetAllBarrage().Where((b) => b.Ships.Count((s) => s.ToLower() == name?.ToLower()) != 0).ToList();
         }
         public Dictionary<string, ChapterMemory> GetAllMemories()
         {
             Dictionary<string, ChapterMemory> list;
-            if (Memories == null)
+            if (_memories == null)
             {
                 list = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(GetTextFile("memories.internal.json"));
                 if (Options.EnableCaching)
-                    Memories = list;
+                    _memories = list;
             }
             else
-                list = Memories;
+                list = _memories;
             return list;
         }
         /// <summary>
-        /// get's a chapter by it's english,chinese or japanese name
+        /// get's a chapter by it's english,chinese, japanese or korean name
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public ChapterMemory GetChapterMemoryByName(string query)
+        public ChapterMemory GetChapterMemory(string query)
         {
-            query = query.ToLower();
+            query = query?.ToLower();
             var memories = GetAllMemories().Where((m) =>
             m.Value.Names.en.ToLower() == query |
             m.Value.Names.cn.ToLower() == query |
@@ -234,30 +208,30 @@ namespace Jan0660.AzurAPINet
             );
             return memories.FirstOrDefault().Value;
         }
-        public Dictionary<string, Equipment> GetAllEquipment()
+        public Dictionary<string, Equipment> GetAllEquipments()
         {
             Dictionary<string, Equipment> list;
-            if (Equipments == null)
+            if (_equipments == null)
             {
                 list = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(GetTextFile("equipments.json"));
                 if (Options.EnableCaching)
-                    Equipments = list;
+                    _equipments = list;
             }
             else
-                list = Equipments;
+                list = _equipments;
             return list;
         }
         public Dictionary<string, Dictionary<string, List<VoiceLine>>> GetAllVoiceLines()
         {
             Dictionary<string, Dictionary<string, List<VoiceLine>>> list;
-            if (VoiceLines == null)
+            if (_voiceLines == null)
             {
                 list = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(GetTextFile("voice_lines.json"));
                 if (Options.EnableCaching)
-                    VoiceLines = list;
+                    _voiceLines = list;
             }
             else
-                list = VoiceLines;
+                list = _voiceLines;
             return list;
         }
         /// <summary>
@@ -317,37 +291,37 @@ namespace Jan0660.AzurAPINet
                 NullValueHandling = NullValueHandling.Ignore
             }
 );
-            this.Ships = ships;
+            this._ships = ships;
         }
         public async Task ReloadChaptersAsync()
         {
             var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(await GetTextFileAsync("chapters.json"));
-            Chapters = dict;
+            _chapters = dict;
         }
         public async Task ReloadEventsAsync()
         {
             var list = JsonConvert.DeserializeObject<List<Event>>(await GetTextFileAsync("events.json"));
-            Events = list;
+            _events = list;
         }
         public async Task ReloadBarrageAsync()
         {
             var list = JsonConvert.DeserializeObject<List<BarrageItem>>(await GetTextFileAsync("barrage.json"));
-            Barrage = list;
+            _barrage = list;
         }
         public async Task ReloadMemoriesAsync()
         {
             var dict = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(await GetTextFileAsync("memories.internal.json"));
-            Memories = dict;
+            _memories = dict;
         }
         public async Task ReloadEquipmentAsync()
         {
             var dict = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(await GetTextFileAsync("equipments.json"));
-            Equipments = dict;
+            _equipments = dict;
         }
         public async Task ReloadVoiceLinesAsync()
         {
             var dict = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(await GetTextFileAsync("voice_lines.json"));
-            VoiceLines = dict;
+            _voiceLines = dict;
         }
         public Task ReloadEverythingAsync()
         {
@@ -358,13 +332,13 @@ namespace Jan0660.AzurAPINet
         }
         #endregion
         public Equipment GetEquipmentByEnglishName(string name)
-            => GetAllEquipment().Where(e => e.Value.Names.en.ToLower() == name.ToLower()).First().Value;
+            => GetAllEquipments().FirstOrDefault(e => e.Value.Names.en?.ToLower() == name?.ToLower()).Value;
         public Equipment GetEquipmentByChineseName(string name)
-            => GetAllEquipment().Where(e => e.Value.Names.cn.ToLower() == name.ToLower()).First().Value;
+            => GetAllEquipments().FirstOrDefault(e => e.Value.Names.cn?.ToLower() == name?.ToLower()).Value;
         public Equipment GetEquipmentByJapaneseName(string name)
-            => GetAllEquipment().Where(e => e.Value.Names.jp.ToLower() == name.ToLower()).First().Value;
+            => GetAllEquipments().FirstOrDefault(e => e.Value.Names.jp?.ToLower() == name?.ToLower()).Value;
         public Equipment GetEquipmentByKoreanName(string name)
-            => GetAllEquipment().Where(e => e.Value.Names.kr.ToLower() == name.ToLower()).First().Value;
+            => GetAllEquipments().FirstOrDefault(e => e.Value.Names.kr?.ToLower() == name?.ToLower()).Value;
         public Equipment GetEquipment(string name)
             => GetEquipmentByEnglishName(name) ??
                 GetEquipmentByChineseName(name) ??

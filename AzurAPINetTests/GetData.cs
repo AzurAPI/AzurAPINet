@@ -17,9 +17,9 @@ namespace AzurAPINetTests
             var barrage = Client.GetAllBarrage() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
-        public void GetEquipment()
+        public void GetEquipments()
         {
-            var equipment = Client.GetAllEquipment() ?? throw new System.Exception("returned null");
+            var equipment = Client.GetAllEquipments() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
         public void GetChapters()
