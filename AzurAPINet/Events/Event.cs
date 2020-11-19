@@ -16,5 +16,6 @@ namespace Jan0660.AzurAPINet.Events
         public readonly List<NewShipConstruction> NewShipsConstruction;
         [JsonProperty("new_ships_skins")]
         public readonly List<NewShipSkin> NewShipsSkins;
+        // new_ships_others is not here cuz i literally dont see it having items anywhere lol
     }
 }

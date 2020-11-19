@@ -34,7 +34,7 @@ namespace Jan0660.AzurAPINet.Ships
         public string? RetrofitId;
         [JsonProperty("retrofitProjects")]
         public ShipRetrofitProjectList? RetrofitProjects;
-        [JsonProperty("retrofit_hullType")]
+        [JsonProperty("retrofitHullType")]
         public string RetrofitHullType;
 
         [JsonProperty("stats")]

@@ -19,6 +19,7 @@ namespace AzurAPINetCoreTests
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
             AzurAPIClient Client = new AzurAPIClient(new AzurAPIClientOptions());
+            GetAllAll(Client);
             var eq = Client.GetEquipment(Client.GetAllEquipments().First().Value.Names.cn);
             Console.WriteLine(eq.Names.cn);
             Console.WriteLine($"No. of ships: {Client.GetAllShips().Count}");
@@ -54,8 +55,9 @@ namespace AzurAPINetCoreTests
         }
         static void GetAllAll(AzurAPIClient Client)
         {
-            var VoiceLines = Client.GetAllVoiceLines();
+            //var VoiceLines = Client.GetAllVoiceLines();
             var Ships = Client.GetAllShips();
+            var j = Client.GetShip("javelin");
             var Memories = Client.GetAllMemories();
             var Events = Client.GetAllEvents();
             var Equipment = Client.GetAllEquipments();
