@@ -19,6 +19,7 @@ namespace AzurAPINetCoreTests
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
             AzurAPIClient Client = new AzurAPIClient(new AzurAPIClientOptions());
+            await WikiDemo();
             GetAllAll(Client);
             var eq = Client.GetEquipment(Client.GetAllEquipments().First().Value.Names.cn);
             Console.WriteLine(eq.Names.cn);
@@ -52,6 +53,53 @@ namespace AzurAPINetCoreTests
             }
             var sh = client.GetShip("javelin");
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
+        }
+        static async Task WikiDemo(){
+            // dotnet add package AzurAPINet
+            var client = new AzurAPIClient(new AzurAPIClientOptions());
+            
+            // check for update
+            var isUpdateAvailable = await client.DatabaseUpdateAvailableAsync();
+            // reload/update cached data
+            await client.ReloadCachedAsync();
+            
+            // reload cached data to update it
+            await client.ReloadEverythingAsync();
+            // query a ship by name
+            var ship = client.GetShip("Z23");
+            // alternative
+            var ship2 = client.GetShipByEnglishName("Z23");
+            
+            // query by id
+            var ship3 = client.GetShip("115");
+            // alternative
+            var ship4 = client.GetShipById("115");
+            
+            // query for equipment
+            var equipment = client.GetEquipment("Quadruple 130mm (Mle 1932)");
+            // alternative
+            var equipment2 = client.GetEquipmentByEnglishName("Quadruple 130mm (Mle 1932)");
+            
+            // get all ships
+            var ships = client.GetAllShips();
+            
+            // get all equipments
+            var equipments = client.GetAllEquipments();
+            
+            // get ships from nation
+            var shipsFromIronBlood = client.GetAllShipsFromNation("iron blood");
+            var shipsFromSakuraEmpire = client.GetAllShipsFromNation("Sakura Empire");
+            var shipsFromRoyalNavy = client.GetAllShipsFromNation("Royal Navy");
+            
+            // add this using statement to the top of your current file
+            // using Jan0660.AzurAPINet.Enums;
+            // alternatively you can use enums
+            var shipsFromIronBlood2 = client.GetAllShipsFromNation(Nationality.IronBlood);
+            var shipsFromSakuraEmpire2 = client.GetAllShipsFromNation(Nationality.SakuraEmpire);
+            var shipsFromRoyalNavy2 = client.GetAllShipsFromNation(Nationality.RoyalNavy);
+            
+            
+            
         }
         static void GetAllAll(AzurAPIClient Client)
         {

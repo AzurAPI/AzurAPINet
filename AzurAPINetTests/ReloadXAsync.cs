@@ -37,7 +37,7 @@ namespace AzurAPINetTests
         [TestMethod]
         public void ReloadEquipmentAsync()
         {
-            Client.ReloadEquipmentAsync().Wait();
+            Client.ReloadEquipmentsAsync().Wait();
         }
         [TestMethod]
         public void ReloadVoiceLinesAsync()

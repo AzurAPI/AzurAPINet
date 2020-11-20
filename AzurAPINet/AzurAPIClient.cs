@@ -234,6 +234,7 @@ namespace Jan0660.AzurAPINet
                 list = _voiceLines;
             return list;
         }
+        #region get file
         /// <summary>
         /// Gets the content of a file from the AzurAPI database
         /// </summary>
@@ -286,6 +287,7 @@ namespace Jan0660.AzurAPINet
                 return Task.FromResult(File.ReadAllText(WorkingDirectory + file));
             #endif
         }
+        #endregion
         #region ReloadXAsync
         public async Task ReloadShipsAsync()
         {
@@ -317,7 +319,7 @@ namespace Jan0660.AzurAPINet
             var dict = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(await GetTextFileAsync("memories.internal.json"));
             _memories = dict;
         }
-        public async Task ReloadEquipmentAsync()
+        public async Task ReloadEquipmentsAsync()
         {
             var dict = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(await GetTextFileAsync("equipments.json"));
             _equipments = dict;
@@ -330,13 +332,15 @@ namespace Jan0660.AzurAPINet
         public Task ReloadEverythingAsync()
         {
             var tasks = new List<Task>() { ReloadShipsAsync(), ReloadChaptersAsync(), ReloadEventsAsync(), ReloadBarrageAsync(), ReloadMemoriesAsync(),
-            ReloadEquipmentAsync(),
+            ReloadEquipmentsAsync(),
             ReloadVoiceLinesAsync()};
             return Task.WhenAll(tasks);
         }
         #endregion
+        #region get equipment
         public Equipment GetEquipmentByEnglishName(string name)
-            => GetAllEquipments().FirstOrDefault(e => e.Value.Names.en?.ToLower() == name?.ToLower()).Value;
+            => GetAllEquipments().FirstOrDefault(e=> e.Key.ToLower() == name?.ToLower()).Value
+               ?? GetAllEquipments().FirstOrDefault(e => e.Value.Names.en?.ToLower() == name?.ToLower()).Value;
         public Equipment GetEquipmentByChineseName(string name)
             => GetAllEquipments().FirstOrDefault(e => e.Value.Names.cn?.ToLower() == name?.ToLower()).Value;
         public Equipment GetEquipmentByJapaneseName(string name)
@@ -348,6 +352,7 @@ namespace Jan0660.AzurAPINet
                 GetEquipmentByChineseName(name) ??
                 GetEquipmentByJapaneseName(name) ??
                 GetEquipmentByKoreanName(name);
+        #endregion
         #region GetAllShipsFromFaction & aliases
         public List<Ship> GetAllShipsFromFaction(string faction)
             => GetAllShips().Where(s => s.Nationality?.ToLowerTrimmed() == faction?.ToLowerTrimmed()).ToList();
@@ -374,5 +379,25 @@ namespace Jan0660.AzurAPINet
         public List<Ship> GetAllShipsByOfficialName()
             => GetAllShips().Where(s => s.Names.code != null).ToList();
         #endregion
+
+        public Task ReloadCachedAsync()
+        {
+            var tasks = new List<Task>();
+            if(_ships != null)
+                tasks.Add(ReloadShipsAsync());
+            if(_chapters != null)
+                tasks.Add(ReloadChaptersAsync());
+            if(_events != null)
+                tasks.Add(ReloadEventsAsync());
+            if(_barrage != null)
+                tasks.Add(ReloadBarrageAsync());
+            if(_memories != null)
+                tasks.Add(ReloadMemoriesAsync());
+            if(_equipments != null)
+                tasks.Add(ReloadEquipmentsAsync());
+            if(_voiceLines != null)
+                tasks.Add(ReloadVoiceLinesAsync());
+            return Task.WhenAll(tasks);
+        }
     }
 }
