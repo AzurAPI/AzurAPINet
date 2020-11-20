@@ -310,42 +310,42 @@ namespace Jan0660.AzurAPINet
         }
         public async Task ReloadChaptersAsync()
         {
-            if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
+            if (_ships != null && VersionInfo.Ships.VersionNumber < getVersionInfo().Ships.VersionNumber)
                 return;
             var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(await getTextFileAsync("chapters.json"));
             _chapters = dict;
         }
         public async Task ReloadEventsAsync()
         {
-            if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
+            if (_ships != null && VersionInfo.Ships.VersionNumber < getVersionInfo().Ships.VersionNumber)
                 return;
             var list = JsonConvert.DeserializeObject<List<Event>>(await getTextFileAsync("events.json"));
             _events = list;
         }
         public async Task ReloadBarrageAsync()
         {
-            if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
+            if (_ships != null && VersionInfo.Ships.VersionNumber < getVersionInfo().Ships.VersionNumber)
                 return;
             var list = JsonConvert.DeserializeObject<List<BarrageItem>>(await getTextFileAsync("barrage.json"));
             _barrage = list;
         }
         public async Task ReloadMemoriesAsync()
         {
-            if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
+            if (_ships != null && VersionInfo.Ships.VersionNumber < getVersionInfo().Ships.VersionNumber)
                 return;
             var dict = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(await getTextFileAsync("memories.internal.json"));
             _memories = dict;
         }
         public async Task ReloadEquipmentsAsync()
         {
-            if (_ships != null && VersionInfo.Equipments.VersionNumber > getVersionInfo().Equipments.VersionNumber)
+            if (_ships != null && VersionInfo.Equipments.VersionNumber < getVersionInfo().Equipments.VersionNumber)
                 return;
             var dict = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(await getTextFileAsync("equipments.json"));
             _equipments = dict;
         }
         public async Task ReloadVoiceLinesAsync()
         {
-            if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
+            if (_ships != null && VersionInfo.Ships.VersionNumber < getVersionInfo().Ships.VersionNumber)
                 return;
             var dict = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(await getTextFileAsync("voice_lines.json"));
             _voiceLines = dict;
