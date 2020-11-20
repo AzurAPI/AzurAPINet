@@ -170,5 +170,16 @@ namespace AzurAPINetTests
                 }
             }
         }
+        [TestMethod]
+        public void GetRetrofitHullType()
+        {
+            foreach(var ship in Client.getAllShips())
+            {
+                if (ship.Retrofittable)
+                {
+                    ship.GetRetrofitHullTypeEnum();
+                }
+            }
+        }
     }
 }

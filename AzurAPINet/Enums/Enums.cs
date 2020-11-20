@@ -14,7 +14,7 @@ namespace Jan0660.AzurAPINet.Enums
     public enum ShipRarity { Normal, Rare, Elite, SuperRare, Decisive, Priority, UltraRare }
     public enum NewSkinCurrency { Gem, Ruby }
     public enum BarrageType { Ship, Class, Skill }
-    public enum ShipHullType { Destroyer, Monitor, LightCruiser, HeavyCruiser, AircraftCarrier, RepairShip, Battleship, Submarine, Battlecruiser, LargeCruiser, LightAircraftCarrier, SubmarineCarrier, MunitionShip, Repair, LightCarrier };
+    public enum ShipHullType { Destroyer, Monitor, LightCruiser, HeavyCruiser, AircraftCarrier, RepairShip, Battleship, Submarine, Battlecruiser, LargeCruiser, LightAircraftCarrier, SubmarineCarrier, MunitionShip, Repair, LightCarrier, AviationBattleship };
     public enum EquipmentCategory
     {
         DestroyerGuns,
@@ -128,27 +128,11 @@ namespace Jan0660.AzurAPINet.Enums
                 "Ultra Rare" => ShipRarity.UltraRare
             };
         }
+
         public static ShipHullType GetHullTypeEnum(this Ship ship)
-        {
-            return ship.HullType switch
-            {
-                "Destroyer" => ShipHullType.Destroyer,
-                "Monitor" => ShipHullType.Monitor,
-                "Light Cruiser" => ShipHullType.LightCruiser,
-                "Heavy Cruiser" => ShipHullType.HeavyCruiser,
-                "Aircraft Carrier" => ShipHullType.AircraftCarrier,
-                "Repair Ship" => ShipHullType.RepairShip,
-                "Battleship" => ShipHullType.Battleship,
-                "Submarine" => ShipHullType.Submarine,
-                "Battlecruiser" => ShipHullType.Battlecruiser,
-                "Large Cruiser" => ShipHullType.LargeCruiser,
-                //"Light Aircraft Carrier" => ShipHullType.LightAircraftCarrier,
-                "Light Carrier" => ShipHullType.LightCarrier,
-                "Submarine Carrier" => ShipHullType.SubmarineCarrier,
-                "Munition Ship" => ShipHullType.MunitionShip,
-                "Repair" => ShipHullType.Repair
-            };
-        }
+            => StringToShipHullType(ship.HullType);
+        public static ShipHullType GetRetrofitHullTypeEnum(this Ship ship)
+            => StringToShipHullType(ship.RetrofitHullType);
         public static Nationality GetNationalityEnum(this Ship ship)
         => StringToNationality(ship.Nationality);
         #endregion
@@ -270,6 +254,26 @@ namespace Jan0660.AzurAPINet.Enums
                 "BBV" => HullType.BBV
             };
         }
+        public static ShipHullType StringToShipHullType(string str)
+        => str switch
+        {
+            "Destroyer" => ShipHullType.Destroyer,
+            "Monitor" => ShipHullType.Monitor,
+            "Light Cruiser" => ShipHullType.LightCruiser,
+            "Heavy Cruiser" => ShipHullType.HeavyCruiser,
+            "Aircraft Carrier" => ShipHullType.AircraftCarrier,
+            "Repair Ship" => ShipHullType.RepairShip,
+            "Battleship" => ShipHullType.Battleship,
+            "Submarine" => ShipHullType.Submarine,
+            "Battlecruiser" => ShipHullType.Battlecruiser,
+            "Large Cruiser" => ShipHullType.LargeCruiser,
+            //"Light Aircraft Carrier" => ShipHullType.LightAircraftCarrier,
+            "Light Carrier" => ShipHullType.LightCarrier,
+            "Submarine Carrier" => ShipHullType.SubmarineCarrier,
+            "Munition Ship" => ShipHullType.MunitionShip,
+            "Repair" => ShipHullType.Repair,
+            "Aviation Battleship" => ShipHullType.AviationBattleship
+        };
         public static Rarity StringToRarity(string str)
         {
             return str switch
