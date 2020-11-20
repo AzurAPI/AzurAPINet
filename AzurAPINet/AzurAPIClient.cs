@@ -48,6 +48,11 @@ namespace Jan0660.AzurAPINet
         private Dictionary<string, Equipment> _equipments = null;
         private Dictionary<string, Dictionary<string, List<VoiceLine>>> _voiceLines = null;
         /// <summary>
+        /// version info of loaded data / when client was created
+        /// </summary>
+        public DatabaseVersionInfo VersionInfo { get; private set; }
+
+        /// <summary>
         /// Create new client which uses downloaded database
         /// </summary>
         /// <param name="workingDirectory">AzurAPI database location</param>
@@ -56,6 +61,7 @@ namespace Jan0660.AzurAPINet
             ClientType = ClientType.Local;
             WorkingDirectory = workingDirectory;
             Options = options;
+            VersionInfo = getVersionInfo();
         }
         /// <summary>
         /// Create new client that uses database from web
@@ -65,6 +71,7 @@ namespace Jan0660.AzurAPINet
             ClientType = ClientType.Web;
             WorkingDirectory = "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/";
             Options = options;
+            VersionInfo = getVersionInfo();
         }
 
         public List<Ship> getAllShips()
@@ -118,7 +125,7 @@ namespace Jan0660.AzurAPINet
         public Ship getShipByKoreanName(string name)
         => getAllShips().FirstOrDefault((ship) => ship.Names.kr?.ToLower() == name?.ToLower());
         #endregion
-        public DatabaseVersionInfo getDatabaseVersionInfo()
+        public DatabaseVersionInfo getVersionInfo()
         {
             return JsonConvert.DeserializeObject<DatabaseVersionInfo>(getTextFile("version-info.json"));
         }
@@ -291,6 +298,8 @@ namespace Jan0660.AzurAPINet
         #region ReloadXAsync
         public async Task ReloadShipsAsync()
         {
+            if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
+                return;
             var ships = JsonConvert.DeserializeObject<List<Ship>>(await getTextFileAsync("ships.json"),
             new JsonSerializerSettings
             {
@@ -301,31 +310,43 @@ namespace Jan0660.AzurAPINet
         }
         public async Task ReloadChaptersAsync()
         {
+            if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
+                return;
             var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(await getTextFileAsync("chapters.json"));
             _chapters = dict;
         }
         public async Task ReloadEventsAsync()
         {
+            if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
+                return;
             var list = JsonConvert.DeserializeObject<List<Event>>(await getTextFileAsync("events.json"));
             _events = list;
         }
         public async Task ReloadBarrageAsync()
         {
+            if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
+                return;
             var list = JsonConvert.DeserializeObject<List<BarrageItem>>(await getTextFileAsync("barrage.json"));
             _barrage = list;
         }
         public async Task ReloadMemoriesAsync()
         {
+            if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
+                return;
             var dict = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(await getTextFileAsync("memories.internal.json"));
             _memories = dict;
         }
         public async Task ReloadEquipmentsAsync()
         {
+            if (_ships != null && VersionInfo.Equipments.VersionNumber > getVersionInfo().Equipments.VersionNumber)
+                return;
             var dict = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(await getTextFileAsync("equipments.json"));
             _equipments = dict;
         }
         public async Task ReloadVoiceLinesAsync()
         {
+            if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
+                return;
             var dict = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(await getTextFileAsync("voice_lines.json"));
             _voiceLines = dict;
         }
