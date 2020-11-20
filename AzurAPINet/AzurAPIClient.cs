@@ -280,7 +280,11 @@ namespace Jan0660.AzurAPINet
             }
             // ClientType.Local
             else
+            #if NETSTANDARD2_1
+                return File.ReadAllTextAsync(WorkingDirectory + file);
+            #else
                 return Task.FromResult(File.ReadAllText(WorkingDirectory + file));
+            #endif
         }
         #region ReloadXAsync
         public async Task ReloadShipsAsync()
