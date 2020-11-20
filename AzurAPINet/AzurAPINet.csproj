@@ -12,6 +12,7 @@
     breaking changes: GetShip, GetAllShips and other methods are getShip, getAllShips... and more</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/AzurAPI/AzurAPINet</RepositoryUrl>
+    <PackageProjectUrl>https://azurapi.github.io/</PackageProjectUrl>
   </PropertyGroup>
   
   <ItemGroup>
