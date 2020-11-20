@@ -20,14 +20,14 @@ namespace AzurAPINetCoreTests
             Console.WriteLine("Test start");
             AzurAPIClient Client = new AzurAPIClient(new AzurAPIClientOptions());
             await WikiDemo();
-            GetAllAll(Client);
-            var eq = Client.GetEquipment(Client.GetAllEquipments().First().Value.Names.cn);
+            getAllAll(Client);
+            var eq = Client.getEquipment(Client.getAllEquipments().First().Value.Names.cn);
             Console.WriteLine(eq.Names.cn);
-            Console.WriteLine($"No. of ships: {Client.GetAllShips().Count}");
-            Console.WriteLine($"Takao's rarity: {Client.GetShip("takao").Rarity}");
-            Console.WriteLine($"Javelin's nationality: {Client.GetShipByEnglishName("javelin").Nationality}");
+            Console.WriteLine($"No. of ships: {Client.getAllShips().Count}");
+            Console.WriteLine($"Takao's rarity: {Client.getShip("takao").Rarity}");
+            Console.WriteLine($"Javelin's nationality: {Client.getShipByEnglishName("javelin").Nationality}");
             var client = Client;
-            foreach(var ship in client.GetAllShips())
+            foreach(var ship in client.getAllShips())
             {
                 foreach(var slot in ship.Slots.ToList())
                 {
@@ -36,8 +36,8 @@ namespace AzurAPINetCoreTests
                 }
             }
             client.ReloadEverythingAsync().Wait();
-            var l = GetAllRetrofitGrades(client);
-            var ships = client.GetAllShips();
+            var l = getAllRetrofitGrades(client);
+            var ships = client.getAllShips();
             foreach(var s in ships)
             {
                 if (s.Retrofittable)
@@ -51,7 +51,7 @@ namespace AzurAPINetCoreTests
                     }
                 }
             }
-            var sh = client.GetShip("javelin");
+            var sh = client.getShip("javelin");
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
         static async Task WikiDemo(){
@@ -66,62 +66,62 @@ namespace AzurAPINetCoreTests
             // reload cached data to update it
             await client.ReloadEverythingAsync();
             // query a ship by name
-            var ship = client.GetShip("Z23");
+            var ship = client.getShip("Z23");
             // alternative
-            var ship2 = client.GetShipByEnglishName("Z23");
+            var ship2 = client.getShipByEnglishName("Z23");
             
             // query by id
-            var ship3 = client.GetShip("115");
+            var ship3 = client.getShip("115");
             // alternative
-            var ship4 = client.GetShipById("115");
+            var ship4 = client.getShipById("115");
             
             // query for equipment
-            var equipment = client.GetEquipment("Quadruple 130mm (Mle 1932)");
+            var equipment = client.getEquipment("Quadruple 130mm (Mle 1932)");
             // alternative
-            var equipment2 = client.GetEquipmentByEnglishName("Quadruple 130mm (Mle 1932)");
+            var equipment2 = client.getEquipmentByEnglishName("Quadruple 130mm (Mle 1932)");
             
             // get all ships
-            var ships = client.GetAllShips();
+            var ships = client.getAllShips();
             
             // get all equipments
-            var equipments = client.GetAllEquipments();
+            var equipments = client.getAllEquipments();
             
             // get ships from nation
-            var shipsFromIronBlood = client.GetAllShipsFromNation("iron blood");
-            var shipsFromSakuraEmpire = client.GetAllShipsFromNation("Sakura Empire");
-            var shipsFromRoyalNavy = client.GetAllShipsFromNation("Royal Navy");
+            var shipsFromIronBlood = client.getAllShipsFromNation("iron blood");
+            var shipsFromSakuraEmpire = client.getAllShipsFromNation("Sakura Empire");
+            var shipsFromRoyalNavy = client.getAllShipsFromNation("Royal Navy");
             
             // add this using statement to the top of your current file
             // using Jan0660.AzurAPINet.Enums;
             // alternatively you can use enums
-            var shipsFromIronBlood2 = client.GetAllShipsFromNation(Nationality.IronBlood);
-            var shipsFromSakuraEmpire2 = client.GetAllShipsFromNation(Nationality.SakuraEmpire);
-            var shipsFromRoyalNavy2 = client.GetAllShipsFromNation(Nationality.RoyalNavy);
+            var shipsFromIronBlood2 = client.getAllShipsFromNation(Nationality.IronBlood);
+            var shipsFromSakuraEmpire2 = client.getAllShipsFromNation(Nationality.SakuraEmpire);
+            var shipsFromRoyalNavy2 = client.getAllShipsFromNation(Nationality.RoyalNavy);
             
             
             
         }
-        static void GetAllAll(AzurAPIClient Client)
+        static void getAllAll(AzurAPIClient Client)
         {
-            //var VoiceLines = Client.GetAllVoiceLines();
-            var Ships = Client.GetAllShips();
-            var j = Client.GetShip("javelin");
-            var Memories = Client.GetAllMemories();
-            var Events = Client.GetAllEvents();
-            var Equipment = Client.GetAllEquipments();
-            var Chapters = Client.GetAllChapters();
-            var Barrage = Client.GetAllBarrage();
+            //var VoiceLines = Client.getAllVoiceLines();
+            var Ships = Client.getAllShips();
+            var j = Client.getShip("javelin");
+            var Memories = Client.getAllMemories();
+            var Events = Client.getAllEvents();
+            var Equipment = Client.getAllEquipments();
+            var Chapters = Client.getAllChapters();
+            var Barrage = Client.getAllBarrage();
             // enums
-            foreach (var equipment in Client.GetAllEquipments())
+            foreach (var equipment in Client.getAllEquipments())
             {
                 equipment.Value.GetCategoryEnum();
             }
         }
         #region ENUM PARSING STUFF IDK
-        static List<string> GetAllRetrofitGrades(AzurAPIClient client)
+        static List<string> getAllRetrofitGrades(AzurAPIClient client)
         {
             var res = new List<string>();
-            foreach(var s in client.GetAllShips())
+            foreach(var s in client.getAllShips())
             {
                 if (s.Retrofittable)
                 {
@@ -134,10 +134,10 @@ namespace AzurAPINetCoreTests
             }
             return res;
         }
-        static List<string> GetAllNewShipConstructionTypes(AzurAPIClient client)
+        static List<string> getAllNewShipConstructionTypes(AzurAPIClient client)
         {
             List<string> res = new List<string>();
-            foreach (var e in client.GetAllEvents())
+            foreach (var e in client.getAllEvents())
             {
                 foreach (var s in e.NewShipsConstruction)
                 {
@@ -147,30 +147,30 @@ namespace AzurAPINetCoreTests
             }
             return res;
         }
-        static List<string> GetAllRarities(AzurAPIClient client)
+        static List<string> getAllRarities(AzurAPIClient client)
         {
             List<string> res = new List<string>();
-            foreach (var ship in client.GetAllShips())
+            foreach (var ship in client.getAllShips())
             {
                 if (!res.Contains(ship.Rarity))
                     res.Add(ship.Rarity);
             }
             return res;
         }
-        static List<string> GetAllBarrageTypes(AzurAPIClient client)
+        static List<string> getAllBarrageTypes(AzurAPIClient client)
         {
             List<string> res = new List<string>();
-            foreach (var eventt in client.GetAllBarrage())
+            foreach (var eventt in client.getAllBarrage())
             {
                 if (!res.Contains(eventt.Type))
                     res.Add(eventt.Type);
             }
             return res;
         }
-        static List<string> GetAllNewSkinRarities(AzurAPIClient client)
+        static List<string> getAllNewSkinRarities(AzurAPIClient client)
         {
             List<string> res = new List<string>();
-            foreach (var eventt in client.GetAllEvents())
+            foreach (var eventt in client.getAllEvents())
             {
                 foreach (var skin in eventt.NewShipsSkins)
                 {
@@ -180,12 +180,12 @@ namespace AzurAPINetCoreTests
             }
             return res;
         }
-        static List<string> GetAllNewSkinCurrencies(AzurAPIClient client)
+        static List<string> getAllNewSkinCurrencies(AzurAPIClient client)
         {
             List<string> res = new List<string>();
             List<string> gem = new List<string>();
             List<string> ruby = new List<string>();
-            foreach (var eventt in client.GetAllEvents())
+            foreach (var eventt in client.getAllEvents())
             {
                 foreach (var skin in eventt.NewShipsSkins)
                 {
@@ -200,10 +200,10 @@ namespace AzurAPINetCoreTests
             return res;
         }
 
-        static List<string> GetAllNewSkinTypes(AzurAPIClient client)
+        static List<string> getAllNewSkinTypes(AzurAPIClient client)
         {
             List<string> res = new List<string>();
-            foreach (var eventt in client.GetAllEvents())
+            foreach (var eventt in client.getAllEvents())
             {
                 foreach (var skin in eventt.NewShipsSkins)
                 {
@@ -213,51 +213,51 @@ namespace AzurAPINetCoreTests
             }
             return res;
         }
-        static List<string> GetAllNationalities(AzurAPIClient client)
+        static List<string> getAllNationalities(AzurAPIClient client)
         {
             List<string> res = new List<string>();
-            foreach (var ship in client.GetAllShips())
+            foreach (var ship in client.getAllShips())
             {
                 if (!res.Contains(ship.Nationality))
                     res.Add(ship.Nationality);
             }
             return res;
         }
-        static List<string> GetEquipmentCategories(AzurAPIClient client)
+        static List<string> getEquipmentCategories(AzurAPIClient client)
         {
             List<string> res = new List<string>();
-            foreach (var ship in client.GetAllEquipments())
+            foreach (var ship in client.getAllEquipments())
             {
                 if (!res.Contains(ship.Value.Category))
                     res.Add(ship.Value.Category);
             }
             return res;
         }
-        static List<string> GetAllHullTypes(AzurAPIClient client)
+        static List<string> getAllHullTypes(AzurAPIClient client)
         {
             List<string> res = new List<string>();
-            foreach (var ship in client.GetAllShips())
+            foreach (var ship in client.getAllShips())
             {
                 if (!res.Contains(ship.HullType))
                     res.Add(ship.HullType);
             }
             return res;
         }
-        static List<string> GetAllBarrageItemHulls(AzurAPIClient client)
+        static List<string> getAllBarrageItemHulls(AzurAPIClient client)
         {
 
             List<string> res = new List<string>();
-            foreach (var bar in client.GetAllBarrage())
+            foreach (var bar in client.getAllBarrage())
             {
                 if (!res.Contains(bar.Hull))
                     res.Add(bar.Hull);
             }
             return res;
         }
-        static List<string> GetAllEquipmentsStatsTiers(AzurAPIClient client)
+        static List<string> getAllEquipmentsStatsTiers(AzurAPIClient client)
         {
             var res = new List<string>();
-            foreach (var eq in client.GetAllEquipments())
+            foreach (var eq in client.getAllEquipments())
             {
                 foreach (var tier in eq.Value.Tiers)
                 {
@@ -267,10 +267,10 @@ namespace AzurAPINetCoreTests
             }
             return res;
         }
-        static List<string> GetAllBarageRoundTypes(AzurAPIClient client)
+        static List<string> getAllBarageRoundTypes(AzurAPIClient client)
         {
             var res = new List<string>();
-            foreach (var bar in client.GetAllBarrage())
+            foreach (var bar in client.getAllBarrage())
             {
                 foreach (var round in bar.Rounds)
                 {

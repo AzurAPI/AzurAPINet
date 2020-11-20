@@ -10,45 +10,45 @@ namespace AzurAPINetTests
     public class Other
     {
         [TestMethod]
-        public void GetAllShipsFromFaction()
+        public void getAllShipsFromFaction()
         {
-            foreach(var ship in Client.GetAllShips())
+            foreach(var ship in Client.getAllShips())
             {
-                Client.GetAllShipsFromFaction(ship.Nationality);
+                Client.getAllShipsFromFaction(ship.Nationality);
             }
         }
         [TestMethod]
-        public void GetAllShipsFromFactionByEnum()
+        public void getAllShipsFromFactionByEnum()
         {
-            foreach(var ship in Client.GetAllShips())
+            foreach(var ship in Client.getAllShips())
             {
-                Client.GetAllShipsFromNationality(ship.GetNationalityEnum());
+                Client.getAllShipsFromNationality(ship.GetNationalityEnum());
             }
         }
         [TestMethod]
-        public void GetAllShipsByEnglishName()
+        public void getAllShipsByEnglishName()
         {
-            Client.GetAllShipsByEnglishName();
+            Client.getAllShipsByEnglishName();
         }
         [TestMethod]
-        public void GetAllShipsByJapaneseName()
+        public void getAllShipsByJapaneseName()
         {
-            Client.GetAllShipsByJapaneseName();
+            Client.getAllShipsByJapaneseName();
         }
         [TestMethod]
-        public void GetAllShipsByChineseName()
+        public void getAllShipsByChineseName()
         {
-            Client.GetAllShipsByChineseName();
+            Client.getAllShipsByChineseName();
         }
         [TestMethod]
-        public void GetAllShipsByKoreanName()
+        public void getAllShipsByKoreanName()
         {
-            Client.GetAllShipsByKoreanName();
+            Client.getAllShipsByKoreanName();
         }
         [TestMethod]
-        public void GetAllShipsByOfficialName()
+        public void getAllShipsByOfficialName()
         {
-            Client.GetAllShipsByOfficialName();
+            Client.getAllShipsByOfficialName();
         }
     }
 }

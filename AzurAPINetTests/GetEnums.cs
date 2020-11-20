@@ -10,20 +10,20 @@ using static AzurAPINetTests.Static;
 namespace AzurAPINetTests
 {
     [TestClass]
-    public class GetEnums
+    public class getEnums
     {
         [TestMethod]
-        public void GetShipRarityEnum()
+        public void getShipRarityEnum()
         {
-            foreach (var s in Client.GetAllShips())
+            foreach (var s in Client.getAllShips())
             {
                 s.GetRarityEnum();
             }
         }
         [TestMethod]
-        public void GetNewShipSkinCurrencyEnum()
+        public void getNewShipSkinCurrencyEnum()
         {
-            foreach (var e in Client.GetAllEvents())
+            foreach (var e in Client.getAllEvents())
             {
                 foreach (var s in e.NewShipsSkins)
                 {
@@ -32,49 +32,49 @@ namespace AzurAPINetTests
             }
         }
         [TestMethod]
-        public void GetBarrageTypeEnum()
+        public void getBarrageTypeEnum()
         {
-            foreach (var b in Client.GetAllBarrage())
+            foreach (var b in Client.getAllBarrage())
             {
                 b.GetTypeEnum();
             }
         }
         [TestMethod]
-        public void GetShipHullTypeEnum()
+        public void getShipHullTypeEnum()
         {
-            foreach (var s in Client.GetAllShips())
+            foreach (var s in Client.getAllShips())
             {
                 s.GetHullTypeEnum();
             }
         }
         [TestMethod]
-        public void GetEquipmentCategoryEnum()
+        public void getEquipmentCategoryEnum()
         {
-            foreach (var e in Client.GetAllEquipments())
+            foreach (var e in Client.getAllEquipments())
             {
                 e.Value.GetCategoryEnum();
             }
         }
         [TestMethod]
-        public void GetShipNationalityEnum()
+        public void getShipNationalityEnum()
         {
-            foreach (var s in Client.GetAllShips())
+            foreach (var s in Client.getAllShips())
             {
                 s.GetNationalityEnum();
             }
         }
         [TestMethod]
-        public void GetEquipmentNationality()
+        public void getEquipmentNationality()
         {
-            foreach (var e in Client.GetAllEquipments())
+            foreach (var e in Client.getAllEquipments())
             {
                 e.Value.GetNationalityEnum();
             }
         }
         [TestMethod]
-        public void GetNewShipConstructionRarity()
+        public void getNewShipConstructionRarity()
         {
-            foreach (var e in Client.GetAllEvents())
+            foreach (var e in Client.getAllEvents())
             {
                 foreach (var s in e.NewShipsConstruction)
                 {
@@ -83,9 +83,9 @@ namespace AzurAPINetTests
             }
         }
         [TestMethod]
-        public void GetNewShipConstructionType()
+        public void getNewShipConstructionType()
         {
-            foreach (var e in Client.GetAllEvents())
+            foreach (var e in Client.getAllEvents())
             {
                 foreach (var s in e.NewShipsConstruction)
                 {
@@ -94,9 +94,9 @@ namespace AzurAPINetTests
             }
         }
         [TestMethod]
-        public void GetNewShipSkinRarity()
+        public void getNewShipSkinRarity()
         {
-            foreach (var e in Client.GetAllEvents())
+            foreach (var e in Client.getAllEvents())
             {
                 foreach (var s in e.NewShipsSkins)
                 {
@@ -105,9 +105,9 @@ namespace AzurAPINetTests
             }
         }
         [TestMethod]
-        public void GetEquipmentStatsRarity()
+        public void getEquipmentStatsRarity()
         {
-            foreach (var e in Client.GetAllEquipments())
+            foreach (var e in Client.getAllEquipments())
             {
                 foreach (var t in e.Value.Tiers)
                 {
@@ -116,9 +116,9 @@ namespace AzurAPINetTests
             }
         }
         [TestMethod]
-        public void GetNewShipSkinType()
+        public void getNewShipSkinType()
         {
-            foreach (var e in Client.GetAllEvents())
+            foreach (var e in Client.getAllEvents())
             {
                 foreach (var s in e.NewShipsSkins)
                 {
@@ -127,9 +127,9 @@ namespace AzurAPINetTests
             }
         }
         [TestMethod]
-        public void GetEquipmentStatsTier()
+        public void getEquipmentStatsTier()
         {
-            foreach (var e in Client.GetAllEquipments())
+            foreach (var e in Client.getAllEquipments())
             {
                 foreach (var t in e.Value.Tiers)
                 {
@@ -138,9 +138,9 @@ namespace AzurAPINetTests
             }
         }
         [TestMethod]
-        public void GetBarrageRoundType()
+        public void getBarrageRoundType()
         {
-            foreach (var barrage in Client.GetAllBarrage())
+            foreach (var barrage in Client.getAllBarrage())
             {
                 foreach (var round in barrage.Rounds)
                 {
@@ -149,17 +149,17 @@ namespace AzurAPINetTests
             }
         }
         [TestMethod]
-        public void GetBarrageItemHullType()
+        public void getBarrageItemHullType()
         {
-            foreach (var barrage in Client.GetAllBarrage())
+            foreach (var barrage in Client.getAllBarrage())
             {
                 barrage.GetHullTypeEnum();
             }
         }
         [TestMethod]
-        public void GetGradeEnum()
+        public void getGradeEnum()
         {
-            foreach(var ship in Client.GetAllShips())
+            foreach(var ship in Client.getAllShips())
             {
                 if (ship.Retrofittable)
                 {

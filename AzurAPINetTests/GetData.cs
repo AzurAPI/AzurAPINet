@@ -4,42 +4,42 @@ using static AzurAPINetTests.Static;
 namespace AzurAPINetTests
 {
     [TestClass]
-    public class GetData
+    public class getData
     {
         [TestMethod]
-        public void GetShips()
+        public void getShips()
         {
-            var ships = Client.GetAllShips() ?? throw new System.Exception("returned null");
+            var ships = Client.getAllShips() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
-        public void GetBarrage()
+        public void getBarrage()
         {
-            var barrage = Client.GetAllBarrage() ?? throw new System.Exception("returned null");
+            var barrage = Client.getAllBarrage() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
-        public void GetEquipments()
+        public void getEquipments()
         {
-            var equipment = Client.GetAllEquipments() ?? throw new System.Exception("returned null");
+            var equipment = Client.getAllEquipments() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
-        public void GetChapters()
+        public void getChapters()
         {
-            var chapters = Client.GetAllChapters() ?? throw new System.Exception("returned null");
+            var chapters = Client.getAllChapters() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
-        public void GetVoiceLines()
+        public void getVoiceLines()
         {
-            var voiceLines = Client.GetAllVoiceLines() ?? throw new System.Exception("returned null");
+            var voiceLines = Client.getAllVoiceLines() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
-        public void GetEvents()
+        public void getEvents()
         {
-            var events = Client.GetAllEvents() ?? throw new System.Exception("returned null");
+            var events = Client.getAllEvents() ?? throw new System.Exception("returned null");
         }
         [TestMethod]
-        public void GetMemories()
+        public void getMemories()
         {
-            var memories = Client.GetAllMemories() ?? throw new System.Exception("returned null");
+            var memories = Client.getAllMemories() ?? throw new System.Exception("returned null");
         }
     }
 }

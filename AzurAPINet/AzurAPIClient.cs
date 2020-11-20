@@ -67,12 +67,12 @@ namespace Jan0660.AzurAPINet
             Options = options;
         }
 
-        public List<Ship> GetAllShips()
+        public List<Ship> getAllShips()
         {
             List<Ship> ships;
             if (this._ships == null)
             {
-                ships = JsonConvert.DeserializeObject<List<Ship>>(GetTextFile("ships.json"),
+                ships = JsonConvert.DeserializeObject<List<Ship>>(getTextFile("ships.json"),
                 new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore
@@ -85,42 +85,42 @@ namespace Jan0660.AzurAPINet
                 ships = this._ships;
             return ships;
         }
-        #region GetShip, GetShipBy<EnglishName,Code,Id,...>
+        #region getShip, getShipBy<EnglishName,Code,Id,...>
 
         /// <summary>
         /// Searches for a ship using it's english name, code, id, japanese and chinese name, in this order
         /// </summary>
         /// <param name="query">The name of the ship you're searching for</param>
         /// <returns>the ship</returns>
-        public Ship GetShip(string query)
-            => GetShipByEnglishName(query)
-               ?? GetShipByCode(query)
-               ?? GetShipById(query)
-               ?? GetShipByJapaneseName(query)
-               ?? GetShipByChineseName(query)
-               ?? GetShipByKoreanName(query);
+        public Ship getShip(string query)
+            => getShipByEnglishName(query)
+               ?? getShipByCode(query)
+               ?? getShipById(query)
+               ?? getShipByJapaneseName(query)
+               ?? getShipByChineseName(query)
+               ?? getShipByKoreanName(query);
         /// <summary>
         /// yes.
         /// </summary>
         /// <param name="waifu"></param>
         /// <returns>the waifu</returns>
-        public Ship GetWaifu(string waifu) => GetShip(waifu);
-        public Ship GetShipByEnglishName(string name)
-            => GetAllShips().FirstOrDefault((ship) => ship.Names.en?.ToLower() == name?.ToLower());
-        public Ship GetShipByCode(string code)
-        => GetAllShips().FirstOrDefault((ship) => ship.Names.code.ToLower() == code?.ToLower());
-        public Ship GetShipById(string id)
-        => GetAllShips().FirstOrDefault((ship) => ship.Id.ToLower() == id?.ToLower());
-        public Ship GetShipByJapaneseName(string name)
-        => GetAllShips().FirstOrDefault((ship) => ship.Names.jp?.ToLower() == name?.ToLower());
-        public Ship GetShipByChineseName(string name)
-            => GetAllShips().FirstOrDefault((ship) => ship.Names.cn?.ToLower() == name?.ToLower());
-        public Ship GetShipByKoreanName(string name)
-        => GetAllShips().FirstOrDefault((ship) => ship.Names.kr?.ToLower() == name?.ToLower());
+        public Ship getWaifu(string waifu) => getShip(waifu);
+        public Ship getShipByEnglishName(string name)
+            => getAllShips().FirstOrDefault((ship) => ship.Names.en?.ToLower() == name?.ToLower());
+        public Ship getShipByCode(string code)
+        => getAllShips().FirstOrDefault((ship) => ship.Names.code.ToLower() == code?.ToLower());
+        public Ship getShipById(string id)
+        => getAllShips().FirstOrDefault((ship) => ship.Id.ToLower() == id?.ToLower());
+        public Ship getShipByJapaneseName(string name)
+        => getAllShips().FirstOrDefault((ship) => ship.Names.jp?.ToLower() == name?.ToLower());
+        public Ship getShipByChineseName(string name)
+            => getAllShips().FirstOrDefault((ship) => ship.Names.cn?.ToLower() == name?.ToLower());
+        public Ship getShipByKoreanName(string name)
+        => getAllShips().FirstOrDefault((ship) => ship.Names.kr?.ToLower() == name?.ToLower());
         #endregion
-        public DatabaseVersionInfo GetDatabaseVersionInfo()
+        public DatabaseVersionInfo getDatabaseVersionInfo()
         {
-            return JsonConvert.DeserializeObject<DatabaseVersionInfo>(GetTextFile("version-info.json"));
+            return JsonConvert.DeserializeObject<DatabaseVersionInfo>(getTextFile("version-info.json"));
         }
         /// <summary>
         /// 
@@ -131,14 +131,14 @@ namespace Jan0660.AzurAPINet
             WebClient webClient = new WebClient();
             return (await webClient.DownloadStringTaskAsync(
                 "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/version-info.json")
-                != await GetTextFileAsync("version-info.json"));
+                != await getTextFileAsync("version-info.json"));
         }
-        public Dictionary<string, Chapter> GetAllChapters()
+        public Dictionary<string, Chapter> getAllChapters()
         {
             Dictionary<string, Chapter> dict;
             if (_chapters == null)
             {
-                dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(GetTextFile("chapters.json"));
+                dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(getTextFile("chapters.json"));
                 if (Options.EnableCaching)
                     _chapters = dict;
             }
@@ -146,12 +146,12 @@ namespace Jan0660.AzurAPINet
                 dict = _chapters;
             return dict;
         }
-        public List<Event> GetAllEvents()
+        public List<Event> getAllEvents()
         {
             List<Event> list;
             if (_events == null)
             {
-                list = JsonConvert.DeserializeObject<List<Event>>(GetTextFile("events.json"));
+                list = JsonConvert.DeserializeObject<List<Event>>(getTextFile("events.json"));
                 if (Options.EnableCaching)
                     _events = list;
             }
@@ -159,12 +159,12 @@ namespace Jan0660.AzurAPINet
                 list = _events;
             return list;
         }
-        public List<BarrageItem> GetAllBarrage()
+        public List<BarrageItem> getAllBarrage()
         {
             List<BarrageItem> list;
             if (_barrage == null)
             {
-                list = JsonConvert.DeserializeObject<List<BarrageItem>>(GetTextFile("barrage.json"));
+                list = JsonConvert.DeserializeObject<List<BarrageItem>>(getTextFile("barrage.json"));
                 if (Options.EnableCaching)
                     _barrage = list;
             }
@@ -172,19 +172,19 @@ namespace Jan0660.AzurAPINet
                 list = _barrage;
             return list;
         }
-        public List<BarrageItem> GetBarrageForShip(string name)
+        public List<BarrageItem> getBarrageForShip(string name)
         {
-            var sh = GetShip(name);
+            var sh = getShip(name);
             if(sh != null)
                 name = sh.Names.en;
-            return GetAllBarrage().Where((b) => b.Ships.Count((s) => s.ToLower() == name?.ToLower()) != 0).ToList();
+            return getAllBarrage().Where((b) => b.Ships.Count((s) => s.ToLower() == name?.ToLower()) != 0).ToList();
         }
-        public Dictionary<string, ChapterMemory> GetAllMemories()
+        public Dictionary<string, ChapterMemory> getAllMemories()
         {
             Dictionary<string, ChapterMemory> list;
             if (_memories == null)
             {
-                list = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(GetTextFile("memories.internal.json"));
+                list = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(getTextFile("memories.internal.json"));
                 if (Options.EnableCaching)
                     _memories = list;
             }
@@ -197,10 +197,10 @@ namespace Jan0660.AzurAPINet
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public ChapterMemory GetChapterMemory(string query)
+        public ChapterMemory getChapterMemory(string query)
         {
             query = query?.ToLower();
-            var memories = GetAllMemories().Where((m) =>
+            var memories = getAllMemories().Where((m) =>
             m.Value.Names.en.ToLower() == query |
             m.Value.Names.cn.ToLower() == query |
             m.Value.Names.jp.ToLower() == query |
@@ -208,12 +208,12 @@ namespace Jan0660.AzurAPINet
             );
             return memories.FirstOrDefault().Value;
         }
-        public Dictionary<string, Equipment> GetAllEquipments()
+        public Dictionary<string, Equipment> getAllEquipments()
         {
             Dictionary<string, Equipment> list;
             if (_equipments == null)
             {
-                list = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(GetTextFile("equipments.json"));
+                list = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(getTextFile("equipments.json"));
                 if (Options.EnableCaching)
                     _equipments = list;
             }
@@ -221,12 +221,12 @@ namespace Jan0660.AzurAPINet
                 list = _equipments;
             return list;
         }
-        public Dictionary<string, Dictionary<string, List<VoiceLine>>> GetAllVoiceLines()
+        public Dictionary<string, Dictionary<string, List<VoiceLine>>> getAllVoiceLines()
         {
             Dictionary<string, Dictionary<string, List<VoiceLine>>> list;
             if (_voiceLines == null)
             {
-                list = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(GetTextFile("voice_lines.json"));
+                list = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(getTextFile("voice_lines.json"));
                 if (Options.EnableCaching)
                     _voiceLines = list;
             }
@@ -236,11 +236,11 @@ namespace Jan0660.AzurAPINet
         }
         #region get file
         /// <summary>
-        /// Gets the content of a file from the AzurAPI database
+        /// gets the content of a file from the AzurAPI database
         /// </summary>
         /// <param name="file"></param>
         /// <returns>the bytes of the file</returns>
-        public byte[] GetFileBytes(string file)
+        public byte[] getFileBytes(string file)
         {
             if (ClientType == ClientType.Web)
             {
@@ -252,11 +252,11 @@ namespace Jan0660.AzurAPINet
                 return File.ReadAllBytes(WorkingDirectory + file);
         }
         /// <summary>
-        /// Gets the content of a text file from the AzurAPI database
+        /// gets the content of a text file from the AzurAPI database
         /// </summary>
         /// <param name="file"></param>
         /// <returns>the text</returns>
-        public string GetTextFile(string file)
+        public string getTextFile(string file)
         {
             if (ClientType == ClientType.Web)
             {
@@ -272,7 +272,7 @@ namespace Jan0660.AzurAPINet
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public Task<string> GetTextFileAsync(string file)
+        public Task<string> getTextFileAsync(string file)
         {
             if (ClientType == ClientType.Web)
             {
@@ -291,7 +291,7 @@ namespace Jan0660.AzurAPINet
         #region ReloadXAsync
         public async Task ReloadShipsAsync()
         {
-            var ships = JsonConvert.DeserializeObject<List<Ship>>(await GetTextFileAsync("ships.json"),
+            var ships = JsonConvert.DeserializeObject<List<Ship>>(await getTextFileAsync("ships.json"),
             new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore
@@ -301,32 +301,32 @@ namespace Jan0660.AzurAPINet
         }
         public async Task ReloadChaptersAsync()
         {
-            var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(await GetTextFileAsync("chapters.json"));
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(await getTextFileAsync("chapters.json"));
             _chapters = dict;
         }
         public async Task ReloadEventsAsync()
         {
-            var list = JsonConvert.DeserializeObject<List<Event>>(await GetTextFileAsync("events.json"));
+            var list = JsonConvert.DeserializeObject<List<Event>>(await getTextFileAsync("events.json"));
             _events = list;
         }
         public async Task ReloadBarrageAsync()
         {
-            var list = JsonConvert.DeserializeObject<List<BarrageItem>>(await GetTextFileAsync("barrage.json"));
+            var list = JsonConvert.DeserializeObject<List<BarrageItem>>(await getTextFileAsync("barrage.json"));
             _barrage = list;
         }
         public async Task ReloadMemoriesAsync()
         {
-            var dict = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(await GetTextFileAsync("memories.internal.json"));
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, ChapterMemory>>(await getTextFileAsync("memories.internal.json"));
             _memories = dict;
         }
         public async Task ReloadEquipmentsAsync()
         {
-            var dict = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(await GetTextFileAsync("equipments.json"));
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(await getTextFileAsync("equipments.json"));
             _equipments = dict;
         }
         public async Task ReloadVoiceLinesAsync()
         {
-            var dict = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(await GetTextFileAsync("voice_lines.json"));
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(await getTextFileAsync("voice_lines.json"));
             _voiceLines = dict;
         }
         public Task ReloadEverythingAsync()
@@ -338,46 +338,46 @@ namespace Jan0660.AzurAPINet
         }
         #endregion
         #region get equipment
-        public Equipment GetEquipmentByEnglishName(string name)
-            => GetAllEquipments().FirstOrDefault(e=> e.Key.ToLower() == name?.ToLower()).Value
-               ?? GetAllEquipments().FirstOrDefault(e => e.Value.Names.en?.ToLower() == name?.ToLower()).Value;
-        public Equipment GetEquipmentByChineseName(string name)
-            => GetAllEquipments().FirstOrDefault(e => e.Value.Names.cn?.ToLower() == name?.ToLower()).Value;
-        public Equipment GetEquipmentByJapaneseName(string name)
-            => GetAllEquipments().FirstOrDefault(e => e.Value.Names.jp?.ToLower() == name?.ToLower()).Value;
-        public Equipment GetEquipmentByKoreanName(string name)
-            => GetAllEquipments().FirstOrDefault(e => e.Value.Names.kr?.ToLower() == name?.ToLower()).Value;
-        public Equipment GetEquipment(string name)
-            => GetEquipmentByEnglishName(name) ??
-                GetEquipmentByChineseName(name) ??
-                GetEquipmentByJapaneseName(name) ??
-                GetEquipmentByKoreanName(name);
+        public Equipment getEquipmentByEnglishName(string name)
+            => getAllEquipments().FirstOrDefault(e=> e.Key.ToLower() == name?.ToLower()).Value
+               ?? getAllEquipments().FirstOrDefault(e => e.Value.Names.en?.ToLower() == name?.ToLower()).Value;
+        public Equipment getEquipmentByChineseName(string name)
+            => getAllEquipments().FirstOrDefault(e => e.Value.Names.cn?.ToLower() == name?.ToLower()).Value;
+        public Equipment getEquipmentByJapaneseName(string name)
+            => getAllEquipments().FirstOrDefault(e => e.Value.Names.jp?.ToLower() == name?.ToLower()).Value;
+        public Equipment getEquipmentByKoreanName(string name)
+            => getAllEquipments().FirstOrDefault(e => e.Value.Names.kr?.ToLower() == name?.ToLower()).Value;
+        public Equipment getEquipment(string name)
+            => getEquipmentByEnglishName(name) ??
+                getEquipmentByChineseName(name) ??
+                getEquipmentByJapaneseName(name) ??
+                getEquipmentByKoreanName(name);
         #endregion
-        #region GetAllShipsFromFaction & aliases
-        public List<Ship> GetAllShipsFromFaction(string faction)
-            => GetAllShips().Where(s => s.Nationality?.ToLowerTrimmed() == faction?.ToLowerTrimmed()).ToList();
-        public List<Ship> GetAllShipsFromNation(string nation)
-            => GetAllShipsFromFaction(nation);
-        public List<Ship> GetAllShipsFromNationality(string nationality)
-            => GetAllShipsFromFaction(nationality);
-        public List<Ship> GetAllShipsFromFaction(Nationality nationality)
-            => GetAllShipsFromFaction(nationality.ToString());
-        public List<Ship> GetAllShipsFromNationality(Nationality nationality)
-            => GetAllShipsFromFaction(nationality.ToString());
-        public List<Ship> GetAllShipsFromNation(Nationality nationality)
-            => GetAllShipsFromFaction(nationality.ToString());
+        #region getAllShipsFromFaction & aliases
+        public List<Ship> getAllShipsFromFaction(string faction)
+            => getAllShips().Where(s => s.Nationality?.ToLowerTrimmed() == faction?.ToLowerTrimmed()).ToList();
+        public List<Ship> getAllShipsFromNation(string nation)
+            => getAllShipsFromFaction(nation);
+        public List<Ship> getAllShipsFromNationality(string nationality)
+            => getAllShipsFromFaction(nationality);
+        public List<Ship> getAllShipsFromFaction(Nationality nationality)
+            => getAllShipsFromFaction(nationality.ToString());
+        public List<Ship> getAllShipsFromNationality(Nationality nationality)
+            => getAllShipsFromFaction(nationality.ToString());
+        public List<Ship> getAllShipsFromNation(Nationality nationality)
+            => getAllShipsFromFaction(nationality.ToString());
         #endregion
-        #region GetAllShipsByLANGUAGE
-        public List<Ship> GetAllShipsByEnglishName()
-            => GetAllShips().Where(s => s.Names.en != null).ToList();
-        public List<Ship> GetAllShipsByJapaneseName()
-            => GetAllShips().Where(s => s.Names.jp != null).ToList();
-        public List<Ship> GetAllShipsByChineseName()
-            => GetAllShips().Where(s => s.Names.cn != null).ToList();
-        public List<Ship> GetAllShipsByKoreanName()
-            => GetAllShips().Where(s => s.Names.kr != null).ToList();
-        public List<Ship> GetAllShipsByOfficialName()
-            => GetAllShips().Where(s => s.Names.code != null).ToList();
+        #region getAllShipsByLANGUAGE
+        public List<Ship> getAllShipsByEnglishName()
+            => getAllShips().Where(s => s.Names.en != null).ToList();
+        public List<Ship> getAllShipsByJapaneseName()
+            => getAllShips().Where(s => s.Names.jp != null).ToList();
+        public List<Ship> getAllShipsByChineseName()
+            => getAllShips().Where(s => s.Names.cn != null).ToList();
+        public List<Ship> getAllShipsByKoreanName()
+            => getAllShips().Where(s => s.Names.kr != null).ToList();
+        public List<Ship> getAllShipsByOfficialName()
+            => getAllShips().Where(s => s.Names.code != null).ToList();
         #endregion
 
         public Task ReloadCachedAsync()

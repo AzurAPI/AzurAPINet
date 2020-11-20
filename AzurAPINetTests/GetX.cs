@@ -8,40 +8,40 @@ namespace AzurAPINetTests
     {
         // check if methods dont throw exceptions on valid/null inputs
         [TestMethod]
-        public void GetEquipmentByXName()
+        public void getEquipmentByXName()
         {
-            foreach (var eq in Client.GetAllEquipments())
+            foreach (var eq in Client.getAllEquipments())
             {
-                Client.GetEquipment(eq.Value.Names.kr);
+                Client.getEquipment(eq.Value.Names.kr);
             }
-            Client.GetEquipment(null);
+            Client.getEquipment(null);
         }
         [TestMethod]
-        public void GetShip()
+        public void getShip()
         {
-            foreach (var ship in Client.GetAllShips())
+            foreach (var ship in Client.getAllShips())
             {
-                Client.GetShip(ship.Names.kr);
+                Client.getShip(ship.Names.kr);
             }
-            Client.GetShip(null);
+            Client.getShip(null);
         }
         [TestMethod]
-        public void GetChapterMemory()
+        public void getChapterMemory()
         {
-            foreach (var mem in Client.GetAllMemories())
+            foreach (var mem in Client.getAllMemories())
             {
-                Client.GetChapterMemory(mem.Value.Names.kr);
+                Client.getChapterMemory(mem.Value.Names.kr);
             }
-            Client.GetChapterMemory(null);
+            Client.getChapterMemory(null);
         }
         [TestMethod]
-        public void GetBarrageForShip()
+        public void getBarrageForShip()
         {
-            foreach (var ship in Client.GetAllShips())
+            foreach (var ship in Client.getAllShips())
             {
-                var b  = Client.GetBarrageForShip(ship.Names.en);
+                var b  = Client.getBarrageForShip(ship.Names.en);
             }
-            Client.GetBarrageForShip(null);
+            Client.getBarrageForShip(null);
         }
     }
 }
