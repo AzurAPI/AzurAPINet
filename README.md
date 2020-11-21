@@ -15,9 +15,3 @@ Expected output (as of now):
 
 ![You ever just boot into linux so you can flex it in your readme](https://i.imgur.com/Q2iTwp9.png)
 ## [More documentation available on wiki](https://github.com/Jan0660/AzurAPINet/wiki)
-
-## WIP
-
-Please note this library is still work in progress.
-
-You can see the current progress and planned features [here](Progress.md).
