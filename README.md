@@ -7,17 +7,12 @@ Install [the NuGet package](https://www.nuget.org/packages/AzurAPINet/)
 using Jan0660.AzurAPINet;
 
 AzurAPIClient Client = new AzurAPIClient(new AzurAPIClientOptions());
-Console.WriteLine($"No. of ships: {Client.GetAllShips().Count}");
-Console.WriteLine($"Takao's rarity: {Client.GetShip("takao").Rarity}");
-Console.WriteLine($"Javelin's nationality: {Client.GetShipByEnglishName("javelin").Nationality}");
+Console.WriteLine($"No. of ships: {Client.getAllShips().Count}");
+Console.WriteLine($"Takao's rarity: {Client.getShip("takao").Rarity}");
+Console.WriteLine($"Javelin's nationality: {Client.getShipByEnglishName("javelin").Nationality}");
 ```
 Expected output (as of now):
 
 ![You ever just boot into linux so you can flex it in your readme](https://i.imgur.com/Q2iTwp9.png)
 ## [More documentation available on wiki](https://github.com/Jan0660/AzurAPINet/wiki)
-
-## WIP
-
-Please note this library is still work in progress.
-
-You can see the current progress and planned features [here](Progress.md).
+## [Or you can also check out the documentation on AzurAPI wiki](https://azurapi.github.io/?csharp#introduction)
