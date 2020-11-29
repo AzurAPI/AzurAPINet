@@ -4,12 +4,11 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <RootNamespace>Jan0660.AzurAPINet</RootNamespace>
     <LangVersion>8.0</LangVersion>
-    <PackageLicenseExpression>GPLv3</PackageLicenseExpression>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <Authors>Jan0660</Authors>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Description>A .NET standard wrapper for the AzurAPI database.</Description>
-    <PackageReleaseNotes>implement all the functions on the website
-    breaking changes: GetShip, GetAllShips and other methods are getShip, getAllShips... and more</PackageReleaseNotes>
+    <PackageReleaseNotes>fix parsing for recent database update, use InvariantCulture float parsing</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/AzurAPI/AzurAPINet</RepositoryUrl>
     <PackageProjectUrl>https://azurapi.github.io/</PackageProjectUrl>

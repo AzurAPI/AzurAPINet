@@ -13,13 +13,13 @@ namespace AzurAPINetCoreTests
     class Program
     {
         // ignore this trainwreck
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             //await Task.Delay(10000);
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
             AzurAPIClient Client = new AzurAPIClient(new AzurAPIClientOptions());
-            await WikiDemo();
+            //await WikiDemo();
             getAllAll(Client);
             var eq = Client.getEquipment(Client.getAllEquipments().First().Value.Names.cn);
             Console.WriteLine(eq.Names.cn);
@@ -103,18 +103,24 @@ namespace AzurAPINetCoreTests
         }
         static void getAllAll(AzurAPIClient Client)
         {
-            //var VoiceLines = Client.getAllVoiceLines();
-            var Ships = Client.getAllShips();
-            var j = Client.getShip("javelin");
-            var Memories = Client.getAllMemories();
-            var Events = Client.getAllEvents();
-            var Equipment = Client.getAllEquipments();
-            var Chapters = Client.getAllChapters();
-            var Barrage = Client.getAllBarrage();
-            // enums
-            foreach (var equipment in Client.getAllEquipments())
+            try
             {
-                equipment.Value.GetCategoryEnum();
+                //var VoiceLines = Client.getAllVoiceLines();
+                //var Ships = Client.getAllShips();
+                //var j = Client.getShip("javelin");
+                //var Memories = Client.getAllMemories();
+                //var Events = Client.getAllEvents();
+                var Equipment = Client.getAllEquipments();
+                var Chapters = Client.getAllChapters();
+                var Barrage = Client.getAllBarrage();
+                // enums
+                foreach (var equipment in Client.getAllEquipments())
+                {
+                    equipment.Value.GetCategoryEnum();
+                }
+            }catch(Exception e)
+            {
+                
             }
         }
         #region ENUM PARSING STUFF IDK

@@ -29,7 +29,8 @@ namespace Jan0660.AzurAPINet.Enums
         Seaplanes,
         AntiAirGuns,
         AuxiliaryEquipment,
-        AntiSubmarineEquipment
+        AntiSubmarineEquipment,
+        LargeCruiserGuns
     }
     public enum HullType
     {
@@ -65,6 +66,7 @@ namespace Jan0660.AzurAPINet.Enums
         Universal,
         NorthUnion,
         EasternRadiance,
+        VenusVacation,
         /// <summary>
         /// null
         /// </summary>
@@ -167,7 +169,8 @@ namespace Jan0660.AzurAPINet.Enums
                 "Seaplanes" => EquipmentCategory.Seaplanes,
                 "Anti-Air Guns" => EquipmentCategory.AntiAirGuns,
                 "Auxiliary Equipment" => EquipmentCategory.AuxiliaryEquipment,
-                "Anti-Submarine Equipment" => EquipmentCategory.AntiSubmarineEquipment
+                "Anti-Submarine Equipment" => EquipmentCategory.AntiSubmarineEquipment,
+                "Large Cruiser Guns" => EquipmentCategory.LargeCruiserGuns
             };
         }
         public static Nationality GetNationalityEnum(this Equipment equipment)
@@ -307,6 +310,7 @@ namespace Jan0660.AzurAPINet.Enums
                 "universal" => Nationality.Universal,
                 "northunion" => Nationality.NorthUnion,
                 "easternradiance" => Nationality.EasternRadiance,
+                "venusvacation" => Nationality.VenusVacation,
                 null => Nationality.None
             };
         }
