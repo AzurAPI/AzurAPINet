@@ -25,5 +25,8 @@ namespace Jan0660.AzurAPINet.Events
         public readonly bool IsLive2D;
         [JsonProperty("bgID")]
         public readonly string bgID;
+
+        public override string ToString()
+            => Name;
     }
 }

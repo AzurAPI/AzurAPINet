@@ -25,5 +25,8 @@ namespace Jan0660.AzurAPINet.Equipments
         public readonly EquipmentMisc Misc;
         [JsonProperty("tiers")]
         public readonly Dictionary<string, EquipmentStats> Tiers;
+
+        public override string ToString()
+            => Names.en;
     }
 }

@@ -41,5 +41,11 @@ namespace Jan0660.AzurAPINet.Chapters
         public readonly List<ShipDrop> ShipDrops;
         [JsonProperty("nodeMap")]
         public readonly MissionNodeMap NodeMap;
+
+        /// <summary>
+        /// returns the .Title
+        /// </summary>
+        public override string ToString()
+            => Title;
     }
 }

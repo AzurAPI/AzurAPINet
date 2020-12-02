@@ -15,5 +15,8 @@ namespace Jan0660.AzurAPINet.Memories
         public readonly string Background;
         [JsonProperty("content")]
         public readonly Names Content;
+
+        public override string ToString()
+            => Names.en;
     }
 }

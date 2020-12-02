@@ -23,5 +23,8 @@ namespace Jan0660.AzurAPINet.Events
         public readonly float? ConstructionChance;
         [JsonProperty("from")]
         public readonly string? From;
+
+        public override string ToString()
+            => Name;
     }
 }

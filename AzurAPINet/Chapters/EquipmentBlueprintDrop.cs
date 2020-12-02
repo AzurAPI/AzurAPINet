@@ -11,5 +11,8 @@ namespace Jan0660.AzurAPINet.Chapters
         public readonly string Name;
         [JsonProperty("tier")]
         public readonly string Tier;
+
+        public override string ToString()
+            => Name;
     }
 }

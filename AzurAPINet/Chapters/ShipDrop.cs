@@ -14,5 +14,11 @@ namespace Jan0660.AzurAPINet.Chapters
         [JsonConstructor]
         protected internal ShipDrop() { }
         protected internal ShipDrop(string Name) { this.Name = Name; }
+
+        /// <summary>
+        /// returns the name of this ShipDrop
+        /// </summary>
+        public override string ToString()
+            => Name;
     }
 }

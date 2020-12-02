@@ -64,5 +64,11 @@ namespace Jan0660.AzurAPINet.Ships
         public readonly ShipMisc Misc;
         [JsonProperty("gallery")]
         public readonly List<ShipGalleryItem> Gallery;
+
+        /// <summary>
+        /// returns the english name of the ship
+        /// </summary>
+        public override string ToString()
+            => Names.en;
     }
 }

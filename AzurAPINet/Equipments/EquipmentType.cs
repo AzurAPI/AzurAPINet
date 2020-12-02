@@ -11,5 +11,8 @@ namespace Jan0660.AzurAPINet.Equipments
         public readonly string Focus;
         [JsonProperty("name")]
         public readonly string Name;
+
+        public override string ToString()
+            => Name;
     }
 }

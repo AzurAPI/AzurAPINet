@@ -15,5 +15,8 @@ namespace Jan0660.AzurAPINet.Memories
         public readonly string WikiUrl;
         [JsonProperty("chapters")]
         public readonly List<MissionMemory> Missions;
+
+        public override string ToString()
+            => Names.en;
     }
 }

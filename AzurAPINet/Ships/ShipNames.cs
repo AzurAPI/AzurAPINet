@@ -10,6 +10,7 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty]
         public readonly string en;
         /// <summary>
+        /// Referred to as Official name in some places.
         /// example: "IJN Takao"
         /// </summary>
         [JsonProperty]

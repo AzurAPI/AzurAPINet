@@ -23,5 +23,8 @@ namespace Jan0660.AzurAPINet.Barrage
         public readonly string Hull;
         [JsonProperty("rounds")]
         public readonly List<BarrageRound> Rounds;
+
+        public override string ToString()
+            => Name;
     }
 }

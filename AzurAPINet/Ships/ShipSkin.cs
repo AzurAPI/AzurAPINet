@@ -31,7 +31,15 @@ namespace Jan0660.AzurAPINet.Ships
             List<string> list = new List<string> { Image, Chibi, Background };
             if (ImageCN != null)
                 list.Add(ImageCN);
+            if (NoBackground != null)
+                list.Add(NoBackground);
             return list;
         }
+
+        /// <summary>
+        /// returns the name of the skin
+        /// </summary>
+        public override string ToString()
+            => Name;
     }
 }

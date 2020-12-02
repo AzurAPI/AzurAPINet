@@ -17,5 +17,8 @@ namespace Jan0660.AzurAPINet.Barrage
         public readonly float DamageHigh;
         [JsonProperty("note")]
         public readonly string Note;
+
+        public override string ToString()
+            => Type;
     }
 }
