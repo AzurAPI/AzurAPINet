@@ -15,5 +15,8 @@ namespace Jan0660.AzurAPINet.Ships
         public readonly string Description;
         [JsonProperty("color")]
         public readonly string Color;
+
+        public override string ToString()
+            => Names.en;
     }
 }

@@ -15,5 +15,8 @@ namespace Jan0660.AzurAPINet.Ships
         public readonly string StarsString;
         [JsonProperty("value")]
         public readonly int Count;
+        
+        public override string ToString()
+            => StarsString;
     }
 }

@@ -9,5 +9,8 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty("note")]
         public string? Note;
         protected  internal ShipObtainedFromMap() {}
+
+        public override string ToString()
+            => Name;
     }
 }

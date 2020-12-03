@@ -24,5 +24,8 @@ namespace Jan0660.AzurAPINet.Ships
         public int Recurrence;
         [JsonProperty("require")]
         public string[] Require;
+
+        public override string ToString()
+            => Name;
     }
 }
