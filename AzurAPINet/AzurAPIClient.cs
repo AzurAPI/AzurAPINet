@@ -16,6 +16,9 @@ using Jan0660.AzurAPINet.VoiceLines;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics.Contracts;
 using Jan0660.AzurAPINet.Enums;
+using RestSharp;
+// very cool
+// ReSharper disable InconsistentNaming
 namespace Jan0660.AzurAPINet
 {
     /// <summary>
@@ -30,10 +33,15 @@ namespace Jan0660.AzurAPINet
         /// <summary>
         /// using database from github.com
         /// </summary>
-        Web
+        Web,
+        /// <summary>
+        /// experimental support
+        /// </summary>
+        Hiei
     }
     public class AzurAPIClient
     {
+        public const string Url = "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/";
         public readonly AzurAPIClientOptions Options;
         public readonly ClientType ClientType;
         /// <summary>
@@ -47,11 +55,31 @@ namespace Jan0660.AzurAPINet
         private Dictionary<string, ChapterMemory> _memories = null;
         private Dictionary<string, Equipment> _equipments = null;
         private Dictionary<string, Dictionary<string, List<VoiceLine>>> _voiceLines = null;
+        private WebClient _webClient = new WebClient();
+
+        private RestClient _restClient;
+        // lol im lazy
+        private bool IsHiei => ClientType == ClientType.Hiei;
         /// <summary>
         /// version info of loaded data / when client was created
         /// </summary>
         public DatabaseVersionInfo VersionInfo { get; private set; }
 
+        public AzurAPIClient(ClientType clientType, AzurAPIClientOptions options = null)
+        {
+            options ??= new AzurAPIClientOptions();
+            if (clientType == ClientType.Local && options.LocalPath == null)
+                throw new Exception("options.LocalPath must be specified when using ClientType.Local");
+            if (clientType == ClientType.Hiei)
+            {
+                _restClient = new RestClient(options.HieiUrl);
+                _restClient.AddDefaultHeader("authorization", options.HieiPass);
+            }
+
+            this.ClientType = clientType;
+            this.Options = options;
+            VersionInfo = getVersionInfo();
+        }
         /// <summary>
         /// Create new client which uses downloaded database
         /// </summary>
@@ -69,7 +97,7 @@ namespace Jan0660.AzurAPINet
         public AzurAPIClient(AzurAPIClientOptions options)
         {
             ClientType = ClientType.Web;
-            WorkingDirectory = "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/";
+            WorkingDirectory = Url;
             Options = options;
             VersionInfo = getVersionInfo();
         }
@@ -116,8 +144,20 @@ namespace Jan0660.AzurAPINet
             => getAllShips().FirstOrDefault((ship) => ship.Names.en?.ToLower() == name?.ToLower());
         public Ship getShipByCode(string code)
         => getAllShips().FirstOrDefault((ship) => ship.Names.code.ToLower() == code?.ToLower());
+
         public Ship getShipById(string id)
-        => getAllShips().FirstOrDefault((ship) => ship.Id.ToLower() == id?.ToLower());
+        {
+            if (IsHiei)
+            {
+                var request = new RestRequest("/ship/id");
+                request.AddQueryParameter("q", id);
+                var content = _restClient.Get(request).Content;
+                return JsonConvert.DeserializeObject<Ship>(content);
+            }
+            else
+                return getAllShips().FirstOrDefault((ship) => ship.Id.ToLower() == id?.ToLower());
+        }
+
         public Ship getShipByJapaneseName(string name)
         => getAllShips().FirstOrDefault((ship) => ship.Names.jp?.ToLower() == name?.ToLower());
         public Ship getShipByChineseName(string name)
@@ -127,6 +167,9 @@ namespace Jan0660.AzurAPINet
         #endregion
         public DatabaseVersionInfo getVersionInfo()
         {
+            // TODO: dont
+            if (IsHiei)
+                return null;
             return JsonConvert.DeserializeObject<DatabaseVersionInfo>(getTextFile("version-info.json"));
         }
         /// <summary>
@@ -135,8 +178,7 @@ namespace Jan0660.AzurAPINet
         /// <returns>If a new version of the AzurAPI database is available</returns>
         public async Task<bool> DatabaseUpdateAvailableAsync()
         {
-            WebClient webClient = new WebClient();
-            return (await webClient.DownloadStringTaskAsync(
+            return (await _webClient.DownloadStringTaskAsync(
                 "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/version-info.json")
                 != await getTextFileAsync("version-info.json"));
         }
@@ -251,8 +293,7 @@ namespace Jan0660.AzurAPINet
         {
             if (ClientType == ClientType.Web)
             {
-                WebClient webClient = new WebClient();
-                return webClient.DownloadData(WorkingDirectory + file);
+                return _webClient.DownloadData(WorkingDirectory + file);
             }
             // ClientType.Local
             else
@@ -267,8 +308,7 @@ namespace Jan0660.AzurAPINet
         {
             if (ClientType == ClientType.Web)
             {
-                WebClient webClient = new WebClient();
-                return webClient.DownloadString(WorkingDirectory + file);
+                return _webClient.DownloadString(WorkingDirectory + file);
             }
             // ClientType.Local
             else
@@ -283,8 +323,7 @@ namespace Jan0660.AzurAPINet
         {
             if (ClientType == ClientType.Web)
             {
-                WebClient webClient = new WebClient();
-                return webClient.DownloadStringTaskAsync(WorkingDirectory + file);
+                return _webClient.DownloadStringTaskAsync(WorkingDirectory + file);
             }
             // ClientType.Local
             else

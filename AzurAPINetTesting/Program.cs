@@ -18,8 +18,12 @@ namespace AzurAPINetCoreTests
             //await Task.Delay(10000);
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
-            AzurAPIClient Client = new AzurAPIClient(new AzurAPIClientOptions());
+            AzurAPIClient Client = new AzurAPIClient(ClientType.Hiei, new AzurAPIClientOptions(){
+                HieiUrl = "http://raspi:1024"});
+            var sh = Client.getShipById("200");
+            Console.WriteLine(sh.Names.en);
             //await WikiDemo();
+            /*
             getAllAll(Client);
             var eq = Client.getEquipment(Client.getAllEquipments().First().Value.Names.cn);
             Console.WriteLine(eq.Names.cn);
@@ -52,6 +56,7 @@ namespace AzurAPINetCoreTests
                 }
             }
             var sh = client.getShip("javelin");
+            */
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
         static async Task WikiDemo(){
