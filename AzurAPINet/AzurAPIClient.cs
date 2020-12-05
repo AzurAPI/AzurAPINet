@@ -149,7 +149,7 @@ namespace Jan0660.AzurAPINet
         /// <returns>the waifu</returns>
         public Ship getWaifu(string waifu) => getShip(waifu);
         public Ship getShipByEnglishName(string name)
-            => IsHiei ? HieiQuery<Ship>("/ship/search", name)
+            => IsHiei ? HieiQuery<Ship[]>("/ship/search", name).FirstOrDefault()
         : getAllShips().FirstOrDefault((ship) => ship.Names.en?.ToLower() == name?.ToLower());
         public Ship getShipByCode(string code)
         => getAllShips().FirstOrDefault((ship) => ship.Names.code.ToLower() == code?.ToLower());
