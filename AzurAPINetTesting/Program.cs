@@ -20,7 +20,7 @@ namespace AzurAPINetCoreTests
             Console.WriteLine("Test start");
             AzurAPIClient Client = new AzurAPIClient("/home/jan/Documents/repos/azurapi-js-setup/",new AzurAPIClientOptions());
             var all = Client.getAllEquipments();
-            var bruh = Client.getEquipmentByNationality("iron blood");
+            var bruh = Client.getEquipmentByCategory("seaplanes");
             //await WikiDemo();
             getAllAll(Client);
             var eq = Client.getEquipment(Client.getAllEquipments().First().Value.Names.cn);

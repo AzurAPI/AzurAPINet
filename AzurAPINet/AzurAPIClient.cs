@@ -381,6 +381,14 @@ namespace Jan0660.AzurAPINet
 
         public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByNationality(Nationality nationality)
             => getEquipmentByNationality(nationality.ToString());
+
+        public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByCategory(string category)
+            => getAllEquipments().Where(
+                eq => eq.Value.Category.ToLowerTrimmed() == category.ToLowerTrimmed()
+            );
+
+        public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByCategory(EquipmentCategory category)
+            => getEquipmentByCategory(category.ToString());
         #endregion
         #region getAllShipsFromFaction & aliases
         public List<Ship> getAllShipsFromFaction(string faction)
