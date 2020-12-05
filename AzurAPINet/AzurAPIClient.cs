@@ -439,7 +439,8 @@ namespace Jan0660.AzurAPINet
                 getEquipmentByKoreanName(name);
 
         public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByNationality(string nationality)
-            => getAllEquipments().Where(
+            => IsHiei ? HieiQuery<IEnumerable<KeyValuePair<string, Equipment>>>("/equip/nationality", nationality.UnEnum()) : 
+                getAllEquipments().Where(
                 eq => eq.Value.Nationality.ToLowerTrimmed() == nationality.ToLowerTrimmed()
             );
 
