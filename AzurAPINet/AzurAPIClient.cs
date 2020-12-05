@@ -397,20 +397,20 @@ namespace Jan0660.AzurAPINet
                 getEquipmentByJapaneseName(name) ??
                 getEquipmentByKoreanName(name);
 
-        public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByNationality(string nationality)
+        public IEnumerable<Equipment> getEquipmentByNationality(string nationality)
             => getAllEquipments().Where(
                 eq => eq.Value.Nationality.ToLowerTrimmed() == nationality.ToLowerTrimmed()
-            );
+            ).ToListOfValue();
 
-        public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByNationality(Nationality nationality)
+        public IEnumerable<Equipment> getEquipmentByNationality(Nationality nationality)
             => getEquipmentByNationality(nationality.ToString());
 
-        public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByCategory(string category)
+        public IEnumerable<Equipment> getEquipmentByCategory(string category)
             => getAllEquipments().Where(
                 eq => eq.Value.Category.ToLowerTrimmed() == category.ToLowerTrimmed()
-            );
+            ).ToListOfValue();
 
-        public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByCategory(EquipmentCategory category)
+        public IEnumerable<Equipment> getEquipmentByCategory(EquipmentCategory category)
             => getEquipmentByCategory(category.ToString());
         #endregion
         #region getAllShipsFromFaction & aliases
@@ -458,6 +458,16 @@ namespace Jan0660.AzurAPINet
             if(_voiceLines != null)
                 tasks.Add(ReloadVoiceLinesAsync());
             return Task.WhenAll(tasks);
+        }
+    }
+
+    internal static class ExtensionMethods
+    {
+        internal static IEnumerable<TVal> ToListOfValue<TKey, TVal>(this IEnumerable<KeyValuePair<TKey, TVal>> ls)
+        {
+            var res = new List<TVal>();
+            foreach(var item in ls) res.Add(item.Value);
+            return res;
         }
     }
 }
