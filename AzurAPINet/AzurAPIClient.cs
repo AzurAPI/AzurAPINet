@@ -121,19 +121,27 @@ namespace Jan0660.AzurAPINet
             return ships;
         }
         #region getShip, getShipBy<EnglishName,Code,Id,...>
-
+        // TODO: all languages for hiei
         /// <summary>
-        /// Searches for a ship using it's english name, code, id, japanese and chinese name, in this order
+        /// Searches for a ship using it's english name, code, id, japanese and chinese name, in this order, only uses english name and id for hiei
         /// </summary>
         /// <param name="query">The name of the ship you're searching for</param>
         /// <returns>the ship</returns>
         public Ship getShip(string query)
-            => getShipByEnglishName(query)
-               ?? getShipByCode(query)
-               ?? getShipById(query)
-               ?? getShipByJapaneseName(query)
-               ?? getShipByChineseName(query)
-               ?? getShipByKoreanName(query);
+        {
+            if (IsHiei)
+            {
+                var byEn = HieiQuery<Ship[]>("/ship/search", query);
+                return byEn.Length == 0 ? HieiQuery<Ship>("/ship/id", query) : byEn[0];
+            }
+            return getShipByEnglishName(query)
+                ?? getShipByCode(query)
+                ?? getShipById(query)
+                ?? getShipByJapaneseName(query)
+                ?? getShipByChineseName(query)
+                ?? getShipByKoreanName(query);
+        }
+
         /// <summary>
         /// yes.
         /// </summary>
@@ -141,19 +149,15 @@ namespace Jan0660.AzurAPINet
         /// <returns>the waifu</returns>
         public Ship getWaifu(string waifu) => getShip(waifu);
         public Ship getShipByEnglishName(string name)
-            => getAllShips().FirstOrDefault((ship) => ship.Names.en?.ToLower() == name?.ToLower());
+            => IsHiei ? HieiQuery<Ship>("/ship/search", name)
+        : getAllShips().FirstOrDefault((ship) => ship.Names.en?.ToLower() == name?.ToLower());
         public Ship getShipByCode(string code)
         => getAllShips().FirstOrDefault((ship) => ship.Names.code.ToLower() == code?.ToLower());
 
         public Ship getShipById(string id)
         {
             if (IsHiei)
-            {
-                var request = new RestRequest("/ship/id");
-                request.AddQueryParameter("q", id);
-                var content = _restClient.Get(request).Content;
-                return JsonConvert.DeserializeObject<Ship>(content);
-            }
+                return HieiQuery<Ship>("/ship/id", id);
             else
                 return getAllShips().FirstOrDefault((ship) => ship.Id.ToLower() == id?.ToLower());
         }
@@ -396,7 +400,8 @@ namespace Jan0660.AzurAPINet
         #endregion
         #region get equipment
         public Equipment getEquipmentByEnglishName(string name)
-            => getAllEquipments().FirstOrDefault(e=> e.Key.ToLower() == name?.ToLower()).Value
+            => IsHiei ? HieiQuery<Equipment[]>("/equip/search", name).FirstOrDefault() :
+                getAllEquipments().FirstOrDefault(e=> e.Key.ToLower() == name?.ToLower()).Value
                ?? getAllEquipments().FirstOrDefault(e => e.Value.Names.en?.ToLower() == name?.ToLower()).Value;
         public Equipment getEquipmentByChineseName(string name)
             => getAllEquipments().FirstOrDefault(e => e.Value.Names.cn?.ToLower() == name?.ToLower()).Value;
@@ -455,6 +460,21 @@ namespace Jan0660.AzurAPINet
             if(_voiceLines != null)
                 tasks.Add(ReloadVoiceLinesAsync());
             return Task.WhenAll(tasks);
+        }
+/*
+        private string HieiQuery(string url, string query)
+        {
+            var request = new RestRequest("/ship/id");
+            request.AddQueryParameter("q", query);
+            return _restClient.Get(request).Content;
+        }
+*/
+        private T HieiQuery<T>(string url, string query)
+        {
+            var request = new RestRequest(url);
+            request.AddQueryParameter("q", query);
+            var content =  _restClient.Get(request).Content;
+            return JsonConvert.DeserializeObject<T>(content);
         }
     }
 }

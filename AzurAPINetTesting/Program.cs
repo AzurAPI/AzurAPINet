@@ -22,6 +22,9 @@ namespace AzurAPINetCoreTests
                 HieiUrl = "http://raspi:1024"});
             var sh = Client.getShipById("200");
             Console.WriteLine(sh.Names.en);
+            Console.WriteLine(Client.getShip("200").Names.en);
+            var eq = Client.getEquipmentByEnglishName("Single 102mm Auxiliary Gun");
+            Console.WriteLine(eq.Names.en);
             //await WikiDemo();
             /*
             getAllAll(Client);
