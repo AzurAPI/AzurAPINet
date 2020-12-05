@@ -167,9 +167,6 @@ namespace Jan0660.AzurAPINet
         #endregion
         public DatabaseVersionInfo getVersionInfo()
         {
-            // TODO: dont
-            if (IsHiei)
-                return null;
             return JsonConvert.DeserializeObject<DatabaseVersionInfo>(getTextFile("version-info.json"));
         }
         /// <summary>
@@ -225,7 +222,7 @@ namespace Jan0660.AzurAPINet
         {
             var sh = getShip(name);
             if(sh != null)
-                name = sh.Names.en;
+                name = sh.Names?.en;
             return getAllBarrage().Where((b) => b.Ships.Count((s) => s.ToLower() == name?.ToLower()) != 0).ToList();
         }
         public Dictionary<string, ChapterMemory> getAllMemories()
@@ -293,11 +290,11 @@ namespace Jan0660.AzurAPINet
         {
             if (ClientType == ClientType.Web)
             {
-                return _webClient.DownloadData(WorkingDirectory + file);
+                return File.ReadAllBytes(WorkingDirectory + file);
             }
             // ClientType.Local
             else
-                return File.ReadAllBytes(WorkingDirectory + file);
+                return _webClient.DownloadData(Url + file);
         }
         /// <summary>
         /// gets the content of a text file from the AzurAPI database
@@ -306,13 +303,13 @@ namespace Jan0660.AzurAPINet
         /// <returns>the text</returns>
         public string getTextFile(string file)
         {
-            if (ClientType == ClientType.Web)
+            if (ClientType == ClientType.Local)
             {
-                return _webClient.DownloadString(WorkingDirectory + file);
-            }
-            // ClientType.Local
-            else
                 return File.ReadAllText(WorkingDirectory + file);
+            }
+            // ClientType.Web or Hiei
+            else
+                return _webClient.DownloadString(Url + file);
         }
         /// <summary>
         /// Only async when getting files from the web, File.ReadAllTextAsync was introduced in .net standard 2.1 aaa
@@ -321,17 +318,17 @@ namespace Jan0660.AzurAPINet
         /// <returns></returns>
         public Task<string> getTextFileAsync(string file)
         {
-            if (ClientType == ClientType.Web)
+            if (ClientType == ClientType.Local)
             {
-                return _webClient.DownloadStringTaskAsync(WorkingDirectory + file);
-            }
-            // ClientType.Local
-            else
-            #if NETSTANDARD2_1
+#if NETSTANDARD2_1
                 return File.ReadAllTextAsync(WorkingDirectory + file);
-            #else
+#else
                 return Task.FromResult(File.ReadAllText(WorkingDirectory + file));
-            #endif
+#endif
+            }
+            // ClientType.Web or Hiei
+            else
+                return _webClient.DownloadStringTaskAsync(Url + file);
         }
         #endregion
         #region ReloadXAsync
