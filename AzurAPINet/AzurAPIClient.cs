@@ -448,7 +448,8 @@ namespace Jan0660.AzurAPINet
             => getEquipmentByNationality(nationality.ToString());
 
         public IEnumerable<Equipment> getEquipmentByCategory(string category)
-            => getAllEquipments().Where(
+            => IsHiei ? HieiQuery<IEnumerable<Equipment>>("/equip/category", category.UnEnum()) : 
+                getAllEquipments().Where(
                 eq => eq.Value.Category.ToLowerTrimmed() == category.ToLowerTrimmed()
             ).ToListOfValue();
 
