@@ -317,5 +317,32 @@ namespace Jan0660.AzurAPINet.Enums
         // yes imagine not yeeting code
         public static string ToLowerTrimmed(this string str)
             => str?.ToLower().Replace(" ", "");
+
+        /// <summary>
+        /// converts a string you'd get from for example ShipRarity.UltraRare.ToString() to "Ultra Rare"
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        internal static string UnEnum(this string str)
+        {
+            var output = "";
+            string upper = "QWERTYUIOPASDFGHJKLZXCVBNM";
+            string lower = "qwertyuiopasdfghjklzxcvbnm";
+            bool first = true;
+            foreach (var c in str)
+            {
+                if (!first)
+                {
+                    if(upper.Contains(c.ToString()))
+                    {
+                        output += " ";
+                    }
+                }
+                output += c;
+                first = false;
+            }
+
+            return output;
+        }
     }
 }

@@ -172,7 +172,7 @@ namespace Jan0660.AzurAPINet
         #region getShipsByHullType, getShipsByRarity, getShipsByClass
 
         public IEnumerable<Ship> getShipsByHullType(string hullType)
-            => getAllShips().Where(
+            => IsHiei ? HieiQuery<IEnumerable<Ship>>("/ship/hullType", hullType.UnEnum()) : getAllShips().Where(
                 s => s.HullType.ToLowerTrimmed() == hullType.ToLowerTrimmed()
             );
 
@@ -180,7 +180,7 @@ namespace Jan0660.AzurAPINet
             => getShipsByHullType(hullType.ToString());
 
         public IEnumerable<Ship> getShipsByRarity(string rarity)
-            => getAllShips().Where(
+            => IsHiei ? HieiQuery<IEnumerable<Ship>>("/ship/rarity", rarity.UnEnum()) : getAllShips().Where(
                 s => s.Rarity.ToLowerTrimmed() == rarity.ToLowerTrimmed()
             );
 
