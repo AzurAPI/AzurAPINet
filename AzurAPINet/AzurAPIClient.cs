@@ -515,7 +515,12 @@ namespace Jan0660.AzurAPINet
             var request = new RestRequest(url);
             request.AddQueryParameter("q", query);
             var content =  _restClient.Get(request).Content;
-            return JsonConvert.DeserializeObject<T>(content);
+            return JsonConvert.DeserializeObject<T>(content,
+                new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                }
+                );
         }
     }
 
