@@ -20,7 +20,8 @@ namespace AzurAPINetCoreTests
             Console.WriteLine("Test start");
             AzurAPIClient Client = new AzurAPIClient(ClientType.Hiei, new AzurAPIClientOptions(){
                 HieiUrl = "http://raspi:1024"});
-            var bruh = Client.getEquipmentByCategory(EquipmentCategory.AuxiliaryEquipment);
+            //var bruh = Client.getAllShipsFromFaction("Iron Blood");
+            Client.HieiUpdate().Wait();
             var sh = Client.getShipById("200");
             Console.WriteLine(sh.Names.en);
             Console.WriteLine(Client.getShip("200").Names.en);

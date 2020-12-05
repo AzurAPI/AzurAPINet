@@ -340,6 +340,7 @@ namespace Jan0660.AzurAPINet.Enums
                 }
                 output += c;
                 first = false;
+                if (c == ' ') first = true;
             }
 
             return output;

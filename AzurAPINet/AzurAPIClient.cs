@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -188,7 +189,7 @@ namespace Jan0660.AzurAPINet
             => getShipsByRarity(rarity.ToString());
 
         public IEnumerable<Ship> getShipsByClass(string className)
-            => getAllShips().Where(
+            => IsHiei ? HieiQuery<IEnumerable<Ship>>("/ship/shipClass", className) : getAllShips().Where(
                 s => s.Class.ToLowerTrimmed() == className.ToLowerTrimmed()
                 );
         #endregion
@@ -458,7 +459,8 @@ namespace Jan0660.AzurAPINet
         #endregion
         #region getAllShipsFromFaction & aliases
         public List<Ship> getAllShipsFromFaction(string faction)
-            => getAllShips().Where(s => s.Nationality?.ToLowerTrimmed() == faction?.ToLowerTrimmed()).ToList();
+            => IsHiei ? HieiQuery<List<Ship>>("/ship/nationality",faction.UnEnum())
+                : getAllShips().Where(s => s.Nationality?.ToLowerTrimmed() == faction?.ToLowerTrimmed()).ToList();
         public List<Ship> getAllShipsFromNation(string nation)
             => getAllShipsFromFaction(nation);
         public List<Ship> getAllShipsFromNationality(string nationality)
@@ -510,6 +512,11 @@ namespace Jan0660.AzurAPINet
             return _restClient.Get(request).Content;
         }
 */
+        public Task HieiUpdate()
+        {
+            var request = new RestRequest("/update");
+            return _restClient.ExecutePostAsync(request);
+        }
         private T HieiQuery<T>(string url, string query)
         {
             var request = new RestRequest(url);
