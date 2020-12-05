@@ -169,6 +169,29 @@ namespace Jan0660.AzurAPINet
         public Ship getShipByKoreanName(string name)
         => getAllShips().FirstOrDefault((ship) => ship.Names.kr?.ToLower() == name?.ToLower());
         #endregion
+        #region getShipsByHullType, getShipsByRarity, getShipsByClass
+
+        public IEnumerable<Ship> getShipsByHullType(string hullType)
+            => getAllShips().Where(
+                s => s.HullType.ToLowerTrimmed() == hullType.ToLowerTrimmed()
+            );
+
+        public IEnumerable<Ship> getShipsByHullType(ShipHullType hullType)
+            => getShipsByHullType(hullType.ToString());
+
+        public IEnumerable<Ship> getShipsByRarity(string rarity)
+            => getAllShips().Where(
+                s => s.Rarity.ToLowerTrimmed() == rarity.ToLowerTrimmed()
+            );
+
+        public IEnumerable<Ship> getShipsByRarity(ShipRarity rarity)
+            => getShipsByRarity(rarity.ToString());
+
+        public IEnumerable<Ship> getShipsByClass(string className)
+            => getAllShips().Where(
+                s => s.Class.ToLowerTrimmed() == className.ToLowerTrimmed()
+                );
+        #endregion
         public DatabaseVersionInfo getVersionInfo()
         {
             return JsonConvert.DeserializeObject<DatabaseVersionInfo>(getTextFile("version-info.json"));
@@ -414,6 +437,22 @@ namespace Jan0660.AzurAPINet
                 getEquipmentByChineseName(name) ??
                 getEquipmentByJapaneseName(name) ??
                 getEquipmentByKoreanName(name);
+
+        public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByNationality(string nationality)
+            => getAllEquipments().Where(
+                eq => eq.Value.Nationality.ToLowerTrimmed() == nationality.ToLowerTrimmed()
+            );
+
+        public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByNationality(Nationality nationality)
+            => getEquipmentByNationality(nationality.ToString());
+
+        public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByCategory(string category)
+            => getAllEquipments().Where(
+                eq => eq.Value.Category.ToLowerTrimmed() == category.ToLowerTrimmed()
+            );
+
+        public IEnumerable<KeyValuePair<string, Equipment>> getEquipmentByCategory(EquipmentCategory category)
+            => getEquipmentByCategory(category.ToString());
         #endregion
         #region getAllShipsFromFaction & aliases
         public List<Ship> getAllShipsFromFaction(string faction)
