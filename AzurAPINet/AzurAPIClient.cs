@@ -125,6 +125,29 @@ namespace Jan0660.AzurAPINet
         public Ship getShipByKoreanName(string name)
         => getAllShips().FirstOrDefault((ship) => ship.Names.kr?.ToLower() == name?.ToLower());
         #endregion
+        #region getShipsByHullType, getShipsByRarity, getShipsByClass
+
+        public IEnumerable<Ship> getShipsByHullType(string hullType)
+            => getAllShips().Where(
+                s => s.HullType.ToLowerTrimmed() == hullType.ToLowerTrimmed()
+            );
+
+        public IEnumerable<Ship> getShipsByHullType(ShipHullType hullType)
+            => getShipsByHullType(hullType.ToString());
+
+        public IEnumerable<Ship> getShipsByRarity(string rarity)
+            => getAllShips().Where(
+                s => s.Rarity.ToLowerTrimmed() == rarity.ToLowerTrimmed()
+            );
+
+        public IEnumerable<Ship> getShipsByRarity(ShipRarity rarity)
+            => getShipsByRarity(rarity.ToString());
+
+        public IEnumerable<Ship> getShipsByClass(string className)
+            => getAllShips().Where(
+                s => s.Class.ToLowerTrimmed() == className.ToLowerTrimmed()
+                );
+        #endregion
         public DatabaseVersionInfo getVersionInfo()
         {
             return JsonConvert.DeserializeObject<DatabaseVersionInfo>(getTextFile("version-info.json"));

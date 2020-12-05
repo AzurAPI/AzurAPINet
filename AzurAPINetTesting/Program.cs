@@ -19,8 +19,8 @@ namespace AzurAPINetCoreTests
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
             AzurAPIClient Client = new AzurAPIClient("/home/jan/Documents/repos/azurapi-js-setup/",new AzurAPIClientOptions());
-            var all = Client.getAllEquipments();
-            var bruh = Client.getEquipmentByCategory("seaplanes");
+            //var all = Client.getAllEquipments();
+            var bruh = Client.getShipsByClass("takao");
             //await WikiDemo();
             getAllAll(Client);
             var eq = Client.getEquipment(Client.getAllEquipments().First().Value.Names.cn);
