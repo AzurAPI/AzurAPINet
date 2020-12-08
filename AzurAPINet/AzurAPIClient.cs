@@ -23,7 +23,7 @@ using RestSharp;
 namespace Jan0660.AzurAPINet
 {
     /// <summary>
-    /// for if the AzurAPIClient is using the database from a local download or from github
+    /// the source for data
     /// </summary>
     public enum ClientType
     {
@@ -32,13 +32,17 @@ namespace Jan0660.AzurAPINet
         /// </summary>
         Local,
         /// <summary>
-        /// using database from github.com
+        /// using database from github
         /// </summary>
         Web,
         /// <summary>
-        /// experimental support
+        /// Use Hiei for functions that it supports and GitHub for other
         /// </summary>
-        Hiei
+        HieiAndWeb,
+        /// <summary>
+        /// Use Hiei for functions that it supports and local for other
+        /// </summary>
+        HieiAndLocal
     }
     public class AzurAPIClient
     {
@@ -60,7 +64,9 @@ namespace Jan0660.AzurAPINet
 
         private RestClient _restClient;
         // lol im lazy
-        private bool IsHiei => ClientType == ClientType.Hiei;
+        private bool IsHiei => ClientType == ClientType.HieiAndWeb || ClientType == ClientType.HieiAndLocal;
+        private bool IsLocal => ClientType == ClientType.Local || ClientType == ClientType.HieiAndLocal;
+        private bool IsWeb => ClientType == ClientType.HieiAndWeb || ClientType == ClientType.Web;
         /// <summary>
         /// version info of loaded data / when client was created
         /// </summary>
@@ -69,15 +75,15 @@ namespace Jan0660.AzurAPINet
         public AzurAPIClient(ClientType clientType, AzurAPIClientOptions options = null)
         {
             options ??= new AzurAPIClientOptions();
-            if (clientType == ClientType.Local && options.LocalPath == null)
-                throw new Exception("options.LocalPath must be specified when using ClientType.Local");
-            if (clientType == ClientType.Hiei)
+            this.ClientType = clientType;
+            if (IsLocal && options.LocalPath == null)
+                throw new Exception("options.LocalPath must be specified when using Local client");
+            if (IsHiei)
             {
                 _restClient = new RestClient(options.HieiUrl);
                 _restClient.AddDefaultHeader("authorization", options.HieiPass);
             }
 
-            this.ClientType = clientType;
             this.Options = options;
             VersionInfo = getVersionInfo();
         }
@@ -316,13 +322,13 @@ namespace Jan0660.AzurAPINet
         /// <returns>the bytes of the file</returns>
         public byte[] getFileBytes(string file)
         {
-            if (ClientType == ClientType.Web)
+            if (IsWeb)
             {
-                return File.ReadAllBytes(WorkingDirectory + file);
-            }
-            // ClientType.Local
-            else
                 return _webClient.DownloadData(Url + file);
+            }
+            // Local
+            else
+                return File.ReadAllBytes(WorkingDirectory + file);
         }
         /// <summary>
         /// gets the content of a text file from the AzurAPI database
@@ -331,13 +337,13 @@ namespace Jan0660.AzurAPINet
         /// <returns>the text</returns>
         public string getTextFile(string file)
         {
-            if (ClientType == ClientType.Local)
+            if (IsWeb)
             {
-                return File.ReadAllText(WorkingDirectory + file);
-            }
-            // ClientType.Web or Hiei
-            else
                 return _webClient.DownloadString(Url + file);
+            }
+            // Local
+            else
+                return File.ReadAllText(WorkingDirectory + file);
         }
         /// <summary>
         /// Only async when getting files from the web, File.ReadAllTextAsync was introduced in .net standard 2.1 aaa
@@ -346,17 +352,17 @@ namespace Jan0660.AzurAPINet
         /// <returns></returns>
         public Task<string> getTextFileAsync(string file)
         {
-            if (ClientType == ClientType.Local)
+            if (IsWeb)
             {
+                return _webClient.DownloadStringTaskAsync(Url + file);
+            }
+            // Local
+            else
 #if NETSTANDARD2_1
                 return File.ReadAllTextAsync(WorkingDirectory + file);
 #else
-                return Task.FromResult(File.ReadAllText(WorkingDirectory + file));
+            return Task.FromResult(File.ReadAllText(WorkingDirectory + file));
 #endif
-            }
-            // ClientType.Web or Hiei
-            else
-                return _webClient.DownloadStringTaskAsync(Url + file);
         }
         #endregion
         #region ReloadXAsync

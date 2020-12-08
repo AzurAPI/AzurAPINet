@@ -64,8 +64,8 @@ namespace Jan0660.AzurAPINet.Enums
         Utawarerumono,
         Hololive,
         Universal,
-        NorthUnion,
-        EasternRadiance,
+        //NorthUnion,
+        //EasternRadiance,
         VenusVacation,
         /// <summary>
         /// null
@@ -308,8 +308,8 @@ namespace Jan0660.AzurAPINet.Enums
                 "utawarerumono" => Nationality.Utawarerumono,
                 "hololive" => Nationality.Hololive,
                 "universal" => Nationality.Universal,
-                "northunion" => Nationality.NorthUnion,
-                "easternradiance" => Nationality.EasternRadiance,
+                //"northunion" => Nationality.NorthUnion,
+                //"easternradiance" => Nationality.EasternRadiance,
                 "venusvacation" => Nationality.VenusVacation,
                 null => Nationality.None
             };
@@ -323,24 +323,27 @@ namespace Jan0660.AzurAPINet.Enums
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
+        // TODO: OH GOD WHAT IN THE WHAT DID I DO HERE
         internal static string UnEnum(this string str)
         {
             var output = "";
             string upper = "QWERTYUIOPASDFGHJKLZXCVBNM";
             string lower = "qwertyuiopasdfghjklzxcvbnm";
+            Func<char, bool> IsChar = new Func<char, bool>(c =>
+                upper.Contains(c.ToString()) | lower.Contains(c.ToString()));
             bool first = true;
+            int i = 0;
+            char prev = ' ';
             foreach (var c in str)
             {
-                if (!first)
-                {
-                    if(upper.Contains(c.ToString()))
-                    {
-                        output += " ";
-                    }
+                if (!first && upper.Contains(c.ToString()) && !(upper.Contains(prev.ToString())) ) { 
+                    output += " ";
                 }
                 output += c;
+
                 first = false;
                 if (c == ' ') first = true;
+                prev = c;
             }
 
             return output;

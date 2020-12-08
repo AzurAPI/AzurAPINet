@@ -12,17 +12,29 @@ namespace AzurAPINetTests
         [TestMethod]
         public void getAllShipsFromFaction()
         {
+            List<string> nationalities = new List<string>();
             foreach(var ship in Client.getAllShips())
             {
-                Client.getAllShipsFromFaction(ship.Nationality);
+                if(!nationalities.Contains(ship.Nationality))
+                    nationalities.Add(ship.Nationality);
+            }
+
+            foreach (var nat in nationalities)
+            {
+                var ls = Client.getAllShipsFromFaction(nat);
+                if (ls.Count == 0)
+                    throw new Exception();
             }
         }
         [TestMethod]
         public void getAllShipsFromFactionByEnum()
         {
-            foreach(var ship in Client.getAllShips())
+            foreach(var val in (Nationality[])Enum.GetValues(typeof(Nationality)))
             {
-                Client.getAllShipsFromNationality(ship.GetNationalityEnum());
+                if(val == Nationality.None) continue;
+                var ls = Client.getAllShipsFromFaction(val);
+                if (ls.Count == 0)
+                    throw new Exception();
             }
         }
         [TestMethod]
