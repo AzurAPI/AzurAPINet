@@ -18,10 +18,12 @@ namespace AzurAPINetCoreTests
             //await Task.Delay(10000);
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
-            AzurAPIClient Client = new AzurAPIClient(ClientType.HieiAndWeb, new AzurAPIClientOptions(){
-                HieiUrl = "http://raspi:1024"});
+            AzurAPIClient Client = new AzurAPIClient(ClientType.HieiAndLocal, new AzurAPIClientOptions(){
+                HieiUrl = "http://raspi:1024",
+                LocalPath = "/home/jan/Documents/repos/azurapi-js-setup/"
+            });
             //var bruh = Client.getAllShipsFromFaction("Iron Blood");
-            var pain = Client.getAllShipsFromFaction(Nationality.EagleUnion);
+            var pain = Client.getAllShips();
             var sh = Client.getShipById("200");
             Console.WriteLine(sh.Names.en);
             Console.WriteLine(Client.getShip("200").Names.en);

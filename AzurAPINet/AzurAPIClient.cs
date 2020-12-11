@@ -49,10 +49,6 @@ namespace Jan0660.AzurAPINet
         public const string Url = "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/";
         public readonly AzurAPIClientOptions Options;
         public readonly ClientType ClientType;
-        /// <summary>
-        /// the url/directory to get files from
-        /// </summary>
-        public string WorkingDirectory;
         private List<Ship> _ships = null;
         private Dictionary<string, Chapter> _chapters = null;
         private List<Event> _events = null;
@@ -94,20 +90,16 @@ namespace Jan0660.AzurAPINet
         public AzurAPIClient(string workingDirectory, AzurAPIClientOptions options)
         {
             ClientType = ClientType.Local;
-            WorkingDirectory = workingDirectory;
+            options.LocalPath = workingDirectory;
             Options = options;
             VersionInfo = getVersionInfo();
         }
         /// <summary>
         /// Create new client that uses database from web
         /// </summary>
-        public AzurAPIClient(AzurAPIClientOptions options)
-        {
-            ClientType = ClientType.Web;
-            WorkingDirectory = Url;
-            Options = options;
-            VersionInfo = getVersionInfo();
-        }
+        public AzurAPIClient(AzurAPIClientOptions options = null)
+        : this(ClientType.Web, options ??= new AzurAPIClientOptions())
+        {}
 
         public List<Ship> getAllShips()
         {
@@ -328,7 +320,7 @@ namespace Jan0660.AzurAPINet
             }
             // Local
             else
-                return File.ReadAllBytes(WorkingDirectory + file);
+                return File.ReadAllBytes(Options.LocalPath + file);
         }
         /// <summary>
         /// gets the content of a text file from the AzurAPI database
@@ -343,7 +335,7 @@ namespace Jan0660.AzurAPINet
             }
             // Local
             else
-                return File.ReadAllText(WorkingDirectory + file);
+                return File.ReadAllText(Options.LocalPath + file);
         }
         /// <summary>
         /// Only async when getting files from the web, File.ReadAllTextAsync was introduced in .net standard 2.1 aaa
@@ -359,9 +351,9 @@ namespace Jan0660.AzurAPINet
             // Local
             else
 #if NETSTANDARD2_1
-                return File.ReadAllTextAsync(WorkingDirectory + file);
+                return File.ReadAllTextAsync(Options.LocalPath + file);
 #else
-            return Task.FromResult(File.ReadAllText(WorkingDirectory + file));
+            return Task.FromResult(File.ReadAllText(Options.LocalPath + file));
 #endif
         }
         #endregion
