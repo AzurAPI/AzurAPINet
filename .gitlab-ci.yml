@@ -1,5 +1,5 @@
 ## Source code and documentation are here: https://github.com/spekt/junit.testlogger/
-image: microsoft/dotnet:latest
+image: microsoft/dotnet-core:latest
 
 stages:
   - build
