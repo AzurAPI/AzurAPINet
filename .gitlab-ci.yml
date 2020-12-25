@@ -1,0 +1,23 @@
+## Source code and documentation are here: https://github.com/spekt/junit.testlogger/
+image: microsoft/dotnet:latest
+
+stages:
+  - build
+  - test
+
+variables:
+  test: "AzurAPINetTests"
+before_script:
+    - "cd AzurAPINetTests"
+    - "dotnet restore"
+
+build:
+  stage: build
+  script:
+    - "dotnet build"
+
+test:
+  stage: test
+  script:
+    - "cd $test"
+    - "dotnet test"
