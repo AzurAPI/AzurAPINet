@@ -1,6 +1,6 @@
 ## Source code and documentation are here: https://github.com/spekt/junit.testlogger/
 image: mcr.microsoft.com/dotnet/core/sdk:3.1
-
+#
 stages:
   - build
   - test
