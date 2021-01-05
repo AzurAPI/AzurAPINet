@@ -10,11 +10,13 @@ namespace Jan0660.AzurAPINet.Equipments
         [JsonProperty("type")]
         public readonly string Type;
         [JsonProperty]
-        [JsonConverter(typeof(BetterFloatConverter))]
-        public readonly float min;
+        //[JsonConverter(typeof(BetterFloatConverter))]
+        //public readonly float min;
+        public readonly string min;
         [JsonProperty]
-        [JsonConverter(typeof(BetterFloatConverter))]
-        public readonly float max;
+        //[JsonConverter(typeof(BetterFloatConverter))]
+        //public readonly float max;
+        public readonly string max;
         [JsonProperty]
         public readonly string per;
         [JsonProperty]
