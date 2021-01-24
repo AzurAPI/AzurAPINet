@@ -100,7 +100,7 @@ namespace Jan0660.AzurAPINet
         /// </summary>
         public AzurAPIClient(AzurAPIClientOptions options = null)
         : this(ClientType.Web, options ??= new AzurAPIClientOptions())
-        {}
+        { }
 
         public List<Ship> getAllShips()
         {
@@ -249,7 +249,7 @@ namespace Jan0660.AzurAPINet
         public List<BarrageItem> getBarrageForShip(string name)
         {
             var sh = getShip(name);
-            if(sh != null)
+            if (sh != null)
                 name = sh.Names?.en;
             return getAllBarrage().Where((b) => b.Ships.Count((s) => s.ToLower() == name?.ToLower()) != 0).ToList();
         }
@@ -428,7 +428,7 @@ namespace Jan0660.AzurAPINet
         #region get equipment
         public Equipment getEquipmentByEnglishName(string name)
             => IsHiei ? HieiQuery<Equipment[]>("/equip/search", name).FirstOrDefault() :
-                getAllEquipments().FirstOrDefault(e=> e.Key.ToLower() == name?.ToLower()).Value
+                getAllEquipments().FirstOrDefault(e => e.Key.ToLower() == name?.ToLower()).Value
                ?? getAllEquipments().FirstOrDefault(e => e.Value.Names.en?.ToLower() == name?.ToLower()).Value;
         public Equipment getEquipmentByChineseName(string name)
             => getAllEquipments().FirstOrDefault(e => e.Value.Names.cn?.ToLower() == name?.ToLower()).Value;
@@ -443,7 +443,7 @@ namespace Jan0660.AzurAPINet
                 getEquipmentByKoreanName(name);
 
         public IEnumerable<Equipment> getEquipmentByNationality(string nationality)
-            => IsHiei ? HieiQuery<IEnumerable<Equipment>>("/equip/nationality", nationality.UnEnum()) : 
+            => IsHiei ? HieiQuery<IEnumerable<Equipment>>("/equip/nationality", nationality.UnEnum()) :
                 getAllEquipments().Where(
                 eq => eq.Value.Nationality.ToLowerTrimmed() == nationality.ToLowerTrimmed()
             ).ToListOfValue();
@@ -452,7 +452,7 @@ namespace Jan0660.AzurAPINet
             => getEquipmentByNationality(nationality.ToString());
 
         public IEnumerable<Equipment> getEquipmentByCategory(string category)
-            => IsHiei ? HieiQuery<IEnumerable<Equipment>>("/equip/category", category.UnEnum()) : 
+            => IsHiei ? HieiQuery<IEnumerable<Equipment>>("/equip/category", category.UnEnum()) :
                 getAllEquipments().Where(
                 eq => eq.Value.Category.ToLowerTrimmed() == category.ToLowerTrimmed()
             ).ToListOfValue();
@@ -462,7 +462,7 @@ namespace Jan0660.AzurAPINet
         #endregion
         #region getAllShipsFromFaction & aliases
         public List<Ship> getAllShipsFromFaction(string faction)
-            => IsHiei ? HieiQuery<List<Ship>>("/ship/nationality",faction.UnEnum())
+            => IsHiei ? HieiQuery<List<Ship>>("/ship/nationality", faction.UnEnum())
                 : getAllShips().Where(s => s.Nationality?.ToLowerTrimmed() == faction?.ToLowerTrimmed()).ToList();
         public List<Ship> getAllShipsFromNation(string nation)
             => getAllShipsFromFaction(nation);
@@ -491,30 +491,30 @@ namespace Jan0660.AzurAPINet
         public Task ReloadCachedAsync()
         {
             var tasks = new List<Task>();
-            if(_ships != null)
+            if (_ships != null)
                 tasks.Add(ReloadShipsAsync());
-            if(_chapters != null)
+            if (_chapters != null)
                 tasks.Add(ReloadChaptersAsync());
-            if(_events != null)
+            if (_events != null)
                 tasks.Add(ReloadEventsAsync());
-            if(_barrage != null)
+            if (_barrage != null)
                 tasks.Add(ReloadBarrageAsync());
-            if(_memories != null)
+            if (_memories != null)
                 tasks.Add(ReloadMemoriesAsync());
-            if(_equipments != null)
+            if (_equipments != null)
                 tasks.Add(ReloadEquipmentsAsync());
-            if(_voiceLines != null)
+            if (_voiceLines != null)
                 tasks.Add(ReloadVoiceLinesAsync());
             return Task.WhenAll(tasks);
         }
-/*
-        private string HieiQuery(string url, string query)
-        {
-            var request = new RestRequest("/ship/id");
-            request.AddQueryParameter("q", query);
-            return _restClient.Get(request).Content;
-        }
-*/
+        /*
+                private string HieiQuery(string url, string query)
+                {
+                    var request = new RestRequest("/ship/id");
+                    request.AddQueryParameter("q", query);
+                    return _restClient.Get(request).Content;
+                }
+        */
         public Task HieiUpdate()
         {
             var request = new RestRequest("/update");
@@ -524,7 +524,7 @@ namespace Jan0660.AzurAPINet
         {
             var request = new RestRequest(url);
             request.AddQueryParameter("q", query);
-            var content =  _restClient.Get(request).Content;
+            var content = _restClient.Get(request).Content;
             return JsonConvert.DeserializeObject<T>(content,
                 new JsonSerializerSettings
                 {
@@ -618,6 +618,8 @@ namespace Jan0660.AzurAPINet
     {
         private AzurAPIClient _client;
 
+        public AzurAPIClientShipAllFilter filter => new AzurAPIClientShipAllFilter(_client);
+
         public List<Ship> get => _client.getAllShips();
 
         internal AzurAPIClientShipAll(AzurAPIClient client)
@@ -643,10 +645,14 @@ namespace Jan0660.AzurAPINet
                 _ => throw new Exception("Invalid language")
             };
 
-        public IEnumerable<Ship> Nation(string nation)
-            => _client.getAllShipsFromNation(nation);
-        public IEnumerable<Ship> Nation(Nationality nation)
-            => _client.getAllShipsFromNation(nation);
+    }
+    public class AzurAPIClientShipAllFilter
+    {
+        private AzurAPIClient _client;
+        internal AzurAPIClientShipAllFilter(AzurAPIClient client)
+        {
+            this._client = client;
+        }
         public IEnumerable<Ship> Nationality(string nationality)
             => _client.getAllShipsFromNation(nationality);
         public IEnumerable<Ship> Nationality(Nationality nationality)
@@ -655,6 +661,18 @@ namespace Jan0660.AzurAPINet
             => _client.getAllShipsFromNation(faction);
         public IEnumerable<Ship> Faction(Nationality faction)
             => _client.getAllShipsFromNation(faction);
+        public IEnumerable<Ship> Rarity(string rarity)
+            => _client.getShipsByRarity(rarity);
+        public IEnumerable<Ship> Rarity(ShipRarity rarity)
+            => _client.getShipsByRarity(rarity);
+        public IEnumerable<Ship> Stars(int starCount)
+            => _client.getAllShips().Where(ship => ship.Stars.Count == starCount);
+        public IEnumerable<Ship> Type(string type)
+            => _client.getAllShips().Where(ship => ship.HullType == type);
+        public IEnumerable<Ship> Type(ShipHullType hullType)
+            => _client.getAllShips().Where(ship => ship.GetHullTypeEnum() == hullType);
+        public IEnumerable<Ship> Class(string className)
+            => _client.getShipsByClass(className);
     }
 
     internal static class ExtensionMethods
@@ -662,7 +680,7 @@ namespace Jan0660.AzurAPINet
         internal static IEnumerable<TVal> ToListOfValue<TKey, TVal>(this IEnumerable<KeyValuePair<TKey, TVal>> ls)
         {
             var res = new List<TVal>();
-            foreach(var item in ls) res.Add(item.Value);
+            foreach (var item in ls) res.Add(item.Value);
             return res;
         }
     }
