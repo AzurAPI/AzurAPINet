@@ -58,7 +58,6 @@ namespace Jan0660.AzurAPINet
         private Dictionary<string, ChapterMemory> _memories = null;
         private Dictionary<string, Equipment> _equipments = null;
         private Dictionary<string, Dictionary<string, List<VoiceLine>>> _voiceLines = null;
-        private WebClient _webClient = new WebClient();
 
         private RestClient _restClient;
         // lol im lazy
@@ -203,7 +202,8 @@ namespace Jan0660.AzurAPINet
         /// <returns>If a new version of the AzurAPI database is available</returns>
         public async Task<bool> DatabaseUpdateAvailableAsync()
         {
-            return (await _webClient.DownloadStringTaskAsync(
+            var webClient = new WebClient();
+            return (await webClient.DownloadStringTaskAsync(
                 "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/version-info.json")
                 != await getTextFileAsync("version-info.json"));
         }
@@ -316,9 +316,10 @@ namespace Jan0660.AzurAPINet
         /// <returns>the bytes of the file</returns>
         public byte[] getFileBytes(string file)
         {
+            var webClient = new WebClient();
             if (IsWeb)
             {
-                return _webClient.DownloadData(Url + file);
+                return webClient.DownloadData(Url + file);
             }
             // Local
             else
@@ -331,9 +332,10 @@ namespace Jan0660.AzurAPINet
         /// <returns>the text</returns>
         public string getTextFile(string file)
         {
+            var webClient = new WebClient();
             if (IsWeb)
             {
-                return _webClient.DownloadString(Url + file);
+                return webClient.DownloadString(Url + file);
             }
             // Local
             else
@@ -346,9 +348,10 @@ namespace Jan0660.AzurAPINet
         /// <returns></returns>
         public Task<string> getTextFileAsync(string file)
         {
+            var webClient = new WebClient();
             if (IsWeb)
             {
-                return _webClient.DownloadStringTaskAsync(Url + file);
+                return webClient.DownloadStringTaskAsync(Url + file);
             }
             // Local
             else
