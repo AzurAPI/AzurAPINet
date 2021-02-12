@@ -70,7 +70,8 @@ namespace Jan0660.AzurAPINet.Enums
         /// <summary>
         /// null
         /// </summary>
-        None
+        None,
+        Meta
     }
     public enum EquipmentTier
     {
@@ -311,6 +312,7 @@ namespace Jan0660.AzurAPINet.Enums
                 //"northunion" => Nationality.NorthUnion,
                 //"easternradiance" => Nationality.EasternRadiance,
                 "venusvacation" => Nationality.VenusVacation,
+                "meta" => Nationality.Meta,
                 null => Nationality.None
             };
         }
