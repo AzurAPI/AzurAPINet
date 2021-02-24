@@ -6,12 +6,13 @@
     <LangVersion>8.0</LangVersion>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <Authors>Jan0660</Authors>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
     <Description>A .NET standard wrapper for the AzurAPI database.</Description>
-    <PackageReleaseNotes>Fix exception on multiple GetAllX calls at once. Add Nationality.Meta.</PackageReleaseNotes>
+    <PackageReleaseNotes>AzurAPIClient.GetAllEquipments now returns a List&lt;Equipment&gt; instead of a Dictionary&lt;string, Equipment&gt;</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/AzurAPI/AzurAPINet</RepositoryUrl>
     <PackageProjectUrl>https://azurapi.github.io/</PackageProjectUrl>
+    <PackageTags>anime azurlane azurapi</PackageTags>
   </PropertyGroup>
   
   <ItemGroup>
