@@ -40,7 +40,7 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty("stats")]
         public readonly ShipAllStats Stats;
         [JsonProperty("slots")]
-        public readonly ShipEquipmentSlots Slots;
+        public readonly List<ShipEquipmentSlot> Slots;
         [JsonProperty("enhanceValue")]
         [JsonConverter(typeof(EnhanceValueConverter))]
         public readonly ShipEnhanceValue EnhanceValue;
