@@ -128,7 +128,7 @@ namespace AzurAPINetCoreTests
                 // enums
                 foreach (var equipment in Client.getAllEquipments())
                 {
-                    equipment.Value.GetCategoryEnum();
+                    equipment.GetCategoryEnum();
                 }
             }catch(Exception e)
             {
@@ -246,8 +246,8 @@ namespace AzurAPINetCoreTests
             List<string> res = new List<string>();
             foreach (var ship in client.getAllEquipments())
             {
-                if (!res.Contains(ship.Value.Category))
-                    res.Add(ship.Value.Category);
+                if (!res.Contains(ship.Category))
+                    res.Add(ship.Category);
             }
             return res;
         }
@@ -277,7 +277,7 @@ namespace AzurAPINetCoreTests
             var res = new List<string>();
             foreach (var eq in client.getAllEquipments())
             {
-                foreach (var tier in eq.Value.Tiers)
+                foreach (var tier in eq.Tiers)
                 {
                     if (!res.Contains(tier.Value.Tier))
                         res.Add(tier.Value.Tier);

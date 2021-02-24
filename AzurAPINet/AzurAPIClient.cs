@@ -54,7 +54,7 @@ namespace Jan0660.AzurAPINet
         private List<Event> _events = null;
         private List<BarrageItem> _barrage = null;
         private Dictionary<string, ChapterMemory> _memories = null;
-        private Dictionary<string, Equipment> _equipments = null;
+        private List<Equipment> _equipments = null;
         private Dictionary<string, Dictionary<string, List<VoiceLine>>> _voiceLines = null;
 
         private RestClient _restClient;
@@ -280,12 +280,12 @@ namespace Jan0660.AzurAPINet
             );
             return memories.FirstOrDefault().Value;
         }
-        public Dictionary<string, Equipment> getAllEquipments()
+        public List<Equipment> getAllEquipments()
         {
-            Dictionary<string, Equipment> list;
+            List<Equipment> list;
             if (_equipments == null)
             {
-                list = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(getTextFile("equipments.json"));
+                list = JsonConvert.DeserializeObject<List<Equipment>>(getTextFile("equipments.json"));
                 if (Options.EnableCaching)
                     _equipments = list;
             }
@@ -405,7 +405,7 @@ namespace Jan0660.AzurAPINet
         {
             if (_ships != null && VersionInfo.Equipments.VersionNumber < getVersionInfo().Equipments.VersionNumber)
                 return;
-            var dict = JsonConvert.DeserializeObject<Dictionary<string, Equipment>>(await getTextFileAsync("equipments.json"));
+            var dict = JsonConvert.DeserializeObject<List<Equipment>>(await getTextFileAsync("equipments.json"));
             _equipments = dict;
         }
         public async Task ReloadVoiceLinesAsync()
@@ -426,14 +426,13 @@ namespace Jan0660.AzurAPINet
         #region get equipment
         public Equipment getEquipmentByEnglishName(string name)
             => IsHiei ? HieiQuery<Equipment[]>("/equip/search", name).FirstOrDefault() :
-                getAllEquipments().FirstOrDefault(e => e.Key.ToLower() == name?.ToLower()).Value
-               ?? getAllEquipments().FirstOrDefault(e => e.Value.Names.en?.ToLower() == name?.ToLower()).Value;
+               getAllEquipments().FirstOrDefault(e => e.Names.en?.ToLower() == name?.ToLower());
         public Equipment getEquipmentByChineseName(string name)
-            => getAllEquipments().FirstOrDefault(e => e.Value.Names.cn?.ToLower() == name?.ToLower()).Value;
+            => getAllEquipments().FirstOrDefault(e => e.Names.cn?.ToLower() == name?.ToLower());
         public Equipment getEquipmentByJapaneseName(string name)
-            => getAllEquipments().FirstOrDefault(e => e.Value.Names.jp?.ToLower() == name?.ToLower()).Value;
+            => getAllEquipments().FirstOrDefault(e => e.Names.jp?.ToLower() == name?.ToLower());
         public Equipment getEquipmentByKoreanName(string name)
-            => getAllEquipments().FirstOrDefault(e => e.Value.Names.kr?.ToLower() == name?.ToLower()).Value;
+            => getAllEquipments().FirstOrDefault(e => e.Names.kr?.ToLower() == name?.ToLower());
         public Equipment getEquipment(string name)
             => getEquipmentByEnglishName(name) ??
                 getEquipmentByChineseName(name) ??
@@ -443,8 +442,8 @@ namespace Jan0660.AzurAPINet
         public IEnumerable<Equipment> getEquipmentByNationality(string nationality)
             => IsHiei ? HieiQuery<IEnumerable<Equipment>>("/equip/nationality", nationality.UnEnum()) :
                 getAllEquipments().Where(
-                eq => eq.Value.Nationality.ToLowerTrimmed() == nationality.ToLowerTrimmed()
-            ).ToListOfValue();
+                eq => eq.Nationality.ToLowerTrimmed() == nationality.ToLowerTrimmed()
+            );
 
         public IEnumerable<Equipment> getEquipmentByNationality(Nationality nationality)
             => getEquipmentByNationality(nationality.ToString());
@@ -452,8 +451,8 @@ namespace Jan0660.AzurAPINet
         public IEnumerable<Equipment> getEquipmentByCategory(string category)
             => IsHiei ? HieiQuery<IEnumerable<Equipment>>("/equip/category", category.UnEnum()) :
                 getAllEquipments().Where(
-                eq => eq.Value.Category.ToLowerTrimmed() == category.ToLowerTrimmed()
-            ).ToListOfValue();
+                eq => eq.Category.ToLowerTrimmed() == category.ToLowerTrimmed()
+            );
 
         public IEnumerable<Equipment> getEquipmentByCategory(EquipmentCategory category)
             => getEquipmentByCategory(category.ToString());
