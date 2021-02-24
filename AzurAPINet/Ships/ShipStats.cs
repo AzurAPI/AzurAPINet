@@ -46,7 +46,7 @@ namespace Jan0660.AzurAPINet.Ships
         /// submarine-only
         /// </summary>
         [JsonProperty("huntingRange")]
-        public readonly List<List<string>>? HuntingRange;
+        public readonly string? HuntingRange;
         [JsonConstructor]
         protected internal ShipStats() { }
         /// <summary>

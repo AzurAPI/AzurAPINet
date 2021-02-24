@@ -6,9 +6,9 @@
     <LangVersion>8.0</LangVersion>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <Authors>Jan0660</Authors>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <Description>A .NET standard wrapper for the AzurAPI database.</Description>
-    <PackageReleaseNotes>AzurAPIClient.GetAllEquipments now returns a List&lt;Equipment&gt; instead of a Dictionary&lt;string, Equipment&gt;</PackageReleaseNotes>
+    <PackageReleaseNotes>Ship.Slots is now List&lt;ShipEquipmentSlot&gt;, ShipStats.HuntingRange is now string</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/AzurAPI/AzurAPINet</RepositoryUrl>
     <PackageProjectUrl>https://azurapi.github.io/</PackageProjectUrl>

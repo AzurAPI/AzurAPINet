@@ -28,8 +28,7 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty("obtainedFrom")]
         public readonly string ObtainedFrom;
         [JsonProperty("cost")]
-        [JsonConverter(typeof(ShipSkinCostConverter))]
-        public readonly int Cost;
+        public readonly int? Cost;
         [JsonProperty("live2dModel")]
         public readonly bool Live2DModel;
     }
