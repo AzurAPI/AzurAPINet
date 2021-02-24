@@ -6,10 +6,9 @@
     <LangVersion>8.0</LangVersion>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <Authors>Jan0660</Authors>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Description>A .NET standard wrapper for the AzurAPI database.</Description>
-    <PackageReleaseNotes>Add Hiei support.
-EquipmentStat.min and EquipmentStat.max are now strings</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix exception on multiple GetAllX calls at once. Add Nationality.Meta.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/AzurAPI/AzurAPINet</RepositoryUrl>
     <PackageProjectUrl>https://azurapi.github.io/</PackageProjectUrl>
