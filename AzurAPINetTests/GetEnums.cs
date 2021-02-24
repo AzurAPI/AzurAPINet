@@ -52,7 +52,7 @@ namespace AzurAPINetTests
         {
             foreach (var e in Client.getAllEquipments())
             {
-                e.Value.GetCategoryEnum();
+                e.GetCategoryEnum();
             }
         }
         [TestMethod]
@@ -68,7 +68,7 @@ namespace AzurAPINetTests
         {
             foreach (var e in Client.getAllEquipments())
             {
-                e.Value.GetNationalityEnum();
+                e.GetNationalityEnum();
             }
         }
         [TestMethod]
@@ -109,7 +109,7 @@ namespace AzurAPINetTests
         {
             foreach (var e in Client.getAllEquipments())
             {
-                foreach (var t in e.Value.Tiers)
+                foreach (var t in e.Tiers)
                 {
                     t.Value.GetRarityEnum();
                 }
@@ -131,7 +131,7 @@ namespace AzurAPINetTests
         {
             foreach (var e in Client.getAllEquipments())
             {
-                foreach (var t in e.Value.Tiers)
+                foreach (var t in e.Tiers)
                 {
                     t.Value.GetTierEnum();
                 }

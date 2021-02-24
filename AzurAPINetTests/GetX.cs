@@ -12,7 +12,7 @@ namespace AzurAPINetTests
         {
             foreach (var eq in Client.getAllEquipments())
             {
-                Client.getEquipment(eq.Value.Names.kr);
+                Client.getEquipment(eq.Names.kr);
             }
             Client.getEquipment(null);
         }
