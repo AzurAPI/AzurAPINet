@@ -16,6 +16,7 @@ using Jan0660.AzurAPINet.Equipments;
 using Jan0660.AzurAPINet.VoiceLines;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics.Contracts;
+using Jan0660.AzurAPINet.Client;
 using Jan0660.AzurAPINet.Enums;
 using RestSharp;
 // very cool
@@ -49,6 +50,7 @@ namespace Jan0660.AzurAPINet
         public const string Url = "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/";
         public readonly AzurAPIClientOptions Options;
         public readonly ClientType ClientType;
+        // todo: no
         public AzurAPIClientShip ship => new AzurAPIClientShip(this);
         public AzurAPIClientEquipment equipment => new AzurAPIClientEquipment(this);
         private List<Ship> _ships = null;
@@ -519,6 +521,7 @@ namespace Jan0660.AzurAPINet
             var request = new RestRequest("/update");
             return _restClient.ExecutePostAsync(request);
         }
+        // todo: maybe this doesn't need RestSharp????
         private T HieiQuery<T>(string url, string query)
         {
             var request = new RestRequest(url);
@@ -530,157 +533,6 @@ namespace Jan0660.AzurAPINet
                     NullValueHandling = NullValueHandling.Ignore
                 }
                 );
-        }
-    }
-
-    public class AzurAPIClientEquipment
-    {
-        private AzurAPIClient _client;
-
-        public AzurAPIClientEquipment(AzurAPIClient client)
-        {
-            this._client = client;
-        }
-
-        public Equipment name(string name)
-            => _client.getEquipmentByEnglishName(name)
-            ?? _client.getEquipmentByJapaneseName(name)
-            ?? _client.getEquipmentByChineseName(name)
-            ?? _client.getEquipmentByKoreanName(name);
-
-        /// <summary>
-        /// gets an equipment by its english, japanese or chinese name only
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="language">one of "english", "japanese" ,"korean", "chinese"</param>
-        /// <returns></returns>
-        public Equipment name(string name, string language)
-            => language.ToLower() switch
-            {
-                "english" => _client.getEquipmentByEnglishName(name),
-                "japanese" => _client.getEquipmentByJapaneseName(name),
-                "chinese" => _client.getEquipmentByChineseName(name),
-                "korean" => _client.getEquipmentByKoreanName(name),
-                _ => throw new Exception("Invalid language.")
-            };
-    }
-
-    public class AzurAPIClientShip
-    {
-        private AzurAPIClient _client;
-        public AzurAPIClientShipAll all => new AzurAPIClientShipAll(this._client);
-        internal AzurAPIClientShip(AzurAPIClient client)
-        {
-            _client = client;
-        }
-        /// <summary>
-        /// gets a ship by its en, jp, cn, kr, official name or id
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public Ship get(string name) => _client.getShip(name);
-        /// <summary>
-        /// gets a ship by its english, japanese, korean or chinese name
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public Ship name(string name)
-            => _client.getShipByEnglishName(name)
-            ?? _client.getShipByChineseName(name)
-            ?? _client.getShipByJapaneseName(name)
-            ?? _client.getShipByKoreanName(name);
-        /// <summary>
-        /// gets a ship by its english, japanese or chinese name only
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="language">one of "english", "japanese" ,"korean", "chinese"</param>
-        /// <returns></returns>
-        public Ship name(string name, string language)
-            => language.ToLower() switch
-            {
-                "english" => _client.getShipByEnglishName(name),
-                "japanese" => _client.getShipByJapaneseName(name),
-                "chinese" => _client.getShipByChineseName(name),
-                "korean" => _client.getShipByKoreanName(name),
-                _ => throw new Exception("Invalid language.")
-            };
-
-        /// <summary>
-        /// gets a ship by it's id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Ship id(string id) => _client.getShipById(id);
-    }
-
-    public class AzurAPIClientShipAll
-    {
-        private AzurAPIClient _client;
-
-        public AzurAPIClientShipAllFilter filter => new AzurAPIClientShipAllFilter(_client);
-
-        public List<Ship> get => _client.getAllShips();
-
-        internal AzurAPIClientShipAll(AzurAPIClient client)
-        {
-            this._client = client;
-        }
-
-        public IEnumerable<Ship> id()
-            => _client.getAllShips().Where(ship => ship.Id != null);
-
-        /// <summary>
-        /// gets ships where their name for the specified language is not null
-        /// </summary>
-        /// <param name="language">one of "english", "japanese" ,"korean", "chinese"</param>
-        /// <returns></returns>
-        public IEnumerable<Ship> Name(string language)
-            => language.ToLower() switch
-            {
-                "english" => _client.getAllShips().Where(ship => ship.Names.en != null),
-                "japanese" => _client.getAllShips().Where(ship => ship.Names.jp != null),
-                "chinese" => _client.getAllShips().Where(ship => ship.Names.cn != null),
-                "korean" => _client.getAllShips().Where(ship => ship.Names.kr != null),
-                _ => throw new Exception("Invalid language")
-            };
-
-    }
-    public class AzurAPIClientShipAllFilter
-    {
-        private AzurAPIClient _client;
-        internal AzurAPIClientShipAllFilter(AzurAPIClient client)
-        {
-            this._client = client;
-        }
-        public IEnumerable<Ship> Nationality(string nationality)
-            => _client.getAllShipsFromNation(nationality);
-        public IEnumerable<Ship> Nationality(Nationality nationality)
-            => _client.getAllShipsFromNation(nationality);
-        public IEnumerable<Ship> Faction(string faction)
-            => _client.getAllShipsFromNation(faction);
-        public IEnumerable<Ship> Faction(Nationality faction)
-            => _client.getAllShipsFromNation(faction);
-        public IEnumerable<Ship> Rarity(string rarity)
-            => _client.getShipsByRarity(rarity);
-        public IEnumerable<Ship> Rarity(ShipRarity rarity)
-            => _client.getShipsByRarity(rarity);
-        public IEnumerable<Ship> Stars(int starCount)
-            => _client.getAllShips().Where(ship => ship.Stars.Count == starCount);
-        public IEnumerable<Ship> Type(string type)
-            => _client.getAllShips().Where(ship => ship.HullType == type);
-        public IEnumerable<Ship> Type(ShipHullType hullType)
-            => _client.getAllShips().Where(ship => ship.GetHullTypeEnum() == hullType);
-        public IEnumerable<Ship> Class(string className)
-            => _client.getShipsByClass(className);
-    }
-
-    internal static class ExtensionMethods
-    {
-        internal static IEnumerable<TVal> ToListOfValue<TKey, TVal>(this IEnumerable<KeyValuePair<TKey, TVal>> ls)
-        {
-            var res = new List<TVal>();
-            foreach (var item in ls) res.Add(item.Value);
-            return res;
         }
     }
 }
