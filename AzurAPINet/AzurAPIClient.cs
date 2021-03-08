@@ -50,7 +50,7 @@ namespace Jan0660.AzurAPINet
         public readonly AzurAPIClientOptions Options;
         public readonly ClientType ClientType;
         private List<Ship> _ships = null;
-        private Dictionary<string, Chapter> _chapters = null;
+        private List<Chapter> _chapters = null;
         private List<Event> _events = null;
         private List<BarrageItem> _barrage = null;
         private Dictionary<string, ChapterMemory> _memories = null;
@@ -205,12 +205,12 @@ namespace Jan0660.AzurAPINet
                 "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/version-info.json")
                 != await getTextFileAsync("version-info.json"));
         }
-        public Dictionary<string, Chapter> getAllChapters()
+        public List<Chapter> getAllChapters()
         {
-            Dictionary<string, Chapter> dict;
+            List<Chapter> dict;
             if (_chapters == null)
             {
-                dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(getTextFile("chapters.json"));
+                dict = JsonConvert.DeserializeObject<List<Chapter>>(getTextFile("chapters.json"));
                 if (Options.EnableCaching)
                     _chapters = dict;
             }
@@ -377,7 +377,7 @@ namespace Jan0660.AzurAPINet
         {
             if (_ships != null && VersionInfo.Ships.VersionNumber < getVersionInfo().Ships.VersionNumber)
                 return;
-            var dict = JsonConvert.DeserializeObject<Dictionary<string, Chapter>>(await getTextFileAsync("chapters.json"));
+            var dict = JsonConvert.DeserializeObject<List<Chapter>>(await getTextFileAsync("chapters.json"));
             _chapters = dict;
         }
         public async Task ReloadEventsAsync()
