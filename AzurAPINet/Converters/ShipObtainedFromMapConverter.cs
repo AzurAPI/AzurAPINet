@@ -8,22 +8,16 @@ namespace Jan0660.AzurAPINet.Converters
 {
     public class ShipObtainedFromMapConverter : JsonConverter<ShipObtainedFromMap>
     {
-        // todo: there's probably a better way to do this.
         public override ShipObtainedFromMap ReadJson(JsonReader reader, Type objectType, [AllowNull] ShipObtainedFromMap existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            try
-            {
-                return serializer.Deserialize<ShipObtainedFromMap>(reader);
-            }
-            catch
-            {
+            if(reader.TokenType == JsonToken.String)
                 return new ShipObtainedFromMap() {Name = serializer.Deserialize<string>(reader)};
-            }
+            return serializer.Deserialize<ShipObtainedFromMap>(reader);
         }
 
         public override void WriteJson(JsonWriter writer, [AllowNull] ShipObtainedFromMap value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            throw new Exception("no");
         }
 
     }

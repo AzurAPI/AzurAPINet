@@ -33,7 +33,7 @@ namespace AzurAPINetTests
             {
                 if(val == Nationality.None) continue;
                 var ls = Client.getAllShipsFromFaction(val);
-                if (ls.Count == 0)
+                if (ls == null | ls?.Count == 0)
                     throw new Exception();
             }
         }

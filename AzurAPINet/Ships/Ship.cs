@@ -42,10 +42,8 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty("slots")]
         public readonly List<ShipEquipmentSlot> Slots;
         [JsonProperty("enhanceValue")]
-        [JsonConverter(typeof(EnhanceValueConverter))]
         public readonly ShipEnhanceValue EnhanceValue;
         [JsonProperty("scrapValue")]
-        [JsonConverter(typeof(ScrapValueConverter))]
         public readonly ShipScrapValue ScrapValue;
         [JsonProperty("skills")]
         public readonly List<ShipSkill> Skills;

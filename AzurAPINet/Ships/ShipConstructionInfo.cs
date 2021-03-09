@@ -5,7 +5,6 @@ using System.Text;
 
 namespace Jan0660.AzurAPINet.Ships
 {
-    // todo: make this stuff readonly
     public class ShipConstructionInfo
     {
         [JsonIgnore]

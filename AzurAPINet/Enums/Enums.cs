@@ -71,7 +71,7 @@ namespace Jan0660.AzurAPINet.Enums
         /// null
         /// </summary>
         None,
-        Meta
+        META
     }
     public enum EquipmentTier
     {
@@ -312,7 +312,7 @@ namespace Jan0660.AzurAPINet.Enums
                 //"northunion" => Nationality.NorthUnion,
                 //"easternradiance" => Nationality.EasternRadiance,
                 "venusvacation" => Nationality.VenusVacation,
-                "meta" => Nationality.Meta,
+                "meta" => Nationality.META,
                 null => Nationality.None
             };
         }
@@ -330,11 +330,8 @@ namespace Jan0660.AzurAPINet.Enums
         {
             var output = "";
             string upper = "QWERTYUIOPASDFGHJKLZXCVBNM";
-            string lower = "qwertyuiopasdfghjklzxcvbnm";
-            Func<char, bool> IsChar = new Func<char, bool>(c =>
-                upper.Contains(c.ToString()) | lower.Contains(c.ToString()));
+            //string lower = "qwertyuiopasdfghjklzxcvbnm";
             bool first = true;
-            int i = 0;
             char prev = ' ';
             foreach (var c in str)
             {

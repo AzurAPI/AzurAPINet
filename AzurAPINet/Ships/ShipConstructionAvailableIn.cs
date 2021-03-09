@@ -8,11 +8,11 @@ namespace Jan0660.AzurAPINet.Ships
     public class ShipConstructionAvailableIn
     {
         [JsonProperty]
-        public readonly RegionBoolean light;
+        public readonly string light;
         [JsonProperty]
-        public readonly RegionBoolean heavy;
+        public readonly string heavy;
         [JsonProperty]
-        public readonly RegionBoolean aviation;
+        public readonly string aviation;
         [JsonProperty]
         public readonly string limited;
         [JsonProperty]

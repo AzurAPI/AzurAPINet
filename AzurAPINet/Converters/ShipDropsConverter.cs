@@ -10,18 +10,15 @@ namespace Jan0660.AzurAPINet.Chapters
 {
     public class ShipDropsConverter : JsonConverter<List<ShipDrop>>
     {
-        // todo: theres probably a smarter way to do this
         public override List<ShipDrop> ReadJson(JsonReader reader, Type objectType, [AllowNull] List<ShipDrop> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             List<ShipDrop> output = new List<ShipDrop>();
             var arr = serializer.Deserialize<JArray>(reader);
             foreach (var item in arr)
             {
-                //var str = item.ToString();
                 if (item.Type!=JTokenType.String)
                 {
                     var ass = item.ToObject<ShipDrop>();
-                    //output.Add((JsonConvert.DeserializeObject<ShipDrop>(str)));
                     output.Add(ass);
                 }
                 else
@@ -34,7 +31,7 @@ namespace Jan0660.AzurAPINet.Chapters
 
         public override void WriteJson(JsonWriter writer, [AllowNull] List<ShipDrop> value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            throw new Exception("no");
         }
     }
 }

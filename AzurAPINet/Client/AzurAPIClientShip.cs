@@ -9,11 +9,12 @@ namespace Jan0660.AzurAPINet.Client
     public class AzurAPIClientShip
     {
         private AzurAPIClient _client;
-        public AzurAPIClientShipAll all => new AzurAPIClientShipAll(this._client);
+        public AzurAPIClientShipAll all;
 
         internal AzurAPIClientShip(AzurAPIClient client)
         {
             _client = client;
+            all = new AzurAPIClientShipAll(this._client);
         }
 
         /// <summary>
@@ -62,13 +63,14 @@ namespace Jan0660.AzurAPINet.Client
     {
         private AzurAPIClient _client;
 
-        public AzurAPIClientShipAllFilter filter => new AzurAPIClientShipAllFilter(_client);
+        public AzurAPIClientShipAllFilter filter;
 
         public List<Ship> get => _client.getAllShips();
 
         internal AzurAPIClientShipAll(AzurAPIClient client)
         {
             this._client = client;
+            filter = new AzurAPIClientShipAllFilter(_client);
         }
 
         public IEnumerable<Ship> id()

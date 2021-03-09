@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Collections.Specialized;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Linq;
 using Jan0660.AzurAPINet.Ships;
 using Jan0660.AzurAPINet.Chapters;
@@ -14,13 +13,12 @@ using Jan0660.AzurAPINet.Barrage;
 using Jan0660.AzurAPINet.Memories;
 using Jan0660.AzurAPINet.Equipments;
 using Jan0660.AzurAPINet.VoiceLines;
-using Newtonsoft.Json.Serialization;
-using System.Diagnostics.Contracts;
+using System.Net.Http;
 using Jan0660.AzurAPINet.Client;
 using Jan0660.AzurAPINet.Enums;
-using RestSharp;
 // very cool
 // ReSharper disable InconsistentNaming
+// ReSharper disable AssignNullToNotNullAttribute
 namespace Jan0660.AzurAPINet
 {
     /// <summary>
@@ -50,9 +48,8 @@ namespace Jan0660.AzurAPINet
         public const string Url = "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/";
         public readonly AzurAPIClientOptions Options;
         public readonly ClientType ClientType;
-        // todo: no
-        public AzurAPIClientShip ship => new AzurAPIClientShip(this);
-        public AzurAPIClientEquipment equipment => new AzurAPIClientEquipment(this);
+        public AzurAPIClientShip ship;
+        public AzurAPIClientEquipment equipment;
         private List<Ship> _ships = null;
         private List<Chapter> _chapters = null;
         private List<Event> _events = null;
@@ -61,7 +58,7 @@ namespace Jan0660.AzurAPINet
         private List<Equipment> _equipments = null;
         private Dictionary<string, Dictionary<string, List<VoiceLine>>> _voiceLines = null;
 
-        private RestClient _restClient;
+        private HttpClient _httpClient;
         // lol im lazy
         private bool IsHiei => ClientType == ClientType.HieiAndWeb || ClientType == ClientType.HieiAndLocal;
         private bool IsLocal => ClientType == ClientType.Local || ClientType == ClientType.HieiAndLocal;
@@ -79,10 +76,13 @@ namespace Jan0660.AzurAPINet
                 throw new Exception("options.LocalPath must be specified when using Local client");
             if (IsHiei)
             {
-                _restClient = new RestClient(options.HieiUrl);
-                _restClient.AddDefaultHeader("authorization", options.HieiPass);
+                _httpClient = new HttpClient();
+                _httpClient.BaseAddress = new Uri(options.HieiUrl);
+                _httpClient.DefaultRequestHeaders.Add("authorization", options.HieiPass);
             }
 
+            this.ship = new AzurAPIClientShip(this);
+            this.equipment = new AzurAPIClientEquipment(this);
             this.Options = options;
             VersionInfo = getVersionInfo();
         }
@@ -91,11 +91,11 @@ namespace Jan0660.AzurAPINet
         /// </summary>
         /// <param name="workingDirectory">AzurAPI database location</param>
         public AzurAPIClient(string workingDirectory, AzurAPIClientOptions options)
+        : this (ClientType.Local, new AzurAPIClientOptions()
         {
-            ClientType = ClientType.Local;
-            options.LocalPath = workingDirectory;
-            Options = options;
-            VersionInfo = getVersionInfo();
+            LocalPath = workingDirectory
+        })
+        {
         }
         /// <summary>
         /// Create new client that uses database from web
@@ -134,7 +134,7 @@ namespace Jan0660.AzurAPINet
             if (IsHiei)
             {
                 var byEn = HieiQuery<Ship[]>("/ship/search", query);
-                return byEn.Length == 0 ? HieiQuery<Ship>("/ship/id", query) : byEn[0];
+                return byEn == null | byEn?.Length == 0 ? HieiQuery<Ship>("/ship/id", query) : byEn[0];
             }
             return getShipByEnglishName(query)
                 ?? getShipByCode(query)
@@ -325,7 +325,7 @@ namespace Jan0660.AzurAPINet
             }
             // Local
             else
-                return File.ReadAllBytes(Options.LocalPath + file);
+                return File.ReadAllBytes(Path.Combine(Options.LocalPath, file));
         }
         /// <summary>
         /// gets the content of a text file from the AzurAPI database
@@ -341,7 +341,7 @@ namespace Jan0660.AzurAPINet
             }
             // Local
             else
-                return File.ReadAllText(Options.LocalPath + file);
+                return File.ReadAllText(Path.Combine(Options.LocalPath, file));
         }
         /// <summary>
         /// Only async when getting files from the web, File.ReadAllTextAsync was introduced in .net standard 2.1 aaa
@@ -358,9 +358,9 @@ namespace Jan0660.AzurAPINet
             // Local
             else
 #if NETSTANDARD2_1
-                return File.ReadAllTextAsync(Options.LocalPath + file);
+                return File.ReadAllTextAsync(Path.Combine(Options.LocalPath, file));
 #else
-            return Task.FromResult(File.ReadAllText(Options.LocalPath + file));
+            return Task.FromResult(File.ReadAllText(Path.Combine(Options.LocalPath, file)));
 #endif
         }
         #endregion
@@ -429,7 +429,7 @@ namespace Jan0660.AzurAPINet
         #endregion
         #region get equipment
         public Equipment getEquipmentByEnglishName(string name)
-            => IsHiei ? HieiQuery<Equipment[]>("/equip/search", name).FirstOrDefault() :
+            => IsHiei ? HieiQuery<Equipment[]>("/equip/search", name)?.FirstOrDefault() :
                getAllEquipments().FirstOrDefault(e => e.Names.en?.ToLower() == name?.ToLower());
         public Equipment getEquipmentByChineseName(string name)
             => getAllEquipments().FirstOrDefault(e => e.Names.cn?.ToLower() == name?.ToLower());
@@ -518,15 +518,16 @@ namespace Jan0660.AzurAPINet
         */
         public Task HieiUpdate()
         {
-            var request = new RestRequest("/update");
-            return _restClient.ExecutePostAsync(request);
+            return _httpClient.PostAsync("/update", new StringContent(""));
         }
-        // todo: maybe this doesn't need RestSharp????
         private T HieiQuery<T>(string url, string query)
         {
-            var request = new RestRequest(url);
-            request.AddQueryParameter("q", query);
-            var content = _restClient.Get(request).Content;
+            NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
+            queryString.Add("q", query ?? "");
+            //var request = new RestRequest(url);
+            //request.AddQueryParameter("q", query);
+            var h = url + "?" + queryString;
+            var content = _httpClient.GetAsync(h).Result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<T>(content,
                 new JsonSerializerSettings
                 {

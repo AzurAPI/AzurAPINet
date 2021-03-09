@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <RootNamespace>Jan0660.AzurAPINet</RootNamespace>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <Authors>Jan0660</Authors>
     <Version>1.3.0</Version>
@@ -22,7 +22,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="RestSharp" Version="106.11.7" />
   </ItemGroup>
 
 </Project>
