@@ -11,7 +11,7 @@ namespace Jan0660.AzurAPINet.Converters
     /// <summary>
     /// Parses a float even with '%' at the end of the string
     /// </summary>
-    public class BetterFloatConverter : JsonConverter<float>
+    internal class BetterFloatConverter : JsonConverter<float>
     {
         public override float ReadJson(JsonReader reader, Type objectType, [AllowNull] float existingValue, bool hasExistingValue, JsonSerializer serializer)
         {

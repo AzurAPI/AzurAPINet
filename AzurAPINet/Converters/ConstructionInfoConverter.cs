@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using Jan0660.AzurAPINet.Ships;
 namespace Jan0660.AzurAPINet.Converters
 {
-    public class ConstructionInfoConverter : JsonConverter<ShipConstructionInfo>
+    internal class ConstructionInfoConverter : JsonConverter<ShipConstructionInfo>
     {
         public override ShipConstructionInfo ReadJson(JsonReader reader, Type objectType, [AllowNull] ShipConstructionInfo existingValue, bool hasExistingValue, JsonSerializer serializer)
         {

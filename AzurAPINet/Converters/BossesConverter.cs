@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Jan0660.AzurAPINet.Converters
 {
-    public class BossesConverter : JsonConverter<string[]>
+    internal class BossesConverter : JsonConverter<string[]>
     {
         public override string[] ReadJson(JsonReader reader, Type objectType, [AllowNull] string[] existingValue, bool hasExistingValue, JsonSerializer serializer)
         {

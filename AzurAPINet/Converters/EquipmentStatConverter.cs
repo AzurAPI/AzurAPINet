@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Jan0660.AzurAPINet.Converters
 {
-    public class EquipmentStatConverter : JsonConverter<EquipmentStat[]>
+    internal class EquipmentStatConverter : JsonConverter<EquipmentStat[]>
     {
         public override EquipmentStat[] ReadJson(JsonReader reader, Type objectType,
             [AllowNull] EquipmentStat[] existingValue, bool hasExistingValue, JsonSerializer serializer)

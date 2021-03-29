@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Jan0660.AzurAPINet.Converters
 {
-    public class ShipObtainedFromMapConverter : JsonConverter<ShipObtainedFromMap>
+    internal class ShipObtainedFromMapConverter : JsonConverter<ShipObtainedFromMap>
     {
         public override ShipObtainedFromMap ReadJson(JsonReader reader, Type objectType, [AllowNull] ShipObtainedFromMap existingValue, bool hasExistingValue, JsonSerializer serializer)
         {

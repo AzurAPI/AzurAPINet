@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Jan0660.AzurAPINet.Chapters
 {
-    public class ShipDropsConverter : JsonConverter<List<ShipDrop>>
+    internal class ShipDropsConverter : JsonConverter<List<ShipDrop>>
     {
         public override List<ShipDrop> ReadJson(JsonReader reader, Type objectType, [AllowNull] List<ShipDrop> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
