@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using static AzurAPINetTests.Static;
 using Jan0660.AzurAPINet.Enums;
@@ -22,7 +23,7 @@ namespace AzurAPINetTests
             foreach (var nat in nationalities)
             {
                 var ls = Client.getAllShipsFromFaction(nat);
-                if (ls.Count == 0)
+                if (!ls.Any())
                     throw new Exception();
             }
         }
@@ -33,7 +34,7 @@ namespace AzurAPINetTests
             {
                 if(val == Nationality.None) continue;
                 var ls = Client.getAllShipsFromFaction(val);
-                if (ls == null | ls?.Count == 0)
+                if (ls == null | ls?.Count() == 0)
                     throw new Exception();
             }
         }

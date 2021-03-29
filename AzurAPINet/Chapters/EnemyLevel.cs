@@ -17,6 +17,6 @@ namespace Jan0660.AzurAPINet.Chapters
         /// </summary>
         [JsonProperty("boss")]
         [JsonConverter(typeof(Jan0660.AzurAPINet.Converters.BossesConverter))]
-        public readonly List<string> Bosses;
+        public readonly string[] Bosses;
     }
 }

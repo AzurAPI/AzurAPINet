@@ -19,14 +19,8 @@ namespace Jan0660.AzurAPINet.Chapters
         /// all the missions in a list
         /// </summary>
         [JsonIgnore]
-        public List<Mission> Missions
-        {
-            get
-            {
-                List<Mission> missions = new List<Mission>() { Mission1, Mission2, Mission3, Mission4 };
-                return missions;
-            }
-        }
+        public Mission[] Missions => new[]{ Mission1, Mission2, Mission3, Mission4 };
+
         [JsonProperty("names")]
         public readonly Names Names;
 

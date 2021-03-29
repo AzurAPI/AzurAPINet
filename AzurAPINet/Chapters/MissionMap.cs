@@ -19,7 +19,7 @@ namespace Jan0660.AzurAPINet.Chapters
         [JsonProperty("clearRewards")]
         public readonly ClearRewards ClearRewards;
         [JsonProperty("threeStarRewards")]
-        public readonly List<Reward> ThreeStarRewards;
+        public readonly Reward[] ThreeStarRewards;
         [JsonProperty("enemyLevel")]
         public readonly EnemyLevel EnemyLevel;
         [JsonProperty("baseXP")]
@@ -29,13 +29,13 @@ namespace Jan0660.AzurAPINet.Chapters
         [JsonProperty("bossKillsToClear")]
         public readonly int BossKillsToClear;
         [JsonProperty("starConditions")]
-        public readonly List<string> StarConditions;
+        public readonly string[] StarConditions;
         [JsonProperty("airSupremacy")]
         public readonly AirSupremacy AirSupremacy;
         [JsonProperty("mapDrops")]
-        public readonly List<string> MapDrops;
+        public readonly string[] MapDrops;
         [JsonProperty("equipmentBlueprintDrops")]
-        public readonly List<EquipmentBlueprintDrop> EquipmentBlueprintDrops;
+        public readonly EquipmentBlueprintDrop[] EquipmentBlueprintDrops;
         [JsonProperty("shipDrops")]
         [JsonConverter(typeof(ShipDropsConverter))]
         public readonly List<ShipDrop> ShipDrops;

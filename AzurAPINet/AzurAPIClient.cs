@@ -50,13 +50,13 @@ namespace Jan0660.AzurAPINet
         public readonly ClientType ClientType;
         public AzurAPIClientShip ship;
         public AzurAPIClientEquipment equipment;
-        private List<Ship> _ships = null;
-        private List<Chapter> _chapters = null;
-        private List<Event> _events = null;
-        private List<BarrageItem> _barrage = null;
+        private Ship[] _ships = null;
+        private Chapter[] _chapters = null;
+        private Event[] _events = null;
+        private BarrageItem[] _barrage = null;
         private Dictionary<string, ChapterMemory> _memories = null;
-        private List<Equipment> _equipments = null;
-        private Dictionary<string, Dictionary<string, List<VoiceLine>>> _voiceLines = null;
+        private Equipment[] _equipments = null;
+        private Dictionary<string, Dictionary<string, VoiceLine[]>> _voiceLines = null;
 
         private HttpClient _httpClient;
         // lol im lazy
@@ -104,12 +104,12 @@ namespace Jan0660.AzurAPINet
         : this(ClientType.Web, options ??= new AzurAPIClientOptions())
         { }
 
-        public List<Ship> getAllShips()
+        public Ship[] getAllShips()
         {
-            List<Ship> ships;
+            Ship[] ships;
             if (this._ships == null)
             {
-                ships = JsonConvert.DeserializeObject<List<Ship>>(getTextFile("ships.json"),
+                ships = JsonConvert.DeserializeObject<Ship[]>(getTextFile("ships.json"),
                 new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore
@@ -209,12 +209,12 @@ namespace Jan0660.AzurAPINet
                 "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/version-info.json")
                 != await getTextFileAsync("version-info.json"));
         }
-        public List<Chapter> getAllChapters()
+        public Chapter[] getAllChapters()
         {
-            List<Chapter> dict;
+            Chapter[] dict;
             if (_chapters == null)
             {
-                dict = JsonConvert.DeserializeObject<List<Chapter>>(getTextFile("chapters.json"));
+                dict = JsonConvert.DeserializeObject<Chapter[]>(getTextFile("chapters.json"));
                 if (Options.EnableCaching)
                     _chapters = dict;
             }
@@ -222,12 +222,12 @@ namespace Jan0660.AzurAPINet
                 dict = _chapters;
             return dict;
         }
-        public List<Event> getAllEvents()
+        public Event[] getAllEvents()
         {
-            List<Event> list;
+            Event[] list;
             if (_events == null)
             {
-                list = JsonConvert.DeserializeObject<List<Event>>(getTextFile("events.json"));
+                list = JsonConvert.DeserializeObject<Event[]>(getTextFile("events.json"));
                 if (Options.EnableCaching)
                     _events = list;
             }
@@ -235,12 +235,12 @@ namespace Jan0660.AzurAPINet
                 list = _events;
             return list;
         }
-        public List<BarrageItem> getAllBarrage()
+        public BarrageItem[] getAllBarrage()
         {
-            List<BarrageItem> list;
+            BarrageItem[] list;
             if (_barrage == null)
             {
-                list = JsonConvert.DeserializeObject<List<BarrageItem>>(getTextFile("barrage.json"));
+                list = JsonConvert.DeserializeObject<BarrageItem[]>(getTextFile("barrage.json"));
                 if (Options.EnableCaching)
                     _barrage = list;
             }
@@ -248,12 +248,12 @@ namespace Jan0660.AzurAPINet
                 list = _barrage;
             return list;
         }
-        public List<BarrageItem> getBarrageForShip(string name)
+        public IEnumerable<BarrageItem> getBarrageForShip(string name)
         {
             var sh = getShip(name);
             if (sh != null)
                 name = sh.Names?.en;
-            return getAllBarrage().Where((b) => b.Ships.Count((s) => s.ToLower() == name?.ToLower()) != 0).ToList();
+            return getAllBarrage().Where((b) => b.Ships.Count((s) => s.ToLower() == name?.ToLower()) != 0);
         }
         public Dictionary<string, ChapterMemory> getAllMemories()
         {
@@ -284,12 +284,12 @@ namespace Jan0660.AzurAPINet
             );
             return memories.FirstOrDefault().Value;
         }
-        public List<Equipment> getAllEquipments()
+        public Equipment[] getAllEquipments()
         {
-            List<Equipment> list;
+            Equipment[] list;
             if (_equipments == null)
             {
-                list = JsonConvert.DeserializeObject<List<Equipment>>(getTextFile("equipments.json"));
+                list = JsonConvert.DeserializeObject<Equipment[]>(getTextFile("equipments.json"));
                 if (Options.EnableCaching)
                     _equipments = list;
             }
@@ -297,12 +297,12 @@ namespace Jan0660.AzurAPINet
                 list = _equipments;
             return list;
         }
-        public Dictionary<string, Dictionary<string, List<VoiceLine>>> getAllVoiceLines()
+        public Dictionary<string, Dictionary<string, VoiceLine[]>> getAllVoiceLines()
         {
-            Dictionary<string, Dictionary<string, List<VoiceLine>>> list;
+            Dictionary<string, Dictionary<string, VoiceLine[]>> list;
             if (_voiceLines == null)
             {
-                list = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(getTextFile("voice_lines.json"));
+                list = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, VoiceLine[]>>>(getTextFile("voice_lines.json"));
                 if (Options.EnableCaching)
                     _voiceLines = list;
             }
@@ -369,7 +369,7 @@ namespace Jan0660.AzurAPINet
         {
             if (_ships != null && VersionInfo.Ships.VersionNumber > getVersionInfo().Ships.VersionNumber)
                 return;
-            var ships = JsonConvert.DeserializeObject<List<Ship>>(await getTextFileAsync("ships.json"),
+            var ships = JsonConvert.DeserializeObject<Ship[]>(await getTextFileAsync("ships.json"),
             new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore
@@ -381,21 +381,21 @@ namespace Jan0660.AzurAPINet
         {
             if (_ships != null && VersionInfo.Ships.VersionNumber < getVersionInfo().Ships.VersionNumber)
                 return;
-            var dict = JsonConvert.DeserializeObject<List<Chapter>>(await getTextFileAsync("chapters.json"));
+            var dict = JsonConvert.DeserializeObject<Chapter[]>(await getTextFileAsync("chapters.json"));
             _chapters = dict;
         }
         public async Task ReloadEventsAsync()
         {
             if (_ships != null && VersionInfo.Ships.VersionNumber < getVersionInfo().Ships.VersionNumber)
                 return;
-            var list = JsonConvert.DeserializeObject<List<Event>>(await getTextFileAsync("events.json"));
+            var list = JsonConvert.DeserializeObject<Event[]>(await getTextFileAsync("events.json"));
             _events = list;
         }
         public async Task ReloadBarrageAsync()
         {
             if (_ships != null && VersionInfo.Ships.VersionNumber < getVersionInfo().Ships.VersionNumber)
                 return;
-            var list = JsonConvert.DeserializeObject<List<BarrageItem>>(await getTextFileAsync("barrage.json"));
+            var list = JsonConvert.DeserializeObject<BarrageItem[]>(await getTextFileAsync("barrage.json"));
             _barrage = list;
         }
         public async Task ReloadMemoriesAsync()
@@ -409,14 +409,14 @@ namespace Jan0660.AzurAPINet
         {
             if (_ships != null && VersionInfo.Equipments.VersionNumber < getVersionInfo().Equipments.VersionNumber)
                 return;
-            var dict = JsonConvert.DeserializeObject<List<Equipment>>(await getTextFileAsync("equipments.json"));
+            var dict = JsonConvert.DeserializeObject<Equipment[]>(await getTextFileAsync("equipments.json"));
             _equipments = dict;
         }
         public async Task ReloadVoiceLinesAsync()
         {
             if (_ships != null && VersionInfo.Ships.VersionNumber < getVersionInfo().Ships.VersionNumber)
                 return;
-            var dict = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<VoiceLine>>>>(await getTextFileAsync("voice_lines.json"));
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, VoiceLine[]>>>(await getTextFileAsync("voice_lines.json"));
             _voiceLines = dict;
         }
         public Task ReloadEverythingAsync()
@@ -462,31 +462,31 @@ namespace Jan0660.AzurAPINet
             => getEquipmentByCategory(category.ToString());
         #endregion
         #region getAllShipsFromFaction & aliases
-        public List<Ship> getAllShipsFromFaction(string faction)
-            => IsHiei ? HieiQuery<List<Ship>>("/ship/nationality", faction.UnEnum())
-                : getAllShips().Where(s => s.Nationality?.ToLowerTrimmed() == faction?.ToLowerTrimmed()).ToList();
-        public List<Ship> getAllShipsFromNation(string nation)
+        public IEnumerable<Ship> getAllShipsFromFaction(string faction)
+            => IsHiei ? HieiQuery<Ship[]>("/ship/nationality", faction.UnEnum())
+                : getAllShips().Where(s => s.Nationality?.ToLowerTrimmed() == faction?.ToLowerTrimmed());
+        public IEnumerable<Ship> getAllShipsFromNation(string nation)
             => getAllShipsFromFaction(nation);
-        public List<Ship> getAllShipsFromNationality(string nationality)
+        public IEnumerable<Ship> getAllShipsFromNationality(string nationality)
             => getAllShipsFromFaction(nationality);
-        public List<Ship> getAllShipsFromFaction(Nationality nationality)
+        public IEnumerable<Ship> getAllShipsFromFaction(Nationality nationality)
             => getAllShipsFromFaction(nationality.ToString());
-        public List<Ship> getAllShipsFromNationality(Nationality nationality)
+        public IEnumerable<Ship> getAllShipsFromNationality(Nationality nationality)
             => getAllShipsFromFaction(nationality.ToString());
-        public List<Ship> getAllShipsFromNation(Nationality nationality)
+        public IEnumerable<Ship> getAllShipsFromNation(Nationality nationality)
             => getAllShipsFromFaction(nationality.ToString());
         #endregion
         #region getAllShipsByLANGUAGE
-        public List<Ship> getAllShipsByEnglishName()
-            => getAllShips().Where(s => s.Names.en != null).ToList();
-        public List<Ship> getAllShipsByJapaneseName()
-            => getAllShips().Where(s => s.Names.jp != null).ToList();
-        public List<Ship> getAllShipsByChineseName()
-            => getAllShips().Where(s => s.Names.cn != null).ToList();
-        public List<Ship> getAllShipsByKoreanName()
-            => getAllShips().Where(s => s.Names.kr != null).ToList();
-        public List<Ship> getAllShipsByOfficialName()
-            => getAllShips().Where(s => s.Names.code != null).ToList();
+        public IEnumerable<Ship> getAllShipsByEnglishName()
+            => getAllShips().Where(s => s.Names.en != null);
+        public IEnumerable<Ship> getAllShipsByJapaneseName()
+            => getAllShips().Where(s => s.Names.jp != null);
+        public IEnumerable<Ship> getAllShipsByChineseName()
+            => getAllShips().Where(s => s.Names.cn != null);
+        public IEnumerable<Ship> getAllShipsByKoreanName()
+            => getAllShips().Where(s => s.Names.kr != null);
+        public IEnumerable<Ship> getAllShipsByOfficialName()
+            => getAllShips().Where(s => s.Names.code != null);
         #endregion
 
         public Task ReloadCachedAsync()

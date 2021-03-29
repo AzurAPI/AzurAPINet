@@ -65,7 +65,7 @@ namespace Jan0660.AzurAPINet.Client
 
         public AzurAPIClientShipAllFilter filter;
 
-        public List<Ship> get => _client.getAllShips();
+        public Ship[] get => _client.getAllShips();
 
         internal AzurAPIClientShipAll(AzurAPIClient client)
         {

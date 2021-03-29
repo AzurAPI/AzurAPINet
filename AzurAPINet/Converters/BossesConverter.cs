@@ -6,22 +6,22 @@ using Newtonsoft.Json;
 
 namespace Jan0660.AzurAPINet.Converters
 {
-    public class BossesConverter : JsonConverter<List<string>>
+    public class BossesConverter : JsonConverter<string[]>
     {
-        public override List<string> ReadJson(JsonReader reader, Type objectType, [AllowNull] List<string> existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override string[] ReadJson(JsonReader reader, Type objectType, [AllowNull] string[] existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             if (reader.TokenType == JsonToken.String)
             {
-                return new List<string>() { serializer.Deserialize<string>(reader) };
+                return new string[] { serializer.Deserialize<string>(reader) };
             }
             else
             {
-                var a = serializer.Deserialize<List<string>>(reader);
+                var a = serializer.Deserialize<string[]>(reader);
                 return a;
             }
         }
 
-        public override void WriteJson(JsonWriter writer, [AllowNull] List<string> value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, [AllowNull] string[] value, JsonSerializer serializer)
         {
             throw new Exception("no");
         }

@@ -18,11 +18,11 @@ namespace Jan0660.AzurAPINet.Barrage
         [JsonProperty("image")]
         public readonly string Image;
         [JsonProperty("ships")]
-        public readonly List<string> Ships;
+        public readonly string[] Ships;
         [JsonProperty("hull")]
         public readonly string Hull;
         [JsonProperty("rounds")]
-        public readonly List<BarrageRound> Rounds;
+        public readonly BarrageRound[] Rounds;
 
         public override string ToString()
             => Name;

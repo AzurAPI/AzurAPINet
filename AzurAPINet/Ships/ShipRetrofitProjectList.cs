@@ -36,6 +36,7 @@ namespace Jan0660.AzurAPINet.Ships
         {
             var result = new List<ShipRetrofitProject>();
             // youve evr jsut
+            // wtf
             if (A != null) { result.Add(A); }
             if (B != null) { result.Add(B); }
             if (C != null) { result.Add(C); }

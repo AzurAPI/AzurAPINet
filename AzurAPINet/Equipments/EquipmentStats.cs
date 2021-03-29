@@ -19,6 +19,6 @@ namespace Jan0660.AzurAPINet.Equipments
         [JsonProperty("stars")]
         public readonly Stars Stars;
         [JsonProperty("stats", ItemConverterType = typeof(EquipmentStatConverter))]
-        public readonly Dictionary<string, EquipmentStat> Stats;
+        public readonly Dictionary<string, EquipmentStat[]> Stats;
     }
 }

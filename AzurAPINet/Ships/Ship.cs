@@ -40,15 +40,15 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty("stats")]
         public readonly ShipAllStats Stats;
         [JsonProperty("slots")]
-        public readonly List<ShipEquipmentSlot> Slots;
+        public readonly ShipEquipmentSlot[] Slots;
         [JsonProperty("enhanceValue")]
         public readonly ShipEnhanceValue EnhanceValue;
         [JsonProperty("scrapValue")]
         public readonly ShipScrapValue ScrapValue;
         [JsonProperty("skills")]
-        public readonly List<ShipSkill> Skills;
+        public readonly ShipSkill[] Skills;
         [JsonProperty("limitBreaks")]
-        public readonly List<List<string>> LimitBreaks;
+        public readonly string[][] LimitBreaks;
         [JsonProperty("fleetTech")]
         public readonly ShipFleetTech FleetTech;
         [JsonProperty("construction")]
@@ -57,11 +57,11 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty("obtainedFrom")]
         public readonly ShipObtainedFrom ObtainedFrom;
         [JsonProperty("skins")]
-        public readonly List<ShipSkin> Skins;
+        public readonly ShipSkin[] Skins;
         [JsonProperty("misc")]
         public readonly ShipMisc Misc;
         [JsonProperty("gallery")]
-        public readonly List<ShipGalleryItem> Gallery;
+        public readonly ShipGalleryItem[] Gallery;
 
         /// <summary>
         /// returns the english name of the ship

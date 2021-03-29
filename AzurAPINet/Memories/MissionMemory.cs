@@ -10,7 +10,7 @@ namespace Jan0660.AzurAPINet.Memories
         [JsonProperty("names")]
         public readonly Names Names;
         [JsonProperty("lines")]
-        public readonly List<LineMemory> Lines;
+        public readonly LineMemory[] Lines;
 
         public override string ToString()
             => Names.en;
