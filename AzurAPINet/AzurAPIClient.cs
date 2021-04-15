@@ -58,7 +58,7 @@ namespace Jan0660.AzurAPINet
         private Equipment[] _equipments = null;
         private Dictionary<string, Dictionary<string, VoiceLine[]>> _voiceLines = null;
 
-        private HttpClient _httpClient;
+        internal HttpClient _httpClient;
         // lol im lazy
         private bool IsHiei => ClientType == ClientType.HieiAndWeb || ClientType == ClientType.HieiAndLocal;
         private bool IsLocal => ClientType == ClientType.Local || ClientType == ClientType.HieiAndLocal;
@@ -125,19 +125,13 @@ namespace Jan0660.AzurAPINet
             return ships;
         }
         #region getShip, getShipBy<EnglishName,Code,Id,...>
-        // TODO: all languages for hiei
         /// <summary>
-        /// Searches for a ship using it's english name, code, id, japanese and chinese name, in this order, only uses english name and id for hiei
+        /// Searches for a ship using it's english name, code, id, japanese and chinese name, in this order
         /// </summary>
         /// <param name="query">The name of the ship you're searching for</param>
         /// <returns>the ship</returns>
-        public Ship getShip(string query)
+        public virtual Ship getShip(string query)
         {
-            if (IsHiei)
-            {
-                var byEn = HieiQuery<Ship[]>("/ship/search", query);
-                return byEn == null | byEn?.Length == 0 ? HieiQuery<Ship>("/ship/id", query) : byEn[0];
-            }
             return getShipByEnglishName(query)
                 ?? getShipByCode(query)
                 ?? getShipById(query)
@@ -152,19 +146,13 @@ namespace Jan0660.AzurAPINet
         /// <param name="waifu"></param>
         /// <returns>the waifu</returns>
         public Ship getWaifu(string waifu) => getShip(waifu);
-        public Ship getShipByEnglishName(string name)
-            => IsHiei ? HieiQuery<Ship[]>("/ship/search", name).FirstOrDefault()
-        : getAllShips().FirstOrDefault((ship) => ship.Names.en?.ToLower() == name?.ToLower());
+        public virtual Ship getShipByEnglishName(string name)
+            => getAllShips().FirstOrDefault((ship) => ship.Names.en?.ToLower() == name?.ToLower());
         public Ship getShipByCode(string code)
         => getAllShips().FirstOrDefault((ship) => ship.Names.code.ToLower() == code?.ToLower());
 
-        public Ship getShipById(string id)
-        {
-            if (IsHiei)
-                return HieiQuery<Ship>("/ship/id", id);
-            else
-                return getAllShips().FirstOrDefault((ship) => ship.Id.ToLower() == id?.ToLower());
-        }
+        public virtual Ship getShipById(string id)
+            => getAllShips().FirstOrDefault((ship) => ship.Id.ToLower() == id?.ToLower());
 
         public Ship getShipByJapaneseName(string name)
         => getAllShips().FirstOrDefault((ship) => ship.Names.jp?.ToLower() == name?.ToLower());
@@ -175,26 +163,20 @@ namespace Jan0660.AzurAPINet
         #endregion
         #region getShipsByHullType, getShipsByRarity, getShipsByClass
 
-        public IEnumerable<Ship> getShipsByHullType(string hullType)
-            => IsHiei ? HieiQuery<IEnumerable<Ship>>("/ship/hullType", hullType.UnEnum()) : getAllShips().Where(
-                s => s.HullType.ToLowerTrimmed() == hullType.ToLowerTrimmed()
-            );
+        public virtual IEnumerable<Ship> getShipsByHullType(string hullType)
+            => getAllShips().Where(s => s.HullType.ToLowerTrimmed() == hullType.ToLowerTrimmed());
 
         public IEnumerable<Ship> getShipsByHullType(ShipHullType hullType)
             => getShipsByHullType(hullType.ToString());
 
-        public IEnumerable<Ship> getShipsByRarity(string rarity)
-            => IsHiei ? HieiQuery<IEnumerable<Ship>>("/ship/rarity", rarity.UnEnum()) : getAllShips().Where(
-                s => s.Rarity.ToLowerTrimmed() == rarity.ToLowerTrimmed()
-            );
+        public virtual IEnumerable<Ship> getShipsByRarity(string rarity)
+            => getAllShips().Where(s => s.Rarity.ToLowerTrimmed() == rarity.ToLowerTrimmed());
 
         public IEnumerable<Ship> getShipsByRarity(ShipRarity rarity)
             => getShipsByRarity(rarity.ToString());
 
-        public IEnumerable<Ship> getShipsByClass(string className)
-            => IsHiei ? HieiQuery<IEnumerable<Ship>>("/ship/shipClass", className) : getAllShips().Where(
-                s => s.Class.ToLowerTrimmed() == className.ToLowerTrimmed()
-                );
+        public virtual IEnumerable<Ship> getShipsByClass(string className)
+            => getAllShips().Where(s => s.Class.ToLowerTrimmed() == className.ToLowerTrimmed());
         #endregion
         public DatabaseVersionInfo getVersionInfo()
         {
@@ -430,9 +412,8 @@ namespace Jan0660.AzurAPINet
         }
         #endregion
         #region get equipment
-        public Equipment getEquipmentByEnglishName(string name)
-            => IsHiei ? HieiQuery<Equipment[]>("/equip/search", name)?.FirstOrDefault() :
-               getAllEquipments().FirstOrDefault(e => e.Names.en?.ToLower() == name?.ToLower());
+        public virtual Equipment getEquipmentByEnglishName(string name)
+            => getAllEquipments().FirstOrDefault(e => e.Names.en?.ToLower() == name?.ToLower());
         public Equipment getEquipmentByChineseName(string name)
             => getAllEquipments().FirstOrDefault(e => e.Names.cn?.ToLower() == name?.ToLower());
         public Equipment getEquipmentByJapaneseName(string name)
@@ -445,18 +426,16 @@ namespace Jan0660.AzurAPINet
                 getEquipmentByJapaneseName(name) ??
                 getEquipmentByKoreanName(name);
 
-        public IEnumerable<Equipment> getEquipmentByNationality(string nationality)
-            => IsHiei ? HieiQuery<IEnumerable<Equipment>>("/equip/nationality", nationality.UnEnum()) :
-                getAllEquipments().Where(
+        public virtual IEnumerable<Equipment> getEquipmentByNationality(string nationality)
+            => getAllEquipments().Where(
                 eq => eq.Nationality.ToLowerTrimmed() == nationality.ToLowerTrimmed()
             );
 
         public IEnumerable<Equipment> getEquipmentByNationality(Nationality nationality)
             => getEquipmentByNationality(nationality.ToString());
 
-        public IEnumerable<Equipment> getEquipmentByCategory(string category)
-            => IsHiei ? HieiQuery<IEnumerable<Equipment>>("/equip/category", category.UnEnum()) :
-                getAllEquipments().Where(
+        public virtual IEnumerable<Equipment> getEquipmentByCategory(string category)
+            => getAllEquipments().Where(
                 eq => eq.Category.ToLowerTrimmed() == category.ToLowerTrimmed()
             );
 
@@ -464,9 +443,8 @@ namespace Jan0660.AzurAPINet
             => getEquipmentByCategory(category.ToString());
         #endregion
         #region getAllShipsFromFaction & aliases
-        public IEnumerable<Ship> getAllShipsFromFaction(string faction)
-            => IsHiei ? HieiQuery<Ship[]>("/ship/nationality", faction.UnEnum())
-                : getAllShips().Where(s => s.Nationality?.ToLowerTrimmed() == faction?.ToLowerTrimmed());
+        public virtual IEnumerable<Ship> getAllShipsFromFaction(string faction)
+            => getAllShips().Where(s => s.Nationality?.ToLowerTrimmed() == faction?.ToLowerTrimmed());
         public IEnumerable<Ship> getAllShipsFromNation(string nation)
             => getAllShipsFromFaction(nation);
         public IEnumerable<Ship> getAllShipsFromNationality(string nationality)
@@ -518,24 +496,5 @@ namespace Jan0660.AzurAPINet
                     return _restClient.Get(request).Content;
                 }
         */
-        public Task HieiUpdate()
-        {
-            return _httpClient.PostAsync("/update", new StringContent(""));
-        }
-        private T HieiQuery<T>(string url, string query)
-        {
-            NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
-            queryString.Add("q", query ?? "");
-            //var request = new RestRequest(url);
-            //request.AddQueryParameter("q", query);
-            var h = url + "?" + queryString;
-            var content = _httpClient.GetAsync(h).Result.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<T>(content,
-                new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                }
-                );
-        }
     }
 }
