@@ -6,9 +6,9 @@
     <LangVersion>latest</LangVersion>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <Authors>Jan0660</Authors>
-    <Version>1.3.0</Version>
+    <Version>2.0.0-preview1</Version>
     <Description>A .NET standard wrapper for the AzurAPI database.</Description>
-    <PackageReleaseNotes>AzurAPIClient.Chapters are now a List&lt;Chapter&gt; instead of a Dictionary&lt;,&gt;</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/AzurAPI/AzurAPINet</RepositoryUrl>
     <PackageProjectUrl>https://azurapi.github.io/</PackageProjectUrl>
