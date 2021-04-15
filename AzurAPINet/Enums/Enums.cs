@@ -14,7 +14,7 @@ namespace Jan0660.AzurAPINet.Enums
     public enum ShipRarity { Normal, Rare, Elite, SuperRare, Decisive, Priority, UltraRare }
     public enum NewSkinCurrency { Gem, Ruby }
     public enum BarrageType { Ship, Class, Skill }
-    public enum ShipHullType { Destroyer, Monitor, LightCruiser, HeavyCruiser, AircraftCarrier, RepairShip, Battleship, Submarine, Battlecruiser, LargeCruiser, LightAircraftCarrier, SubmarineCarrier, MunitionShip, Repair, LightCarrier, AviationBattleship };
+    public enum ShipHullType { Unknown, Destroyer, Monitor, LightCruiser, HeavyCruiser, AircraftCarrier, Battleship, Submarine, Battlecruiser, LargeCruiser, Repair, LightCarrier, AviationBattleship };
     public enum EquipmentCategory
     {
         DestroyerGuns,
@@ -70,7 +70,7 @@ namespace Jan0660.AzurAPINet.Enums
         /// <summary>
         /// null
         /// </summary>
-        None,
+        //None,
         META
     }
     public enum EquipmentTier
@@ -266,17 +266,16 @@ namespace Jan0660.AzurAPINet.Enums
             "Light Cruiser" => ShipHullType.LightCruiser,
             "Heavy Cruiser" => ShipHullType.HeavyCruiser,
             "Aircraft Carrier" => ShipHullType.AircraftCarrier,
-            "Repair Ship" => ShipHullType.RepairShip,
             "Battleship" => ShipHullType.Battleship,
             "Submarine" => ShipHullType.Submarine,
             "Battlecruiser" => ShipHullType.Battlecruiser,
             "Large Cruiser" => ShipHullType.LargeCruiser,
             //"Light Aircraft Carrier" => ShipHullType.LightAircraftCarrier,
             "Light Carrier" => ShipHullType.LightCarrier,
-            "Submarine Carrier" => ShipHullType.SubmarineCarrier,
-            "Munition Ship" => ShipHullType.MunitionShip,
+            //"Munition Ship" => ShipHullType.MunitionShip,
             "Repair" => ShipHullType.Repair,
-            "Aviation Battleship" => ShipHullType.AviationBattleship
+            "Aviation Battleship" => ShipHullType.AviationBattleship,
+            null => ShipHullType.Unknown
         };
         public static Rarity StringToRarity(string str)
         {
@@ -313,7 +312,7 @@ namespace Jan0660.AzurAPINet.Enums
                 //"easternradiance" => Nationality.EasternRadiance,
                 "venusvacation" => Nationality.VenusVacation,
                 "meta" => Nationality.META,
-                null => Nationality.None
+                //null => Nationality.None
             };
         }
         // yes imagine not yeeting code

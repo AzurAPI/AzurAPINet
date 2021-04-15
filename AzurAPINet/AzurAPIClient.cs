@@ -96,6 +96,8 @@ namespace Jan0660.AzurAPINet
             LocalPath = workingDirectory
         })
         {
+            options.LocalPath = workingDirectory;
+            this.Options = options;
         }
         /// <summary>
         /// Create new client that uses database from web

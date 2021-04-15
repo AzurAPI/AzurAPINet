@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static AzurAPINetTests.Static;
 
@@ -15,15 +17,6 @@ namespace AzurAPINetTests
                 Client.getEquipment(eq.Names.kr);
             }
             Client.getEquipment(null);
-        }
-        [TestMethod]
-        public void getShip()
-        {
-            foreach (var ship in Client.getAllShips())
-            {
-                Client.getShip(ship.Names.kr);
-            }
-            Client.getShip(null);
         }
         [TestMethod]
         public void getChapterMemory()

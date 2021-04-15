@@ -9,12 +9,14 @@ namespace Jan0660.AzurAPINet.Client
     public class AzurAPIClientShip
     {
         private AzurAPIClient _client;
+        public AzurAPIClientShipFilter filter;
         public AzurAPIClientShipAll all;
 
         internal AzurAPIClientShip(AzurAPIClient client)
         {
             _client = client;
             all = new AzurAPIClientShipAll(this._client);
+            filter = new AzurAPIClientShipFilter(this._client);
         }
 
         /// <summary>
@@ -63,14 +65,11 @@ namespace Jan0660.AzurAPINet.Client
     {
         private AzurAPIClient _client;
 
-        public AzurAPIClientShipAllFilter filter;
-
         public Ship[] get => _client.getAllShips();
 
         internal AzurAPIClientShipAll(AzurAPIClient client)
         {
             this._client = client;
-            filter = new AzurAPIClientShipAllFilter(_client);
         }
 
         public IEnumerable<Ship> id()
@@ -92,11 +91,11 @@ namespace Jan0660.AzurAPINet.Client
             };
     }
 
-    public class AzurAPIClientShipAllFilter
+    public class AzurAPIClientShipFilter
     {
         private AzurAPIClient _client;
 
-        internal AzurAPIClientShipAllFilter(AzurAPIClient client)
+        internal AzurAPIClientShipFilter(AzurAPIClient client)
         {
             this._client = client;
         }
@@ -126,7 +125,8 @@ namespace Jan0660.AzurAPINet.Client
             => _client.getAllShips().Where(ship => ship.HullType == type);
 
         public IEnumerable<Ship> Type(ShipHullType hullType)
-            => _client.getAllShips().Where(ship => ship.GetHullTypeEnum() == hullType);
+            => _client.getAllShips().Where(ship =>
+                ship.GetHullTypeEnum() == hullType | ship.GetRetrofitHullTypeEnum() == hullType);
 
         public IEnumerable<Ship> Class(string className)
             => _client.getShipsByClass(className);
