@@ -6,6 +6,7 @@ namespace Jan0660.AzurAPINet.Client
     public class AzurAPIClientEquipment
     {
         private AzurAPIClient _client;
+        public Equipment[] all => _client.getAllEquipments();
 
         public AzurAPIClientEquipment(AzurAPIClient client)
         {
@@ -27,10 +28,10 @@ namespace Jan0660.AzurAPINet.Client
         public Equipment name(string name, string language)
             => language.ToLower() switch
             {
-                "english" => _client.getEquipmentByEnglishName(name),
-                "japanese" => _client.getEquipmentByJapaneseName(name),
-                "chinese" => _client.getEquipmentByChineseName(name),
-                "korean" => _client.getEquipmentByKoreanName(name),
+                "en" => _client.getEquipmentByEnglishName(name),
+                "jp" => _client.getEquipmentByJapaneseName(name),
+                "cn" => _client.getEquipmentByChineseName(name),
+                "kr" => _client.getEquipmentByKoreanName(name),
                 _ => throw new Exception("Invalid language.")
             };
     }

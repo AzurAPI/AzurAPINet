@@ -18,6 +18,11 @@ namespace AzurAPINetCoreTests
             //await Task.Delay(10000);
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Console.WriteLine("Test start");
+            var client = new AzurAPIHieiClient(new()
+            {
+                HieiUrl = "http://localhost:1024",
+                HieiPass = "password"
+            });
             AzurAPIClient Client = new AzurAPIClient(ClientType.Web);
             Client.getAllShips();
             //var bruh = Client.getAllShipsFromFaction("Iron Blood");

@@ -12,7 +12,8 @@ namespace Jan0660.AzurAPINet
 {
     public class AzurAPIHieiClient : AzurAPIClient
     {
-        public AzurAPIHieiClient(ClientType clientType, AzurAPIClientOptions options) : base(clientType, options)
+        public AzurAPIHieiClient(AzurAPIClientOptions options, ClientType clientType = ClientType.HieiAndWeb) : base(
+            clientType, options)
         {
         }
 
@@ -69,7 +70,7 @@ namespace Jan0660.AzurAPINet
         public Equipment[] EquipmentSearch(string query)
             => HieiQuery<Equipment[]>("/equip/search", query);
 
-        public Task HieiUpdate()
+        public Task HieiUpdateAsync()
         {
             return _httpClient.PostAsync("/update", new StringContent(""));
         }

@@ -46,10 +46,10 @@ namespace Jan0660.AzurAPINet.Client
         public Ship name(string name, string language)
             => language.ToLower() switch
             {
-                "english" => _client.getShipByEnglishName(name),
-                "japanese" => _client.getShipByJapaneseName(name),
-                "chinese" => _client.getShipByChineseName(name),
-                "korean" => _client.getShipByKoreanName(name),
+                "en" => _client.getShipByEnglishName(name),
+                "jp" => _client.getShipByJapaneseName(name),
+                "cn" => _client.getShipByChineseName(name),
+                "kr" => _client.getShipByKoreanName(name),
                 _ => throw new Exception("Invalid language.")
             };
 
