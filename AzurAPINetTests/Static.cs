@@ -11,7 +11,7 @@ namespace AzurAPINetTests
     public static class Static
     {
 #if HieiTest
-        public static AzurAPIClient Client = new AzurAPIClient(ClientType.HieiAndWeb, new AzurAPIClientOptions()
+        public static AzurAPIClient Client = new AzurAPIHieiClient(new AzurAPIClientOptions()
             {HieiUrl = "http://localhost:1024"});
 #else
         public static AzurAPIClient Client = new AzurAPIClient(new AzurAPIClientOptions());

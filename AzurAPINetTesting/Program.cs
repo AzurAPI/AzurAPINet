@@ -24,6 +24,8 @@ namespace AzurAPINetCoreTests
                 HieiPass = "password"
             });
             AzurAPIClient Client = new AzurAPIClient(ClientType.Web);
+            var rngSh = client.GetRandomShip();
+            var rngEquip = client.GetRandomEquipment();
             Client.getAllShips();
             //var bruh = Client.getAllShipsFromFaction("Iron Blood");
             var pain = Client.getAllShips();

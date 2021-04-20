@@ -30,7 +30,7 @@ namespace Jan0660.AzurAPINet
 
         /// <inheritdoc/>
         public override Ship getShipByEnglishName(string name)
-            => HieiQuery<Ship[]>("/ship/search", name).FirstOrDefault();
+            => ShipSearch(name).FirstOrDefault();
 
         /// <inheritdoc/>
         public override Ship getShipById(string id)
@@ -70,17 +70,27 @@ namespace Jan0660.AzurAPINet
         public Equipment[] EquipmentSearch(string query)
             => HieiQuery<Equipment[]>("/equip/search", query);
 
+        public Ship GetRandomShip()
+            => HieiQuery<Ship>("/ship/random");
+
+        public Equipment GetRandomEquipment()
+            => HieiQuery<Equipment>("/equip/random");
+
         public Task HieiUpdateAsync()
         {
             return _httpClient.PostAsync("/update", new StringContent(""));
         }
 
-        private T HieiQuery<T>(string url, string query)
+        private T HieiQuery<T>(string url, string query = null)
         {
-            NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
-            queryString.Add("q", query ?? "");
-            var h = url + "?" + queryString;
-            var content = _httpClient.GetAsync(h).Result.Content.ReadAsStringAsync().Result;
+            if (query != null)
+            {
+                NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
+                queryString.Add("q", query);
+                url += "?" + queryString;
+            }
+
+            var content = _httpClient.GetAsync(url).Result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<T>(content,
                 new JsonSerializerSettings
                 {
