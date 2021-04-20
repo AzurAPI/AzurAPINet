@@ -3,9 +3,13 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Jan0660.AzurAPINet.Barrage;
+using Jan0660.AzurAPINet.Chapters;
 using Jan0660.AzurAPINet.Enums;
 using Jan0660.AzurAPINet.Equipments;
+using Jan0660.AzurAPINet.Events;
 using Jan0660.AzurAPINet.Ships;
+using Jan0660.AzurAPINet.VoiceLines;
 using Newtonsoft.Json;
 
 namespace Jan0660.AzurAPINet
@@ -64,11 +68,33 @@ namespace Jan0660.AzurAPINet
         public override IEnumerable<Ship> getAllShipsFromFaction(string faction)
             => HieiQuery<Ship[]>("/ship/nationality", faction.UnEnum());
 
+        /// <inheritdoc/>
+        public override Dictionary<string, VoiceLine[]> getVoiceLinesById(string id)
+            => HieiQuery<Dictionary<string, Dictionary<string, VoiceLine[]>>>("/voice/id", "200")["200"];
+
+        public override Chapter getChapterById(string id)
+            => id.Length > 1 ? null : HieiQuery<Chapter>("/chapter/code", id);
+
         public Ship[] ShipSearch(string query)
             => HieiQuery<Ship[]>("/ship/search", query);
 
         public Equipment[] EquipmentSearch(string query)
             => HieiQuery<Equipment[]>("/equip/search", query);
+
+        public Event[] EventSearch(string query)
+            => HieiQuery<Event[]>("/event/search", query);
+
+        /// <summary>
+        /// Search barrage by barrage name
+        /// </summary>
+        public BarrageItem[] BarrageSearchByName(string name)
+            => HieiQuery<BarrageItem[]>("/barrage/searchBarrageByName", name);
+
+        /// <summary>
+        /// Search barrage by barrage ship name
+        /// </summary>
+        public BarrageItem[] BarrageSearchByShipName(string name)
+            => HieiQuery<BarrageItem[]>("/barrage/searchBarrageByShip", name);
 
         public Ship GetRandomShip()
             => HieiQuery<Ship>("/ship/random");
@@ -81,7 +107,7 @@ namespace Jan0660.AzurAPINet
             return _httpClient.PostAsync("/update", new StringContent(""));
         }
 
-        private T HieiQuery<T>(string url, string query = null)
+        public T HieiQuery<T>(string url, string query = null)
         {
             if (query != null)
             {

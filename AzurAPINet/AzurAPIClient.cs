@@ -268,6 +268,9 @@ namespace Jan0660.AzurAPINet
             );
             return memories.FirstOrDefault().Value;
         }
+
+        public virtual Chapter getChapterById(string id)
+            => getAllChapters().FirstOrDefault(c => c.Id == id);
         public Equipment[] getAllEquipments()
         {
             Equipment[] list;
@@ -496,5 +499,12 @@ namespace Jan0660.AzurAPINet
                     return _restClient.Get(request).Content;
                 }
         */
+        /// <summary>
+        /// Get voice lines by ship id
+        /// </summary>
+        /// <param name="id">The ship's id to get voice lines for</param>
+        /// <returns></returns>
+        public virtual Dictionary<string, VoiceLine[]> getVoiceLinesById(string id)
+            => getAllVoiceLines().FirstOrDefault(v => v.Key == id).Value;
     }
 }

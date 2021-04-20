@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Jan0660.AzurAPINet.Ships;
 using Jan0660.AzurAPINet.Enums;
+using Jan0660.AzurAPINet.VoiceLines;
 
 namespace AzurAPINetCoreTests
 {
@@ -26,6 +27,12 @@ namespace AzurAPINetCoreTests
             AzurAPIClient Client = new AzurAPIClient(ClientType.Web);
             var rngSh = client.GetRandomShip();
             var rngEquip = client.GetRandomEquipment();
+            var voice = client.getVoiceLinesById("200");
+            var h = client.HieiQuery<Dictionary<string, Dictionary<string, VoiceLine[]>>>("/voice/id", "200")["200"];
+            var eventSearch = client.EventSearch("sus");
+            var barrageNameSearch = client.BarrageSearchByName("sn");
+            var barrageShipNameSearch = client.BarrageSearchByShipName("Takao");
+            var chapter = client.getChapterById("2");
             Client.getAllShips();
             //var bruh = Client.getAllShipsFromFaction("Iron Blood");
             var pain = Client.getAllShips();

@@ -24,6 +24,9 @@ namespace Jan0660.AzurAPINet.Chapters
         [JsonProperty("names")]
         public readonly Names Names;
 
+        [JsonProperty("id")]
+        public readonly string Id;
+
         /// <summary>
         /// returns the english name of the chapter
         /// </summary>
