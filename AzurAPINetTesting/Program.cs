@@ -21,9 +21,15 @@ namespace AzurAPINetCoreTests
             Console.WriteLine("Test start");
             var client = new AzurAPIHieiClient(new()
             {
-                HieiUrl = "http://localhost:1024",
+                HieiUrl = "http://comtan:1024",
                 HieiPass = "password"
             });
+            foreach (var eqqqq in client.getAllEquipments())
+            {
+                Console.WriteLine(eqqqq.Names.en);
+                Console.WriteLine(eqqqq.Names.kr);
+                client.getEquipment(eqqqq.Names.kr);
+            }
             AzurAPIClient Client = new AzurAPIClient(ClientType.Web);
             var rngSh = client.GetRandomShip();
             var rngEquip = client.GetRandomEquipment();
@@ -291,8 +297,8 @@ namespace AzurAPINetCoreTests
             {
                 foreach (var tier in eq.Tiers)
                 {
-                    if (!res.Contains(tier.Value.Tier))
-                        res.Add(tier.Value.Tier);
+                    if (!res.Contains(tier.Tier))
+                        res.Add(tier.Tier);
                 }
             }
             return res;

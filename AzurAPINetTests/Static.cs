@@ -12,7 +12,7 @@ namespace AzurAPINetTests
     {
 #if HieiTest
         public static AzurAPIClient Client = new AzurAPIHieiClient(new AzurAPIClientOptions()
-            {HieiUrl = "http://localhost:1024"});
+            {HieiUrl = "http://comtan:1024"});
 #else
         public static AzurAPIClient Client = new AzurAPIClient(new AzurAPIClientOptions());
 #endif

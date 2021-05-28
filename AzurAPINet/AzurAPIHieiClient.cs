@@ -115,6 +115,8 @@ namespace Jan0660.AzurAPINet
                 queryString.Add("q", query);
                 url += "?" + queryString;
             }
+            else
+                url += "?q";
 
             var content = _httpClient.GetAsync(url).Result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<T>(content,

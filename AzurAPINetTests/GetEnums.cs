@@ -111,7 +111,7 @@ namespace AzurAPINetTests
             {
                 foreach (var t in e.Tiers)
                 {
-                    t.Value.GetRarityEnum();
+                    t?.GetRarityEnum();
                 }
             }
         }
@@ -133,7 +133,7 @@ namespace AzurAPINetTests
             {
                 foreach (var t in e.Tiers)
                 {
-                    t.Value.GetTierEnum();
+                    t?.GetTierEnum();
                 }
             }
         }

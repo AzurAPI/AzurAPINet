@@ -182,10 +182,10 @@ namespace Jan0660.AzurAPINet.Enums
         {
             return equipment.Tier switch
             {
-                "T0" => EquipmentTier.T0,
-                "T1" => EquipmentTier.T1,
-                "T2" => EquipmentTier.T2,
-                "T3" => EquipmentTier.T3
+                "0" => EquipmentTier.T0,
+                "1" => EquipmentTier.T1,
+                "2" => EquipmentTier.T2,
+                "3" => EquipmentTier.T3
             };
         }
         public static Rarity GetRarityEnum(this EquipmentStats equipment)
