@@ -7,24 +7,18 @@ namespace Jan0660.AzurAPINet.Events
 {
     public class NewShipSkin
     {
-        [JsonProperty("name")]
-        public readonly string Name;
-        [JsonProperty("rarity")]
-        public readonly string Rarity;
-        [JsonProperty("type")]
-        public readonly string Type;
-        [JsonProperty("series")]
-        public readonly string Series;
+        public string Name;
+        public string Rarity;
+        public string Type;
+        public string Series;
         [JsonProperty("skin_name")]
-        public readonly string SkinName;
-        [JsonProperty("currency")]
-        public readonly string Currency;
-        [JsonProperty("price")]
-        public readonly int Price;
+        public string SkinName;
+        public string Currency;
+        public int Price;
         [JsonProperty("L2D")]
-        public readonly bool IsLive2D;
+        public bool IsLive2D;
         [JsonProperty("bgID")]
-        public readonly string bgID;
+        public string bgID;
 
         public override string ToString()
             => Name;

@@ -14,22 +14,18 @@ namespace AzurAPINetCoreTests
     class Program
     {
         // ignore this trainwreck
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             //await Task.Delay(10000);
             System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            WikiDemo().Wait();
             Console.WriteLine("Test start");
             var client = new AzurAPIHieiClient(new()
             {
-                HieiUrl = "http://comtan:1024",
+                HieiUrl = "http://localhost:1024",
                 HieiPass = "password"
             });
-            foreach (var eqqqq in client.getAllEquipments())
-            {
-                Console.WriteLine(eqqqq.Names.en);
-                Console.WriteLine(eqqqq.Names.kr);
-                client.getEquipment(eqqqq.Names.kr);
-            }
+            await V2Doc(client);
             AzurAPIClient Client = new AzurAPIClient(ClientType.Web);
             var rngSh = client.GetRandomShip();
             var rngEquip = client.GetRandomEquipment();
@@ -84,53 +80,67 @@ namespace AzurAPINetCoreTests
             */
             Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} milliseconds");
         }
-        static async Task WikiDemo(){
-            // dotnet add package AzurAPINet
-            var client = new AzurAPIClient(new AzurAPIClientOptions());
-            
-            // check for update
-            var isUpdateAvailable = await client.DatabaseUpdateAvailableAsync();
-            // reload/update cached data
-            await client.ReloadCachedAsync();
-            
-            // reload cached data to update it
-            await client.ReloadEverythingAsync();
-            // query a ship by name
-            var ship = client.getShip("Z23");
-            // alternative
-            var ship2 = client.getShipByEnglishName("Z23");
-            
-            // query by id
-            var ship3 = client.getShip("115");
-            // alternative
-            var ship4 = client.getShipById("115");
-            
-            // query for equipment
-            var equipment = client.getEquipment("Quadruple 130mm (Mle 1932)");
-            // alternative
-            var equipment2 = client.getEquipmentByEnglishName("Quadruple 130mm (Mle 1932)");
-            
-            // get all ships
-            var ships = client.getAllShips();
-            
-            // get all equipments
-            var equipments = client.getAllEquipments();
-            
-            // get ships from nation
-            var shipsFromIronBlood = client.getAllShipsFromNation("iron blood");
-            var shipsFromSakuraEmpire = client.getAllShipsFromNation("Sakura Empire");
-            var shipsFromRoyalNavy = client.getAllShipsFromNation("Royal Navy");
-            
-            // add this using statement to the top of your current file
-            // using Jan0660.AzurAPINet.Enums;
-            // alternatively you can use enums
-            var shipsFromIronBlood2 = client.getAllShipsFromNation(Nationality.IronBlood);
-            var shipsFromSakuraEmpire2 = client.getAllShipsFromNation(Nationality.SakuraEmpire);
-            var shipsFromRoyalNavy2 = client.getAllShipsFromNation(Nationality.RoyalNavy);
-            
-            
-            
+
+        private static async Task V2Doc(AzurAPIHieiClient client)
+        {
+            // Ship
+            client.ship.get("Akashi");
+            client.ship.name("Akashi");
+            client.ship.name("Akashi", "english");
+            client.ship.id("200");
+            // Sorting ships
+            _ = client.ship.all.get;
+            client.ship.all.id();
+            client.ship.all.Name("english");
+            // Filter ships
+            client.ship.filter.Nationality(Nationality.IrisLibre);
+            client.ship.filter.Nationality("Iris Libre");
+            client.ship.filter.Faction(Nationality.IronBlood);
+            client.ship.filter.Rarity(ShipRarity.Elite);
+            client.ship.filter.Stars(3);
+            client.ship.filter.Type("BB");
+            client.ship.filter.Class("Takao");
+            // Equipment
+            client.equipment.name("Akashi");
+            client.equipment.name("Akashi", "english");
+            // Sorting equipment
+            _ = client.equipment.all;
+            // ????
         }
+
+        static async Task WikiDemo()
+        {
+            var hieiClient = new AzurAPIHieiClient(new()
+            {
+                HieiUrl = "http://localhost:1024",
+                HieiPass = "password"
+            });
+            var client = hieiClient;
+
+            // asynchronously reload everything
+            await client.ReloadEverythingAsync();
+            // + specific methods like ReloadEquipmentsAsync, ReloadShipsAsync...
+
+            // update Hiei server
+            await hieiClient.HieiUpdateAsync();
+            
+            var ships = client.ship.all; // all ships
+            
+            var ship_1 = client.ship.get("takao"); // Get ship by ID or name in any language
+            var ship_2 = client.ship.name("takao"); // Get ship by name in any language
+            // get ship by name in specific language
+            // one of "en", "jp", "cn" or "kr"
+            var ship_3 = client.ship.name("takao", "en");
+            
+            var ship_4 = client.ship.id("200");
+            
+            var eq_1 = client.equipment.name("Single 120mm Main Gun");
+
+            // get equipment by name in specific language
+            // one of "en", "jp", "cn" or "kr"
+            var eq_2 = client.equipment.name("Single 120mm Main Gun", "en");
+        }
+
         static void getAllAll(AzurAPIClient Client)
         {
             try
@@ -148,28 +158,32 @@ namespace AzurAPINetCoreTests
                 {
                     equipment.GetCategoryEnum();
                 }
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
-                
             }
         }
+
         #region ENUM PARSING STUFF IDK
+
         static List<string> getAllRetrofitGrades(AzurAPIClient client)
         {
             var res = new List<string>();
-            foreach(var s in client.getAllShips())
+            foreach (var s in client.getAllShips())
             {
                 if (s.Retrofittable)
                 {
-                    foreach(var p in s.RetrofitProjects.ToList())
+                    foreach (var p in s.RetrofitProjects.ToList())
                     {
                         if (!res.Contains(p.Grade))
                             res.Add(p.Grade);
                     }
                 }
             }
+
             return res;
         }
+
         static List<string> getAllNewShipConstructionTypes(AzurAPIClient client)
         {
             List<string> res = new List<string>();
@@ -181,8 +195,10 @@ namespace AzurAPINetCoreTests
                         res.Add(s.Type);
                 }
             }
+
             return res;
         }
+
         static List<string> getAllRarities(AzurAPIClient client)
         {
             List<string> res = new List<string>();
@@ -191,8 +207,10 @@ namespace AzurAPINetCoreTests
                 if (!res.Contains(ship.Rarity))
                     res.Add(ship.Rarity);
             }
+
             return res;
         }
+
         static List<string> getAllBarrageTypes(AzurAPIClient client)
         {
             List<string> res = new List<string>();
@@ -201,8 +219,10 @@ namespace AzurAPINetCoreTests
                 if (!res.Contains(eventt.Type))
                     res.Add(eventt.Type);
             }
+
             return res;
         }
+
         static List<string> getAllNewSkinRarities(AzurAPIClient client)
         {
             List<string> res = new List<string>();
@@ -214,8 +234,10 @@ namespace AzurAPINetCoreTests
                         res.Add(skin.Rarity);
                 }
             }
+
             return res;
         }
+
         static List<string> getAllNewSkinCurrencies(AzurAPIClient client)
         {
             List<string> res = new List<string>();
@@ -233,6 +255,7 @@ namespace AzurAPINetCoreTests
                         ruby.Add($"{skin.Name} - {skin.SkinName}");
                 }
             }
+
             return res;
         }
 
@@ -247,8 +270,10 @@ namespace AzurAPINetCoreTests
                         res.Add(skin.Type);
                 }
             }
+
             return res;
         }
+
         static List<string> getAllNationalities(AzurAPIClient client)
         {
             List<string> res = new List<string>();
@@ -257,8 +282,10 @@ namespace AzurAPINetCoreTests
                 if (!res.Contains(ship.Nationality))
                     res.Add(ship.Nationality);
             }
+
             return res;
         }
+
         static List<string> getEquipmentCategories(AzurAPIClient client)
         {
             List<string> res = new List<string>();
@@ -267,8 +294,10 @@ namespace AzurAPINetCoreTests
                 if (!res.Contains(ship.Category))
                     res.Add(ship.Category);
             }
+
             return res;
         }
+
         static List<string> getAllHullTypes(AzurAPIClient client)
         {
             List<string> res = new List<string>();
@@ -277,22 +306,25 @@ namespace AzurAPINetCoreTests
                 if (!res.Contains(ship.HullType))
                     res.Add(ship.HullType);
             }
+
             return res;
         }
+
         static List<string> getAllBarrageItemHulls(AzurAPIClient client)
         {
-
             List<string> res = new List<string>();
             foreach (var bar in client.getAllBarrage())
             {
                 if (!res.Contains(bar.Hull))
                     res.Add(bar.Hull);
             }
+
             return res;
         }
-        static List<string> getAllEquipmentsStatsTiers(AzurAPIClient client)
+
+        static List<byte> getAllEquipmentsStatsTiers(AzurAPIClient client)
         {
-            var res = new List<string>();
+            var res = new List<byte>();
             foreach (var eq in client.getAllEquipments())
             {
                 foreach (var tier in eq.Tiers)
@@ -301,8 +333,10 @@ namespace AzurAPINetCoreTests
                         res.Add(tier.Tier);
                 }
             }
+
             return res;
         }
+
         static List<string> getAllBarageRoundTypes(AzurAPIClient client)
         {
             var res = new List<string>();
@@ -314,8 +348,10 @@ namespace AzurAPINetCoreTests
                         res.Add(round.Type);
                 }
             }
+
             return res;
         }
+
         #endregion
     }
 }

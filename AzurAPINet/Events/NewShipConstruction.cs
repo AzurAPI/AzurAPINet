@@ -10,19 +10,15 @@ namespace Jan0660.AzurAPINet.Events
 #nullable disable warnings
     public class NewShipConstruction
     {
-        [JsonProperty("name")]
-        public readonly string Name;
-        [JsonProperty("rarity")]
-        public readonly string Rarity;
-        [JsonProperty("type")]
-        public readonly string Type;
+        public string Name;
+        public string Rarity;
+        public string Type;
         [JsonProperty("construction_time")]
-        public readonly TimeSpan? ConstructionTime;
+        public TimeSpan? ConstructionTime;
         [JsonProperty("construction_chance")]
         [JsonConverter(typeof(BetterFloatConverter))]
-        public readonly float? ConstructionChance;
-        [JsonProperty("from")]
-        public readonly string? From;
+        public float? ConstructionChance;
+        public string? From;
 
         public override string ToString()
             => Name;

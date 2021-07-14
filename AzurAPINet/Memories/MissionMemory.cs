@@ -7,10 +7,8 @@ namespace Jan0660.AzurAPINet.Memories
 {
     public class MissionMemory
     {
-        [JsonProperty("names")]
-        public readonly Names Names;
-        [JsonProperty("lines")]
-        public readonly LineMemory[] Lines;
+        public Names Names;
+        public LineMemory[] Lines;
 
         public override string ToString()
             => Names.en;

@@ -7,9 +7,7 @@ namespace Jan0660.AzurAPINet.Chapters
 {
     public class Reward
     {
-        [JsonProperty("count")]
-        public readonly int Count;
-        [JsonProperty("item")]
-        public readonly string Item;
+        public int Count;
+        public string Item;
     }
 }

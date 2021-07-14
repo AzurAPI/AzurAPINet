@@ -7,14 +7,11 @@ namespace Jan0660.AzurAPINet.Memories
 {
     public class ChapterMemory
     {
-        [JsonProperty("names")]
-        public readonly Names Names;
-        [JsonProperty("thumbnail")]
-        public readonly string Thumbnail;
-        [JsonProperty("wikiUrl")]
-        public readonly string WikiUrl;
+        public Names Names;
+        public string Thumbnail;
+        public string WikiUrl;
         [JsonProperty("chapters")]
-        public readonly MissionMemory[] Missions;
+        public MissionMemory[] Missions;
 
         public override string ToString()
             => Names.en;

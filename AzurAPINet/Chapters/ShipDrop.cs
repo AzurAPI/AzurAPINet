@@ -7,16 +7,11 @@ namespace Jan0660.AzurAPINet.Chapters
 {
     public class ShipDrop
     {
-        [JsonProperty("name")]
-        public readonly string Name;
-        [JsonProperty("note")]
-        public readonly string Note;
-        [JsonConstructor]
-        protected internal ShipDrop() { }
-        protected internal ShipDrop(string Name) { this.Name = Name; }
+        public string Name;
+        public string Note;
 
         /// <summary>
-        /// returns the name of this ShipDrop
+        /// Returns the name of this ShipDrop.
         /// </summary>
         public override string ToString()
             => Name;

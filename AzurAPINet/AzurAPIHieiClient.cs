@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Jan0660.AzurAPINet.Barrage;
@@ -54,7 +56,7 @@ namespace Jan0660.AzurAPINet
 
         /// <inheritdoc/>
         public override Equipment getEquipmentByEnglishName(string name)
-            => HieiQuery<Equipment[]>("/equip/search", name).FirstOrDefault();
+            => HieiQuery<Equipment[]>("/equip/search", name)?.FirstOrDefault();
 
         /// <inheritdoc/>
         public override IEnumerable<Equipment> getEquipmentByCategory(string category)
@@ -118,7 +120,12 @@ namespace Jan0660.AzurAPINet
             else
                 url += "?q";
 
-            var content = _httpClient.GetAsync(url).Result.Content.ReadAsStringAsync().Result;
+            var req = _httpClient.GetAsync(url).Result;
+            if (req.StatusCode == HttpStatusCode.NotFound)
+            {
+                throw new Exception("Hiei returned 404 not found. Check if your Hiei server is up to date.");
+            }
+            var content = req.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<T>(content,
                 new JsonSerializerSettings
                 {

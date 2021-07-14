@@ -7,10 +7,8 @@ namespace Jan0660.AzurAPINet.Chapters
 {
     public class EquipmentBlueprintDrop
     {
-        [JsonProperty("name")]
-        public readonly string Name;
-        [JsonProperty("tier")]
-        public readonly string Tier;
+        public string Name;
+        public string Tier;
 
         public override string ToString()
             => Name;

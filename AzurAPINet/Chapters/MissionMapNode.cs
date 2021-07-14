@@ -7,11 +7,8 @@ namespace Jan0660.AzurAPINet.Chapters
 {
     public class MissionMapNode
     {
-        [JsonProperty]
-        public readonly int x;
-        [JsonProperty]
-        public readonly int y;
-        [JsonProperty]
-        public readonly string node;
+        public int X;
+        public int Y;
+        public string Node;
     }
 }

@@ -11,11 +11,11 @@ namespace Jan0660.AzurAPINet.Events
         /// The name of the event in english
         /// </summary>
         [JsonProperty("name")]
-        public readonly string Name;
+        public string Name;
         [JsonProperty("new_ships_construction")]
-        public readonly NewShipConstruction[] NewShipsConstruction;
+        public NewShipConstruction[] NewShipsConstruction;
         [JsonProperty("new_ships_skins")]
-        public readonly NewShipSkin[] NewShipsSkins;
+        public NewShipSkin[] NewShipsSkins;
         // new_ships_others is not here cuz i literally dont see it having items anywhere lol
 
         public override string ToString()

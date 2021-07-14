@@ -45,7 +45,8 @@ namespace Jan0660.AzurAPINet.Enums
         SS,
         CVL,
         SSV,
-        BBV
+        BBV,
+        AE
     }
     public enum Nationality
     {
@@ -182,14 +183,14 @@ namespace Jan0660.AzurAPINet.Enums
         {
             return equipment.Tier switch
             {
-                "0" => EquipmentTier.T0,
-                "1" => EquipmentTier.T1,
-                "2" => EquipmentTier.T2,
-                "3" => EquipmentTier.T3
+                0 => EquipmentTier.T0,
+                1 => EquipmentTier.T1,
+                2 => EquipmentTier.T2,
+                3 => EquipmentTier.T3
             };
         }
-        public static Rarity GetRarityEnum(this EquipmentStats equipment)
-            => StringToRarity(equipment.Rarity);
+        public static Rarity GetRarityEnum(this EquipmentStats equipmentStats)
+            => StringToRarity(equipmentStats.Rarity);
         #endregion
         #region NewShipConstruction
         public static HullType GetTypeEnum(this NewShipConstruction ship)
@@ -255,7 +256,8 @@ namespace Jan0660.AzurAPINet.Enums
                 "SS" => HullType.SS,
                 "CVL" => HullType.CVL,
                 "SSV" => HullType.SSV,
-                "BBV" => HullType.BBV
+                "BBV" => HullType.BBV,
+                "AE" => HullType.AE
             };
         }
         public static ShipHullType StringToShipHullType(string str)

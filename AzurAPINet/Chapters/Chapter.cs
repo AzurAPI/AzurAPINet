@@ -8,24 +8,22 @@ namespace Jan0660.AzurAPINet.Chapters
     public class Chapter
     {
         [JsonProperty("1")]
-        public readonly Mission Mission1;
+        public Mission Mission1;
         [JsonProperty("2")]
-        public readonly Mission Mission2;
+        public Mission Mission2;
         [JsonProperty("3")]
-        public readonly Mission Mission3;
+        public Mission Mission3;
         [JsonProperty("4")]
-        public readonly Mission Mission4;
+        public Mission Mission4;
         /// <summary>
-        /// all the missions in a list
+        /// All the missions in an array.
         /// </summary>
         [JsonIgnore]
         public Mission[] Missions => new[]{ Mission1, Mission2, Mission3, Mission4 };
 
-        [JsonProperty("names")]
-        public readonly Names Names;
+        public Names Names;
 
-        [JsonProperty("id")]
-        public readonly string Id;
+        public string Id;
 
         /// <summary>
         /// returns the english name of the chapter

@@ -12,7 +12,7 @@ namespace Jan0660.AzurAPINet.Converters
     internal class EquipmentStatConverter : JsonConverter<EquipmentStat[]>
     {
         public override EquipmentStat[] ReadJson(JsonReader reader, Type objectType,
-            [AllowNull] EquipmentStat[] existingValue, bool hasExistingValue, JsonSerializer serializer)
+            EquipmentStat[] existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             // have i ever told you about how much i want to murder people that do the fucking
             // "IS THIS AN ARRAY? IS THIS AN OBJECT? DONT KNOW. FUCK YOU."
@@ -22,9 +22,9 @@ namespace Jan0660.AzurAPINet.Converters
             return serializer.Deserialize<EquipmentStat[]>(reader);
         }
 
-        public override void WriteJson(JsonWriter writer, [AllowNull] EquipmentStat[] value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, EquipmentStat[] value, JsonSerializer serializer)
         {
-            throw new Exception("no");
+            serializer.Serialize(writer, value);
         }
     }
 }

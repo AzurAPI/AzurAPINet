@@ -7,11 +7,8 @@ namespace Jan0660.AzurAPINet.Equipments
 {
     public class EquipmentMisc
     {
-        [JsonProperty("obtainedFrom")]
-        public readonly string ObtainedFrom;
-        [JsonProperty("notes")]
-        public readonly string Notes;
-        [JsonProperty("animation")]
-        public readonly string Animation;
+        public string ObtainedFrom;
+        public string Notes;
+        public string Animation;
     }
 }

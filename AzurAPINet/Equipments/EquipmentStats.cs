@@ -12,13 +12,10 @@ namespace Jan0660.AzurAPINet.Equipments
     /// </summary>
     public class EquipmentStats
     {
-        [JsonProperty("tier")]
-        public readonly string Tier;
-        [JsonProperty("rarity")]
-        public readonly string Rarity;
-        [JsonProperty("stars")]
-        public readonly Stars Stars;
+        public byte Tier;
+        public string Rarity;
+        public Stars Stars;
         [JsonProperty("stats", ItemConverterType = typeof(EquipmentStatConverter))]
-        public readonly Dictionary<string, EquipmentStat[]> Stats;
+        public Dictionary<string, EquipmentStat[]> Stats;
     }
 }

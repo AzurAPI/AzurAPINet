@@ -7,27 +7,14 @@ namespace Jan0660.AzurAPINet.Equipments
 {
     public class EquipmentStat
     {
-        [JsonProperty("type")]
-        public readonly string Type;
-        [JsonProperty]
-        //[JsonConverter(typeof(BetterFloatConverter))]
-        //public readonly float min;
-        public readonly string min;
-        [JsonProperty]
-        //[JsonConverter(typeof(BetterFloatConverter))]
-        //public readonly float max;
-        public readonly string max;
-        [JsonProperty]
-        public readonly string per;
-        [JsonProperty]
-        public readonly string value;
-        [JsonProperty]
-        public readonly string unit;
-        [JsonProperty]
-        public readonly int firing;
-        [JsonProperty]
-        public readonly int shell;
-        [JsonProperty]
-        public readonly string formatted;
+        public string Type;
+        public string min;
+        public string max;
+        public string per;
+        public string value;
+        public string unit;
+        public int firing;
+        public int shell;
+        public string formatted;
     }
 }

@@ -7,13 +7,9 @@ namespace Jan0660.AzurAPINet.Chapters
 {
     public class ClearRewards
     {
-        [JsonProperty("coin")]
-        public readonly int Coin;
-        [JsonProperty("cube")]
-        public readonly int Cube;
-        [JsonProperty("ship")]
-        public readonly string Ship;
-        [JsonProperty("oil")]
-        public readonly int Oil;
+        public int Coin;
+        public int Cube;
+        public string Ship;
+        public int Oil;
     }
 }

@@ -7,13 +7,9 @@ namespace Jan0660.AzurAPINet.Chapters
 {
     public class BaseXP
     {
-        [JsonProperty("smallFleet")]
-        public readonly int SmallFleet;
-        [JsonProperty("mediumFleet")]
-        public readonly int MediumFleet;
-        [JsonProperty("largeFleet")]
-        public readonly int LargeFleet;
-        [JsonProperty("bossFleet")]
-        public readonly int BossFleet;
+        public int SmallFleet;
+        public int MediumFleet;
+        public int LargeFleet;
+        public int BossFleet;
     }
 }

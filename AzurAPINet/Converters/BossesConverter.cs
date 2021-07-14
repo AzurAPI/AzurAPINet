@@ -8,7 +8,8 @@ namespace Jan0660.AzurAPINet.Converters
 {
     internal class BossesConverter : JsonConverter<string[]>
     {
-        public override string[] ReadJson(JsonReader reader, Type objectType, [AllowNull] string[] existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override string[] ReadJson(JsonReader reader, Type objectType, string[] existingValue,
+            bool hasExistingValue, JsonSerializer serializer)
         {
             if (reader.TokenType == JsonToken.String)
             {
@@ -21,10 +22,9 @@ namespace Jan0660.AzurAPINet.Converters
             }
         }
 
-        public override void WriteJson(JsonWriter writer, [AllowNull] string[] value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, string[] value, JsonSerializer serializer)
         {
-            throw new Exception("no");
+            serializer.Serialize(writer, value);
         }
-
     }
 }
