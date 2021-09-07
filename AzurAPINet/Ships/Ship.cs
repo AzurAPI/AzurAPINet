@@ -52,6 +52,7 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty("fleetTech")]
         public readonly ShipFleetTech FleetTech;
         [JsonProperty("construction")]
+        // todo: is work?
         [JsonConverter(typeof(ConstructionInfoConverter))]
         public readonly ShipConstructionInfo Construction;
         [JsonProperty("obtainedFrom")]

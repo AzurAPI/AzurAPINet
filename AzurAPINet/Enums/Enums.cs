@@ -14,7 +14,9 @@ namespace Jan0660.AzurAPINet.Enums
     public enum ShipRarity { Normal, Rare, Elite, SuperRare, Decisive, Priority, UltraRare }
     public enum NewSkinCurrency { Gem, Ruby }
     public enum BarrageType { Ship, Class, Skill }
-    public enum ShipHullType { Unknown, Destroyer, Monitor, LightCruiser, HeavyCruiser, AircraftCarrier, Battleship, Submarine, Battlecruiser, LargeCruiser, Repair, LightCarrier, AviationBattleship };
+    public enum ShipHullType { Unknown, Destroyer, Monitor, LightCruiser, HeavyCruiser, AircraftCarrier, Battleship, Submarine, Battlecruiser, LargeCruiser, Repair, LightCarrier, AviationBattleship,
+        MunitionShip
+    };
     public enum EquipmentCategory
     {
         DestroyerGuns,
@@ -72,7 +74,8 @@ namespace Jan0660.AzurAPINet.Enums
         /// null
         /// </summary>
         //None,
-        META
+        META,
+        Unknown
     }
     public enum EquipmentTier
     {
@@ -277,6 +280,7 @@ namespace Jan0660.AzurAPINet.Enums
             //"Munition Ship" => ShipHullType.MunitionShip,
             "Repair" => ShipHullType.Repair,
             "Aviation Battleship" => ShipHullType.AviationBattleship,
+            "Munition Ship" => ShipHullType.MunitionShip,
             null => ShipHullType.Unknown
         };
         public static Rarity StringToRarity(string str)
@@ -314,7 +318,7 @@ namespace Jan0660.AzurAPINet.Enums
                 //"easternradiance" => Nationality.EasternRadiance,
                 "venusvacation" => Nationality.VenusVacation,
                 "meta" => Nationality.META,
-                //null => Nationality.None
+                null => Nationality.Unknown
             };
         }
         // yes imagine not yeeting code

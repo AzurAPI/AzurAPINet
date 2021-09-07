@@ -1,4 +1,4 @@
-﻿#define HieiTest
+﻿#undef HieiTest
 using Jan0660.AzurAPINet;
 using System;
 using System.Collections.Generic;

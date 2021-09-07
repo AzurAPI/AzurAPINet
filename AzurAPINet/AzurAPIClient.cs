@@ -522,13 +522,13 @@ namespace Jan0660.AzurAPINet
             => getAllShipsFromFaction(nationality);
 
         public IEnumerable<Ship> getAllShipsFromFaction(Nationality nationality)
-            => getAllShipsFromFaction(nationality.ToString());
+            => getAllShips().Where(s => s.GetNationalityEnum() == nationality);
 
         public IEnumerable<Ship> getAllShipsFromNationality(Nationality nationality)
-            => getAllShipsFromFaction(nationality.ToString());
+            => getAllShipsFromFaction(nationality);
 
         public IEnumerable<Ship> getAllShipsFromNation(Nationality nationality)
-            => getAllShipsFromFaction(nationality.ToString());
+            => getAllShipsFromFaction(nationality);
 
         #endregion
 

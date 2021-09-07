@@ -13,23 +13,27 @@ namespace Jan0660.AzurAPINet.Converters
         public override ShipConstructionInfo ReadJson(JsonReader reader, Type objectType,
             ShipConstructionInfo existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            JObject jObject = JObject.Load(reader);
-            dynamic dyn = jObject;
+            var info = serializer.Deserialize<ConstructionInfo>(reader);
             TimeSpan timeSpan;
             bool constructable =
-                TimeSpan.TryParseExact((string)dyn.constructionTime, @"hh\:mm\:ss", null, out timeSpan);
-            string json = dyn.availableIn.ToString();
+                TimeSpan.TryParseExact(info.constructionTime, @"hh\:mm\:ss", null, out timeSpan);
             return new ShipConstructionInfo
             {
                 Constructable = constructable,
                 ConstructionTime = timeSpan,
-                AvailableIn = JsonConvert.DeserializeObject<ShipConstructionAvailableIn>(json)
+                AvailableIn = info.availableIn
             };
         }
 
         public override void WriteJson(JsonWriter writer, ShipConstructionInfo value, JsonSerializer serializer)
         {
             serializer.Serialize(writer, value);
+        }
+
+        private struct ConstructionInfo
+        {
+            public string constructionTime;
+            public ShipConstructionAvailableIn availableIn;
         }
     }
 }

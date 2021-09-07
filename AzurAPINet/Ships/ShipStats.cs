@@ -1,12 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using Jan0660.AzurAPINet.Converters;
 
 namespace Jan0660.AzurAPINet.Ships
 {
     public class ShipStats
     {
         [JsonProperty("health")]
+        [JsonConverter(typeof(ErrorForgivingInt32Converter))]
         public readonly int Health;
         [JsonProperty("armor")]
         public readonly string Armor;
