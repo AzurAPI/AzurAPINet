@@ -103,7 +103,7 @@ namespace AzurAPINetTests
             {
                 var b = Client.ship.filter.Type(val);
                 if (!b.Any())
-                    throw new Exception();
+                    throw new Exception(val.ToString());
             }
         }
     }

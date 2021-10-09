@@ -26,7 +26,7 @@ namespace Jan0660.AzurAPINet.Ships
         [JsonProperty("rarity")]
         public readonly string Rarity;
         [JsonProperty("stars")]
-        public readonly Stars Stars;
+        public readonly int Stars;
         // retrofit
         [JsonProperty("retrofit")]
         public bool Retrofittable = false;

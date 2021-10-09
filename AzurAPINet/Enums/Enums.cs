@@ -14,7 +14,7 @@ namespace Jan0660.AzurAPINet.Enums
     public enum ShipRarity { Normal, Rare, Elite, SuperRare, Decisive, Priority, UltraRare }
     public enum NewSkinCurrency { Gem, Ruby }
     public enum BarrageType { Ship, Class, Skill }
-    public enum ShipHullType { Unknown, Destroyer, Monitor, LightCruiser, HeavyCruiser, AircraftCarrier, Battleship, Submarine, Battlecruiser, LargeCruiser, Repair, LightCarrier, AviationBattleship,
+    public enum ShipHullType { Unknown, Destroyer, Monitor, LightCruiser, HeavyCruiser, AircraftCarrier, Battleship, Submarine, Battlecruiser, LargeCruiser, Repair, LightCarrier,
         MunitionShip
     };
     public enum EquipmentCategory
@@ -279,7 +279,6 @@ namespace Jan0660.AzurAPINet.Enums
             "Light Carrier" => ShipHullType.LightCarrier,
             //"Munition Ship" => ShipHullType.MunitionShip,
             "Repair" => ShipHullType.Repair,
-            "Aviation Battleship" => ShipHullType.AviationBattleship,
             "Munition Ship" => ShipHullType.MunitionShip,
             null => ShipHullType.Unknown
         };

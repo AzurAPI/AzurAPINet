@@ -119,7 +119,7 @@ namespace Jan0660.AzurAPINet.Client
             => _client.getShipsByRarity(rarity);
 
         public IEnumerable<Ship> Stars(int starCount)
-            => _client.getAllShips().Where(ship => ship.Stars.Count == starCount);
+            => _client.getAllShips().Where(ship => ship.Stars == starCount);
 
         public IEnumerable<Ship> Type(string type)
             => _client.getAllShips().Where(ship => ship.HullType == type);
